@@ -1,0 +1,595 @@
+{% extends 're_base.html' %}
+{% block content %}
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {margin: 0;}
+body {text-align: center; background-color: #e2eef4;}
+.wrap { 
+    max-width: 100%;
+    margin: auto; 
+    text-align: center;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+}
+
+.tab-container {
+    width: 96%;
+    margin: 2.5% 2%;
+    border: 3px solid #bbc7c7;
+}
+
+.tab-btn-pannel{ background-color: whitesmoke;  ; display: block; width: 100%; padding-bottom: 35px; } 
+.tab-btn{
+    float: left;
+    height: 35px; 
+    padding:auto; 
+    width:33.33%;
+    border:none;
+    display:block;
+    outline:0; 
+    white-space:normal;
+    background-color:#d1e8ee;
+    color:#9fb5c1;
+    font-size:20px;
+    font-weight:bold;
+}
+.tab-content{ background-color: #fff; color: #226ca8; padding: 0px 0px;}
+.tab-Active{background-color: #b3ecff; color:#5283ac;}
+
+h2 {
+    text-align: left;
+    background: #5385ad;
+    color: #92e4f1;
+    font-size:25px;
+    height:40px;
+}
+#main th {
+    text-align: left;
+    background: #226ca8;
+    color: #75d3ff;
+    font-size:25px;
+    height: 30px;
+    width: 1500px;
+    border: 3px solid #bbc7c7;
+}
+
+#main table{
+    border: 3px solid #f2f7fa;
+    width: 100%;
+  }
+
+#main td {
+    
+    background-color:#f2f7fa;
+  }
+
+.col-1 {
+    width:12.5%;
+    text-align: left;
+    font-weight: bold;
+    color:#237bc2;
+} 
+
+.col-2 {
+    width: 12.5%;
+    color: black;
+    text-align: left;
+} 
+.col-3, .col-4 {
+    width: 12.5%;
+    color: black;
+    text-align:center;
+}
+.col-5 {
+    width:50%;
+    color: black;
+}
+.space {
+    background-color:#c5dde8;
+    height:20px;
+}
+#main .text1 {
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    height: 21px;
+    line-height: 20px;
+    text-align:center;
+    border: 1px solid #ffffff;
+    background-color:#ffffff;
+    color: #505659;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    opacity: .6;
+    transition: all linear .3s;
+}
+#main .text2 {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 21px;
+    line-height: 20px;
+    text-align:center;
+    padding: 0px;
+    border: none;
+    outline: none;
+    background-color:#f2f7fa;
+    color: #505659;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    opacity: .6;
+    transition: all linear .3s;
+}
+#main .text3 {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 21px;
+    line-height: 20px;
+    text-align:left;
+    border: none;
+    outline: none;
+    background-color:#f2f7fa;
+    color: #505659;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    opacity: .6;
+    transition: all linear .3s;
+}
+
+input[type=date] {
+    display: inline-block;
+    position: relative;
+    width: 150px;
+    height: 27px;
+    line-height: 27px;
+    margin: 5px -5px 0;
+    padding: 7px 5px 3px;
+    border: none;
+    outline: none;
+    background-color: #f2f7fa;
+    color: #237bc2;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    opacity: .6;
+    transition: all linear .3s;
+}
+
+input[type=submit] {
+  width: 100%;
+  height: 35px;
+  border: none;
+  border-radius: 4px;
+  margin: 5px -5px 0;
+  padding: 7px 5px 3px;
+  color: #7daac1;
+  background-color:#b2ebfe;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+  overflow: hidden;
+  outline: none;
+  font-size:20px;
+}
+
+textarea {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 80px;
+    line-height: 27px;
+    margin: 5px -5px 0;
+    padding: 7px 5px 3px;
+    border: none;
+    outline: none;
+    background-color: #fff;
+    color: #237bc2;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    opacity: .6;
+}
+
+</style>
+    
+</head>
+<body>
+<form method="POST">
+    {% csrf_token %}
+    <div class="tab-container wrap">
+    
+        <h2>사례지원 계획</h2>
+        <div class="tab-btn-pannel">
+            <p class="tab-btn tab-Active" onclick="opentab(event,'Tab1')">의료지원</p>
+            <p class="tab-btn" onclick="opentab(event,'Tab2')">심리지원</p>
+            <p class="tab-btn" onclick="opentab(event,'Tab3')">사례관리</p>
+        </div>
+        
+        <div id="Tab1" class="tab-content tab">
+            <div style='text-align:left;'>
+                <td>&nbsp;시작일</td> : <td><input type="date" name='medical_start'value='{{planning.medical_start}}'></td>&nbsp; ~ &nbsp;
+                <td>종료일</td> : <td><input type="date" name='medical_end'value='{{planning.medical_end}}'></td>&nbsp;
+                <td><input type='hidden' name='setplan_name' value='{{ user.Name }}'/></td>
+                <td><input type='hidden' name='CT' value='{{ user.id }}'/></td>
+                <td><span style="color:red; font-size:13px;">&nbsp; * 실행할 날짜를 입력하세요(입력날짜가 아닙니다)</span></td>
+            </div>
+            <div id="main">
+                
+                <table>
+                    <tr>
+                        <td class="space" style='background-color:#c5dde8;' colspan='5'></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1" rowspan='4'>진료</td>
+                        <td class="col-2">치과</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_A1_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_A1_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_A1_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">여성의학과</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_A2_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_A2_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_A2_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">한방의학과</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_A3_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_A3_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_A3_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">가정의학과</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_A4_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_A4_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_A4_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="space" style='background-color:#c5dde8;' colspan='5'></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1" rowspan='4'>각종검사</td>
+                        <td class="col-2">여성의학과 검사</td>
+                        <td class="col-3" colspan='2'><label><input type="checkbox" name='medical_B1_YN' style="width:15px; height:15px;"><span style="font-size:15px;">Yes</span></label></td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_B1_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">기초검사</td>
+                        <td class="col-3" colspan='2'><label><input type="checkbox" name='medical_B2_YN' style="width:15px; height:15px;"><span style="font-size:15px;">Yes</span></label></td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_B2_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">항체검사</td>
+                        <td class="col-3" colspan='2'><label><input type="checkbox" name='medical_B3_YN' style="width:15px; height:15px;"><span style="font-size:15px;">Yes</span></label></td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_B3_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2"><input type='text' class="text3" placeholder="기타 입력" name="medical_B4_Name"></td>
+                        <td class="col-3" colspan='2'><label><input type="checkbox" name='medical_B4_YN' style="width:15px; height:15px;"><span style="font-size:15px;">Yes</span></label></td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_B4_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="space" style='background-color:#c5dde8;' colspan='5'></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1" rowspan='5'>약지급</td>
+                        <td class="col-2">치료제</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_C1_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_C1_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_C1_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">영양제</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_C2_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_C2_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_C2_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">임신테스트기</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_C3_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_C3_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_C3_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2"><input type='text' class="text3" placeholder="기타 입력" name="medical_C4_Name"></td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_C4_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_C4_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_C4_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2"><input type='text' class="text3" placeholder="기타 입력" name="medical_C5_Name"></td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_C5_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_C5_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_C5_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="space" style='background-color:#c5dde8;' colspan='5'></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1" rowspan='6'>예방접종</td>
+                        <td class="col-2">간염</td>
+                        <td class="col-3"></td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_D1_Num">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_D1_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">자궁경부암</td>
+                        <td class="col-3"></td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_D2_Num">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_D2_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">독감</td>
+                        <td class="col-3"></td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_D3_YN">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_D3_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2"><input type='text' class="text3" placeholder="기타 입력" name="medical_D4_Name"></td>
+                        <td class="col-3"></td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_D4_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_D4_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2"><input type='text' class="text3" placeholder="기타 입력" name="medical_D5_Name"></td>
+                        <td class="col-3"></td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_D5_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_D5_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2"><input type='text' class="text3" placeholder="기타 입력" name="medical_D6_Name"></td>
+                        <td class="col-3"></td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_D6_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_D6_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="space" style='background-color:#c5dde8;' colspan='5'></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1" rowspan='3'>외부병원</td>
+                        <td class="col-2">치과</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_E1_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_E1_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_E1_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">여성의학과</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_E2_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_E2_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_E2_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2"><input type='text' class="text3" placeholder="기타 입력" name="medical_E3_Name"></td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_E3_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_E3_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_E3_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="space" style='background-color:#c5dde8;' colspan='5'></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1" rowspan='4'>예방의학</td>
+                        <td class="col-2">잇솔질교육</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_F1_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_F1_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_F1_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">안경지원</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_F2_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_F2_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_F2_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">몸펴기운동</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_F3_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_F3_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_F3_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2"><input type='text' class="text3" placeholder="기타 입력" name="medical_F4_Name"></td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="medical_F4_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="medical_F4_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="medical_F4_Text"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div id="Tab2" class="tab-content tab" style="display:none">
+            <div style='text-align:left;'>
+                <td>&nbsp;시작일</td> : <td><input type="date" name='mental_start'value='{{planning.mental_start}}'></td>&nbsp; ~ &nbsp;
+                <td>종료일</td> : <td><input type="date" name='mental_end'value='{{planning.mental_end}}'></td>&nbsp;
+                <td><span style="color:red; font-size:13px;">&nbsp; * 실행할 날짜를 입력하세요(입력날짜가 아닙니다)</span></td>
+            </div>
+            <div id="main">
+                
+                <table>
+                    <tr>
+                        <td class="space" style='background-color:#c5dde8;' colspan='5'></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1" rowspan='2'>정신보건상담</td>
+                        <td class="col-2">대면</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="mental_A1_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="mental_A1_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="mental_A1_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">전화</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="mental_A2_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="mental_A2_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="mental_A2_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="space" style='background-color:#c5dde8;' colspan='5'></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1" rowspan='2'>심리검사</td>
+                        <td class="col-2">종합심리검사</td>
+                        <td class="col-3"></td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="mental_B1_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="mental_B1_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2"><input type='text' class="text3" placeholder="기타 입력" name="mental_B2_Name"></td>
+                        <td class="col-3"></td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="mental_B2_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="mental_B2_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="space" style='background-color:#c5dde8;' colspan='5'></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1" rowspan='3'>심리정서지원<br>프로그램</td>
+                        <td class="col-2">원예치료</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="mental_C1_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="mental_C1_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="mental_C1_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">몸치유</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="mental_C2_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="mental_C2_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="mental_C2_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2"><input type='text' class="text3" placeholder="기타 입력" name="mental_C3_Name"></td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="mental_C3_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="mental_C3_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="mental_C3_Text"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div id="Tab3" class="tab-content tab" style="display:none">
+            <div style='text-align:left;'>
+                <td>&nbsp;시작일</td> : <td><input type="date" name='case_start'value='{{planning.case_start}}'></td>&nbsp; ~ &nbsp;
+                <td>종료일</td> : <td><input type="date" name='case_end'value='{{planning.case_end}}'></td>&nbsp;
+                <td><span style="color:red; font-size:13px;">&nbsp; * 실행할 날짜를 입력하세요(입력날짜가 아닙니다)</span></td>
+            </div>
+            <div id="main">
+                <table>
+                    <tr>
+                        <td class="space" style='background-color:#c5dde8;' colspan='5'></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1" rowspan='4'>상담</td>
+                        <td class="col-2">대면</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="case_A1_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="case_A1_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="case_A1_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">심층</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="case_A2_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="case_A2_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="case_A2_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">전화</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="case_A3_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="case_A3_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="case_A3_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">SNS</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="case_A4_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="case_A4_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="case_A4_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="space" style='background-color:#c5dde8;' colspan='5'></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1" rowspan='3'>1:1 교육</td>
+                        <td class="col-2">성건강</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="case_B1_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="case_B1_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="case_B1_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">관계</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="case_B2_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="case_B2_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="case_B2_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2"><input type='text' class="text3" placeholder="기타 입력" name="case_B3_Name"></td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="case_B3_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="case_B3_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="case_B3_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="space" style='background-color:#c5dde8;' colspan='5'></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1" rowspan='4'>기초생활지원</td>
+                        <td class="col-2">먹거리</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="case_C1_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="case_C1_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="case_C1_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">물품</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="case_C2_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="case_C2_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="case_C2_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">교통비</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="case_C3_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="case_C3_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="case_C3_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2">자원연계</td>
+                        <td class="col-3">월 <input type="text" class="text1"  name="case_C4_MF">회</td>
+                        <td class="col-4">총 <input type="text" class="text1"  name="case_C4_TF">회</td>
+                        <td class="col-5"><textarea class="text2" placeholder="내용입력" name="case_C4_Text"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5"><input type='submit' value='Submit'></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    
+    <table>
+        <tr>
+        <td style='width:15%; font-weight:bold; color:#5283ac; text-align:center;'>Comment</td>
+        <td><textarea cols='200' rows='10' name='setplan_comment'></textarea></td>
+        </tr>
+        <tr>
+        <td style='font-weight:bold; color:#5283ac; text-align:center;'>오늘의 한줄</td>
+        <td><textarea cols='200' rows='5' name='setplan_sentence'></textarea></td>
+        </tr>
+        
+    </table>
+        
+    </div>
+</form>
+
+
+<!-- 탭 기능 -->
+<script>
+  function opentab(evt, tabName) {
+    var i, x, tabBtns;
+    x = document.getElementsByClassName("tab");
+    for (i = 0; i < x.length; i++) {x[i].style.display = "none";}
+    tabBtns = document.getElementsByClassName("tab-btn");
+    for (i = 0; i < x.length; i++) {tabBtns[i].className = tabBtns[i].className.replace(" tab-Active", "");}
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " tab-Active";
+  }
+</script>
+</body>
+
+{% endblock %}

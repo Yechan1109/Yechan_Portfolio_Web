@@ -1,0 +1,217 @@
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin:0;
+}
+div {
+    color:#0070C0;
+    font-size: 15px;
+    font-weight:bold;
+}
+
+.bg-bubbles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.bg-bubbles li {
+  position: absolute;
+  list-style: none;
+  display: block;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.15);
+  bottom: -160px;
+  -webkit-animation: square 25s infinite;
+  animation: square 25s infinite;
+  transition-timing-function: linear;
+}
+.bg-bubbles li:nth-child(1) {
+  left: 10%;
+}
+.bg-bubbles li:nth-child(2) {
+  left: 20%;
+  width: 80px;
+  height: 80px;
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
+  -webkit-animation-duration: 17s;
+          animation-duration: 17s;
+}
+.bg-bubbles li:nth-child(3) {
+  left: 25%;
+  -webkit-animation-delay: 4s;
+          animation-delay: 4s;
+}
+.bg-bubbles li:nth-child(4) {
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  -webkit-animation-duration: 22s;
+          animation-duration: 22s;
+  background-color: rgba(255, 255, 255, 0.25);
+}
+.bg-bubbles li:nth-child(5) {
+  left: 70%;
+}
+.bg-bubbles li:nth-child(6) {
+  left: 80%;
+  width: 120px;
+  height: 120px;
+  -webkit-animation-delay: 3s;
+          animation-delay: 3s;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.bg-bubbles li:nth-child(7) {
+  left: 32%;
+  width: 160px;
+  height: 160px;
+  -webkit-animation-delay: 7s;
+          animation-delay: 7s;
+}
+.bg-bubbles li:nth-child(8) {
+  left: 55%;
+  width: 20px;
+  height: 20px;
+  -webkit-animation-delay: 15s;
+          animation-delay: 15s;
+  -webkit-animation-duration: 40s;
+          animation-duration: 40s;
+}
+.bg-bubbles li:nth-child(9) {
+  left: 25%;
+  width: 10px;
+  height: 10px;
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
+  -webkit-animation-duration: 40s;
+          animation-duration: 40s;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.bg-bubbles li:nth-child(10) {
+  left: 90%;
+  width: 160px;
+  height: 160px;
+  -webkit-animation-delay: 11s;
+          animation-delay: 11s;
+}
+.no-access{
+  color: white;
+  margin:0 auto 5px auto;
+  text-decoration:underline;
+  cursor: pointer;
+}
+@-webkit-keyframes square {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-700px) rotate(600deg);
+            transform: translateY(-700px) rotate(600deg);
+  }
+}
+@keyframes square {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-700px) rotate(600deg);
+            transform: translateY(-700px) rotate(600deg);
+  }
+}
+.max-small {
+    width: 1650px; 
+    height:800px;
+    max-width: 100%;
+    max-height: 100%;
+    margin:15px;
+}
+
+.overlay{
+  position: absolute;
+  top: 4%;
+  right: 13%;
+  width: 13rem;
+  height: 13rem;
+  z-index: 10;
+}
+
+.round {
+  width: 240px;
+  height: 50px;
+  background: #595959;
+  border-radius: 100px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 0px;
+  margin: 1px;
+  opacity:0.9;
+}
+
+</style>
+</head>
+<body>
+<div>
+  <img src="{% static 'img/image.jpg' %}" class="max-small">
+  <form action="." method="POST">
+    {% csrf_token %}
+    <div class="overlay">
+      {% comment %} <input type="text" class="round" name="username" placeholder="username" style="text-align:center;" required /><br>
+      <input type="password" class="round" name="password" placeholder="password" style="text-align:center;" required /><br> {% endcomment %}
+      {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+            {{ message }}
+          </div>
+          {% endfor %}
+      {% endif %}
+      {% for field in form %}
+                  <div class="form-group {% if field.errors|length > 0 %}has-error{%endif %}">
+                      <label for="{{ field.id_for_label }}"></label>
+                      <input name="{{ field.html_name }}"placeholder="{{ field.html_name }}" style="text-align:center;" id="{{ field.id_for_lable }}" class="round" type="{{ field.field.widget.input_type }}" value="{{ field.value|default_if_none:'' }}">
+                      {% for error in field.errors %}
+                          <label class="control-label"placeholder= style="text-align:center;" for="{{ field.id_for_label }}">{{ error }}</label>
+                      {% endfor %}
+                  </div>
+              {% endfor %}
+      <button class="round" type="submit" style="text-align:center;">Login</button><!--onclick="location.href = 'main'"-->
+      <div style="text-align:right;"><a href="create/" style="color:#fff;" >회원가입</a></div> 
+    </div>
+  </form>
+  
+</div>
+
+<div>
+    <ul>
+        <li>내방고객관리시스템 개발 및 제작</li>
+        <li>㈜ 밸류랩어소시에이츠 소비자 예측 연구소 & P.Y.C Big Data profiler</li>
+        <li>담당자 : 박예찬</li>
+        <li>전화 : 010-2277-1947</li>
+    </ul>
+</div>
+<div>
+    <ul class="bg-bubbles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
+</body>
+

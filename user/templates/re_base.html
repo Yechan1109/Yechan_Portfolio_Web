@@ -1,0 +1,195 @@
+{% load static %}
+<head>
+   
+       
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+<style>
+* {margin: 0; }
+
+body {
+  background-color:#ffffff;
+  font-family: 'Raleway', sans-serif;
+  margin:0;
+}
+
+#container {
+  position:relative;
+  width:100%;
+  margin: 0;
+  background-color:#343a40;
+  box-shadow: -2px -2px 5px white,2px -2px 5px white;
+}
+#container > nav {
+  width:100%;
+  display:flex;
+  max-height:10em;
+  font-size:15px;
+}
+
+#container > nav > ul {
+  margin:0;
+  paddding:0;
+  list-style-type:none;
+  display:flex;
+  position:absolute;
+  right:0px;
+  min-width:120px;
+}
+#container > nav > ul > li {
+  line-height:60px;
+  margin: 0 0px;
+  padding:0;
+  float:right;
+  text-align:center;
+  display:inline-block;
+  mix-height:120px;
+} 
+#container > nav > ul > li > a {
+  position:relative;
+  margin: 0 20px;
+  color:white;
+}
+#container > nav > ul > li:hover {
+  border-bottom: 2px solid white;
+  background-color: #5FA8D3;
+}
+
+#container > nav > ul > .dropdown:hover > .dd
+{
+  display:block;
+}
+
+a {
+  text-decoration:none;
+  color:#b3ecff;
+}
+
+#container > nav > ul > li > div {
+  position:absolute;
+  padding: 0 10px;
+  display:none;
+  background-color:aliceblue;
+  min-width:130px;
+}
+
+#container > nav > ul > li > div > ul {
+  margin:0px 0 4px 0;
+  padding:0;
+  list-style:none;
+}
+
+#container > nav > ul > li > div > ul > li {
+  
+}
+
+#up_arrow {
+  position:relative;
+  width:20px;
+  height:20px;
+  left:42%;
+  top:-10px;
+  background-color:aliceblue;
+  transform:rotate(45deg);
+}
+
+#container > nav > ul > li> div > ul > li:hover {
+  background-color:#C5D1EB;
+  opacity:1;
+}
+#logo {
+  line-height:60px;
+  font-size:30px;
+  padding: 0 50px;
+  color: white;
+  width:40%;
+  letter-spacing:2px;
+  
+}
+</style>
+  
+</head>
+  <body>
+    
+    <div id="container">
+      <nav>
+        <div id="logo">
+          <img src="{% static 'img/logo.png' %}" style="width:80px; height:50px; text-align:center; float:left;">&nbsp; <span style="text-shadow: 4px 2px 2px darkgray;font-size:20px; font-weight:bold; text-align:center; float:left;margin-left:10px; color:#b3ecff;"><a href="{% url 'index' %}">내방고객상담 및 관리 프로그램</a></span>
+        </div>
+        <ul>
+          <li><a href="{% url 'main' %}">Home</a></li>
+          <li class="dropdown"><a href="#">초기상담 및 계획</a>
+            <div class="dd" style="width:135px;">
+              <div id="up_arrow"></div>
+            <ul>
+              <li><a href="{% url 'initial' %}" style="color:#343a40;">초기상담</a></li>
+              <li><a href="{% url 'setplan_list' %}" style="color:#343a40;">사례지원계획</a></li>
+            </ul>
+            </div>
+          </li>
+          <li class="dropdown"><a href="#">지원현황 및 진행</a>
+           <div class="dd" style="width:135px;">
+             <div id="up_arrow"></div>
+            <ul>
+              <li><a href="{% url 'danger_list' %}" style="color:#343a40;">위기분류척도</a></li>
+              <li><a href="{% url 'getplan_list' %}" style="color:#343a40;">사례지원진행</a></li>
+            </ul>
+            </div>
+            </li>
+
+            <li class="dropdown"><a href="#">&nbsp;기타 사업등록&nbsp;&nbsp;</a>
+           <div class="dd" style="width:80px;">
+             <div id="up_arrow"></div>
+            <ul>
+              <li><a href="{% url 'perfor' %}" style="color:#343a40;">실적 등록</a></li>
+            </ul>
+            </div>
+            </li>
+
+            <li class="dropdown"><a href="#">&nbsp;&nbsp;현황 및 통계&nbsp;&nbsp;</i> </a>
+           <div class="dd" style="width:110px;">
+             <div id="up_arrow"></div>
+            <ul>
+              <li><a href="#" style="color:#343a40;">종합</a></li>
+              <li><a href="#" style="color:#343a40;">년도별</a></li>
+              <li><a href="#" style="color:#343a40;">월별</a></li>
+              <li><a href="{% url 'report'%}" style="color:#343a40;">실적통계</a></li>
+            </ul>
+            </div>
+            </li>
+
+            <li class="dropdown"><a href="#">&nbsp;&nbsp;수정 및 업로드&nbsp;&nbsp;</i> </a>
+           <div class="dd" style="width:140px;">
+             <div id="up_arrow"></div>
+            <ul>
+              <li><a href="{% url 'update_list' %}" style="color:#343a40;">Update</a></li>
+              <li><a href="#" style="color:#343a40;">Upload</a></li>
+            </ul>
+            </div>
+            </li>
+
+            <li><a href="{% url "admin:index" %}">관리자</a></li>
+            {% if request.user.is_authenticated %}
+                        <li><a href="/logout/">로그아웃</a></li>
+                        <li style="color:white;"><span style="color:#5FA8D3;">{{ request.user }}</span>님 로그인 중</li>
+                        {% else %}
+                        <li><a href="/login">로그인</a></li>
+                        {% endif %}
+        </ul>
+      </nav>
+      {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+          {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+
+  {% block content %}
+
+  {% endblock %}
+
+  </body>
+</html>

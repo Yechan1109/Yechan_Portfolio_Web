@@ -1,0 +1,74 @@
+{% extends 're_base.html' %}
+{% block content %}
+
+<script src='https://code.jquery.com/jquery-3.3.1.js'></script>
+<script src='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'></script>
+
+<link rel='stylesheet' href='https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css'>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        "scrollX": true
+    } );
+} );
+</script>
+
+<style>
+body { background-color: #e2eef4;}
+
+form {
+    background-color: #fff;
+    width:1650px;
+    height:650px;
+    margin-left:30px;
+    margin-top:71px;
+}
+
+div.dataTables_wrapper {
+        width: 90%;
+        float: left;
+        margin: 30px 50px;
+    }
+
+</style>
+</head>
+
+<body>
+
+
+<form method="POST">
+{% csrf_token %}
+<div>
+    <table id="example" class="display nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>이름</th>
+                    <th>기록날짜</th>
+                    <th>치과 진행</th>
+                    <th>가정의학 진행</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in update_list %}
+            <tr>
+                <td>{{user.id}}</td>
+                <td><a href="/update/{{ user.id }}">{{user.getplan_name}}</td>
+                <td>{{user.getplan_date}}</td>
+                <td>{{user.inmedical_A1_YN_1}}</td>
+                <td>{{user.inmedical_A2_YN_1}}</td>
+            </tr>
+            {% endfor %}
+                
+            </tbody>
+        </table>
+    </div>
+  
+
+</form>
+
+</body>
+
+{% endblock %}

@@ -1,0 +1,207 @@
+{% extends 're_base.html' %}
+{% block content %}
+
+<script src='https://code.jquery.com/jquery-3.3.1.js'></script>
+<script src='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'></script>
+
+<link rel='stylesheet' href='https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css'>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        "scrollX": true
+    } );
+} );
+</script>
+
+<style>
+body { background-color: #e2eef4;}
+
+form {
+    background-color: #fff;
+    width:1650px;
+    height:650px;
+    margin-left:30px;
+    margin-top:71px;
+}
+
+div.dataTables_wrapper {
+        width: 50%;
+        float: left;
+        margin: 30px 50px;
+    }
+div.right {
+  background: #f4f7f8;
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 15px 1px rgba(입력0, 0, 0.4);
+	padding: 20px 30px;
+	box-sizing: border-box;
+	width: 40%;
+  height: 450px;
+	margin-right: 3%;
+  margin-top: 3%;
+  float: right;
+}
+
+#right table{
+    border: 3px solid #f2f7fa;
+    width: 100%;
+  }
+
+#right > td {
+    background-color:#f2f7fa;
+    border: 2px solid ivory;
+    height:70px;
+  }
+
+.col-1 {
+    width:12.5%;
+    text-align: left;
+    font-weight: bold;
+    opacity:0.3;
+    background-color:#c5dde8;
+    color:black;
+    font-size:18px;
+    font-weight:bold;
+
+} 
+
+.col-2 {
+    width: 12.5%;
+    color: black;
+    text-align: left;
+    
+} 
+.space {
+    background-color:#c5dde8;
+    height:20px;
+}
+.right input[type=date], .right input[type=number], .right select {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 21px;
+    line-height: 20px;
+    text-align:left;
+    border: none;
+    outline: none;
+    background-color:#f2f7fa;
+    color: #246EB9;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    opacity: .6;
+    transition: all linear .3s;
+}
+
+input[type=submit] {
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 4px;
+  margin: 5px -5px 0;
+  padding: 7px 5px 3px;
+  color: #7daac1;
+  background-color:#b2ebfe;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+  overflow: hidden;
+  outline: none;
+  font-size:20px;
+  opacity:0.9;
+}
+
+</style>
+</head>
+
+<body>
+
+
+<form method="POST">
+{% csrf_token %}
+<div>
+    <table id="example" class="display nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>진행 날짜</th>
+                    <th>인원</th>
+                    <th>건</th>
+                    <th>프로그램</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for program in programs %}
+            <tr>
+                <td>{{program.perfor_date}}</td>
+                <td>{{program.perfor_people}}</td>
+                <td>{{program.perfor_count}}</td>
+                <td>{{program.perfor_program}}</td>
+            </tr>
+            {% endfor %}
+                
+            </tbody>
+        </table>
+    </div>
+    
+<div class='right'>
+
+    <table>
+    <tr>
+        <td class="space" style='background-color:#c5dde8;' colspan='2'></td>
+    </tr>
+    <tr>
+        <td class="col-1" >프로그램명</td>
+        <td class="col-2"><select name="perfor_program" id="id_perfor_program">
+    <optgroup label="의료지원사업">
+    <option name='perfor_program' id='perfor_program_1' value="의료 아웃리치">의료 아웃리치</option>
+    <option name='perfor_program' id='perfor_program_2' value="소녀돌봄약국지원">소녀돌봄약국지원</option>
+    </optgroup>
+    <optgroup label="교육지원사업">
+    <option name='perfor_program' id='perfor_program_3' value="성교육장이용">성교육장이용</option>
+    <option name='perfor_program' id='perfor_program_4' value="찾아가는 성매매예방교육연극">찾아가는 성매매예방교육연극</option>
+    <option name='perfor_program' id='perfor_program_5' value="종사자교육">종사자교육</option>
+    </optgroup>
+    <optgroup label="성건강지원사업">
+    <option name='perfor_program' id='perfor_program_6' value="성건강수첩">성건강수첩</option>
+    <option name='perfor_program' id='perfor_program_7' value="찾아가는 초등성건강교육">찾아가는 초등성건강교육</option>
+    <option name='perfor_program' id='perfor_program_8' value="소그룹 성건강교육">소그룹 성건강교육</option>
+    <option name='perfor_program' id='perfor_program_9' value="생리대 배분">생리대 배분</option>
+    <option name='perfor_program' id='perfor_program_10' value="생리대 후원 확보">생리대 후원 확보</option>
+    </optgroup>
+    <optgroup label="네트워크">
+    <option name='perfor_program' id='perfor_program_11' value="거리, 방문홍보">온라인 홍보</option>
+    <option name='perfor_program' id='perfor_program_12' value="우편홍보">우편홍보</option>
+    <option name='perfor_program' id='perfor_program_13' value="내외부 직원교육">내외부 직원교육</option>
+    <option name='perfor_program' id='perfor_program_14' value="네트워크 및 사업협력">네트워크 및 사업협력</option>
+    <option name='perfor_program' id='perfor_program_15' value="대학생 타기관 교육, 네트워킹">대학생 타기관 교육, 네트워킹</option>
+    <option name='perfor_program' id='perfor_program_16' value="연합사례회의, 지원협력">연합사례회의, 지원협력</option>
+    <option name='perfor_program' id='perfor_program_17' value="후원처 자원발굴, 관리">후원처 자원발굴, 관리</option>
+    <option name='perfor_program' id='perfor_program_18' value="이용자 만족도조사, 질적인터뷰 등">이용자 만족도조사, 질적인터뷰 등</option>
+    <option name='perfor_program' id='perfor_program_19' value="자원봉사활동">자원봉사활동</option>
+    </optgroup>
+    </select>
+    </td>
+    </tr>
+    <tr>
+        <td class="col-1">진행 날짜</td>
+        <td class="col-2"><input name="perfor_date" id="id_perfor_date" required="" type="date"></td>
+    </tr>
+    <tr>
+        <td class="col-1">인 원</td>
+        <td class="col-2"><input name="perfor_people" id="id_perfor_people" required="" type="number"></td>
+    </tr>
+    <tr>
+        <td class="col-1">건 수</td>
+        <td class="col-2"><input name="perfor_count" id="id_perfor_count" required="" type="number"></td>
+    </tr>
+    </table>
+
+    <br><br>
+    <input type='submit' value='Submit'>
+</div>
+
+</form>
+</body>
+
+{% endblock %}

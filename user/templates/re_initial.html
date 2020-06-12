@@ -1,0 +1,317 @@
+{% extends 're_base.html' %}
+{% block content %}
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+<style type="text/css">
+body {
+  background: #e2eef4;
+}
+
+#main {
+    background: #fff;
+    border: 0 none;
+    border-radius: 1px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: auto;
+    box-sizing: border-box;
+    width: 96%;
+    margin: 2.5% 2%;
+    
+}
+
+
+
+#main th {
+    text-align: left;
+    background: #5385ad;
+    color: #92e4f1;
+    font-size:25px;
+    height: 60px;
+    width: 100%;
+  }
+#main td {
+    text-align: left;
+    width: 20%;
+    border: 2px solid #ffffff; 
+    padding: 10px 10px 5px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #5283ac;
+    cursor: pointer;
+    
+  }
+.col-1 {
+  background-color:#e9efef;
+  vertical-align:top;
+}
+
+.col-2 {
+  height:80px;
+  padding: 3px;
+  vertical-align:top;
+  background-color:#e9efef;
+}
+.col-3 {
+  height:180px;
+  padding: 3px;
+  vertical-align:top;
+  background-color:#e9efef;
+}
+.col-4 {
+  background-color: #f8faf9;
+  vertical-align:top;
+}
+.col-5 {
+  background-color: #f8faf9;
+  vertical-align:top;
+}
+.hold {
+    text-align:center;
+    width:250px; 
+    height:30px;
+    
+}
+
+label {
+  padding: 0 10px 0;
+  margin: 2px 0px 0px;
+  font-size: 18px;
+  color: #a6a6a6;
+  cursor: pointer;
+}
+
+input[type=text], input[type=date], select, textarea {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 30px;
+  line-height: 27px;
+  margin: 2px 0px 2px;
+  border: none;
+  outline: none;
+  color: #a6a6a6;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  opacity: .6;
+  transition: all linear .3s;
+}
+
+input[type=radio] {
+  width: 15px;
+  height:15px;
+}
+
+
+input[type=submit] {
+  width: 90%;
+  height: 60px;
+  border: none;
+  border-radius: 4px;
+  margin: 5px -5px 0;
+  padding: 7px 5px 3px;
+  color: #7daac1;
+  background-color:#b2ebfe;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+  overflow: hidden;
+  outline: none;
+  font-size:25px;
+}
+
+
+
+
+.text {
+  display: inline-block;
+  position: relative;
+  width: 70%;
+  height: 27px;
+  line-height: 27px;
+  margin: 5px -5px 0;
+  padding: 7px 5px 3px;
+  border: none;
+  outline: none;
+  color: #237bc2;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  opacity: .6;
+  transition: all linear .3s;
+}
+</style>
+</head>
+
+
+<body>
+
+<form method='POST'>
+  {% csrf_token %}
+
+  <div id='main'>
+
+  <table cellspacing="0">
+
+  <tr>
+  <th colspan='5'> 초기상담 (Intake Sheet)</th>
+  </tr>
+  
+  <tr>
+      <td class="col-1">
+        성명<br>
+        <input type='text' placeholder="내담자 이름" name="Name" class="hold" required />
+      </td>
+      <td class="col-1">
+        등록날짜<br>
+        <input name="Reg" type='date' class="hold" value='{{intake.Reg}}' required />
+      </td>
+      <td class="col-1">
+        최초상담자<br>
+        <select name='Coun' style="text-align:center;" required />
+          <option>---선택---</option>
+          <option name='Coun' id='Coun_1' value='강주연'>강주연</option>
+          <option name='Coun' id='Coun_2' value='곽은영'>곽은영</option>
+          <option name='Coun' id='Coun_3' value='김수미'>김수미</option>
+          <option name='Coun' id='Coun_4' value='김현정'>김현정</option>
+          <option name='Coun' id='Coun_5' value='노미나'>노미나</option>
+          <option name='Coun' id='Coun_6' value='문보라'>문보라</option>
+          <option name='Coun' id='Coun_7' value='박지숙'>박지숙</option>
+          <option name='Coun' id='Coun_8' value='이성영'>이성영</option>
+          <option name='Coun' id='Coun_9' value='정현재'>정현재</option>
+      </select>
+      </td>
+      <td class="col-1">
+      성별<br>
+          <select name='Gender'>
+          <option>---선택---</option>
+          <option name='Gender' id='Gender_F' value='여자'>여자</option>
+          <option name='Gender' id='Gender_M' value='남자'>남자</option>
+      </select>
+      </td>
+      <td class="col-1">
+        주민번호 앞자리<br>
+        <input type='text' placeholder="000000 - xxxxxxx" name="Jumin" class="hold" required />
+      </td>
+  </tr>
+
+  <tr>
+      <td class="col-2">카톡아이디<br>
+      <input type='text' class="hold" placeholder="kakao ID" id="Kakao" name="Kakao"></td>
+      <td class="col-2">주소<br>
+      <textarea class="hold" placeholder="주소 입력" id="Address1" name="Address1" style="width:300px;" rows="2"></textarea></td>
+      <td class="col-2">현주거지<br>
+      <textarea class="hold" placeholder="현주거지 주소 입력" id="Address2" name="Address2" style="width:300px;" rows="2"></textarea></td>
+      <td class="col-2">전화번호<br>
+      <input type='text' class="hold" placeholder="'-' 없이 숫자만 입력" id="Tel1" name="Tel1"></td>
+      <td class="col-2">긴급연락처<br>
+      <input type='text' class="hold" placeholder="'-' 없이 숫자만 입력" id="Tel2" name="Tel2"></td>
+  </tr>
+
+
+  <tr>
+      <td class="col-3">주거형태<br><br>
+      <label><input type='radio' name="Res" id='Res1' value="자가">자가</label>
+      <br><label><input type='radio' name="Res" id='Res2' value="전세">전세</label>
+      <br><label><input type='radio' name="Res" id='Res3' value="원룸(월세)">원룸(월세)</label>
+      <br><label><input type='radio' name="Res" id='Res4' value="고시텔(월세)">고시텔(월세)</label>
+      <br><label><input type='radio' name="Res" id='Res5' value="기타">기타</label>
+      <br><br><input type='text' placeholder="기타내용 입력" class="hold" style="margin:3px 0px 0px;" name="Res_text"></td>
+
+      <td class="col-3">가족형태<br><br>
+      <label><input type='radio' name="Fam" id='Fam1' value="조손가정">조손가정</label>
+      <br><label><input type='radio' name="Fam" id='Fam2' value="한부모">한부모</label>
+      <br><label><input type='radio' name="Fam" id='Fam3' value="한부모">부모</label>
+      <br><label><input type='radio' name="Fam" id='Fam4' value="독립">독립</label>
+      <br><label><input type='radio' name="Fam" id='Fam5' value="동거">동거</label>
+      <br><label><input type='radio' name="Fam" id='Fam6' value="기타">기타</label>
+      <input type='text' placeholder="기타내용 입력" class="hold"name="Fam_text"></td>
+
+      <td class="col-3">보호구분<br><br>
+      <label><input type='radio' name="Ssgrade" id='C_Ssgrade1' value="기초수급">기초수급</label>
+      <br><label><input type='radio' name="Ssgrade" id='C_Ssgrade2' value="차상위">차상위</label>
+      <br><label><input type='radio' name="Ssgrade" id='C_Ssgrade3' value="의료급여">의료급여</label>
+      <br><label><input type='radio' name="Ssgrade" id='C_Ssgrade4' value="기타">기타</label>
+      <br><br><input type='text' placeholder="기타내용 입력" class="hold" style="margin:24px 0px 0px;"  name="Ssgrade_text"></td>
+
+      <td class="col-3">상담이력<br><br>
+      <select name="His">
+      <option>---선택---</option>
+      <optgroup label="없음">
+      <option name='His' id="His1" value="없음">없음</option>
+      </optgroup>
+      <optgroup label="있음">
+      <option name='His' id="His2" value="전화 및 SNS">전화 및 SNS</option>
+      <option name='His' id="His3" value="대면">대면</option>
+      <option name='His' id="His4" value="기타">기타</option>
+      </optgroup>
+      </select></td>
+      <td class="col-3">의뢰경로<br><br>
+      <label><input type='radio' name="Route" id='C_Route1' value="기관">기관</label>
+      <br><label><input type='radio' name="Route" id='C_Route2' value="학교">학교</label>
+      <br><label><input type='radio' name="Route" id='C_Route3' value="개인신청">개인신청</label>
+      <br><label><input type='radio' name="Route" id='C_Route3' value="수강명령">수강명령</label>
+      <br><label><input type='radio' name="Route" id='C_Route3' value="친구 및 지인소개">친구 및 지인소개</label>
+  </tr>
+
+  <tr>
+    <td class="col-4">경제상황<br>
+    <table style='width:250px; font-size:13px; color:#a6a6a6;'>
+      <tr>
+          <td>아르바이트</td>
+          <td> : <input type='text' name='Eco1' style='width:30px;'> 만원</td>
+      </tr>
+      <tr>
+          <td>취업</td>
+          <td> : <input type='text' name='Eco2' style='width:30px;'> 만원</td>
+      </tr>
+      <tr>
+          <td>부모님지원</td>
+          <td> : <input type='text' name='Eco3' style='width:30px;'> 만원</td>
+      </tr>
+      <tr>
+          <td>기타</td>
+          <td> : <input type='text' name='Eco4' style='width:30px;'> 만원</td>
+      </tr>
+    </table></td>
+    <td class="col-4">최종학력<br><br>
+    <label><input type='radio' name="Edu" id='b1' value="초등">초등</label>
+    <br><label><input type='radio' name="Edu" id='b2' value="중등">중등</label>
+    <br><label><input type='radio' name="Edu" id='b3' value="고등">고등</label>
+    <br><label><input type='radio' name="Edu" id='b4' value="기타">기타</label>
+    <br><br><br><input type='text' placeholder="기타내용 입력" class="hold" style="margin:3px 0px 0px;" name="Edu_text"></td>
+    <td class="col-4">
+    직업<br><br>
+      <label><input name='Job' id='c1' type='radio' value="없음"><span>없음</span></label><br>
+      <label><input name='Job' id='c2' type='radio' value="있음"><span>있음</span></label>
+    <br><br><br><br><br><input type='text' placeholder="직업명 입력" class="hold" style="margin:3px 0px 0px;" name="Job_text"></td>
+    <td class="col-4">
+    장애여부<br><br>
+        <label><input name='Disorder' id='d1' type='radio' value="없음"><span>없음</span></label><br>
+        <label><input name='Disorder' id='d2' type='radio' value="있음"><span>있음</span></label>
+    <br><br><br><br><br><input type='text' placeholder="장애명 입력" class="hold" style="margin:3px 0px 0px;" name="Disorder_text"></td>
+    <td class="col-4">타기관 이용경험(확인)<br>
+      <textarea class="hold" placeholder="타기관 이용경험 입력" name="Other" style="width:300px; height:100px; border:2px solid #e9efef;" rows="5"></textarea></td>
+  </tr>
+
+  <tr>
+    <td class="col-5">의뢰기관<br>
+      <input type='text' class="hold" placeholder="의뢰기관 입력" name="Institute" style="border:2px solid #e9efef;"></td>
+    <td class="col-5">의뢰인<br>
+      <input type='text' class="hold" placeholder="의뢰인 이름 입력" name="Incharge_name" style="border:2px solid #e9efef;">
+      <input type='text' class="hold" placeholder="의뢰인 연락처 입력" name="Incharge_tel" style="border:2px solid #e9efef;">
+    </td>
+    <td colspan='3' style="text-align:center;"><input onclick="location.href = '/setplan_list'" type='submit' value='Submit'></td>
+  </tr>
+  </table>
+
+  </div>
+</form>
+
+
+</body>
+
+{% endblock  %}

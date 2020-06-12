@@ -1,0 +1,34 @@
+{% extends 're_base.html' %}
+
+{% block title %}<title>게시글 상세 - {{ getplan.pk }}</title>{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+{% endblock css %}
+
+{% block content %}
+<table class="table table-striped table-bordered">
+	<tr>
+		<th>번호</th>
+		<td>{{ getplan.pk }}</td>
+	</tr>
+	<tr>
+		<th>제목</th>
+		<td>{{ getplan.getplan_sentence }}</td>
+	</tr>
+	<tr>
+		<th>내용</th>
+		<td>{{ getplan.getplan_comment | linebreaksbr }}</td>
+	</tr>
+    <tr>
+		<th>작성자</th>
+		<td>{{ getplan.CT_id }}</td>
+	</tr>
+    <tr>
+		<th>작성일</th>
+		<td>{{ getplan.getplan_date | date:"Y-m-d" }}</td>
+	</tr>
+</table>
+
+<a href="/update/{{ getplan.pk }}/update/"><button class="btn btn-primary" type="button">게시글 수정</button></a>
+{% endblock content %}
