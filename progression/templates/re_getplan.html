@@ -411,19 +411,19 @@ input[type=date] {
                     <tr>
                         <td class="col-2">외부병원</td>
                         <td class="col-3">{{ progress.med_e }}회&nbsp;/&nbsp;{{ planning.E_sum }}회</td>
-                        <td class="col-4" style="text-align:left;"></td>
+                        <td class="col-4" style="text-align:left;">치과({{progress.inmedical_E1_YN}}/{{planning.medical_E1_TF}}), 여성의학과({{progress.inmedical_E2_YN}}/{{planning.medical_E2_TF}})</td>
                         <td class="col-5" colspan="2">{{ progress.med_e_cost }}&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-2">예방의학</td>
                         <td class="col-3">{{ progress.med_f }}회&nbsp;/&nbsp;{{ planning.F_sum }}회</td>
-                        <td class="col-4" style="text-align:left;"></td>
+                        <td class="col-4" style="text-align:left;">잇솔질({{progress.inmedical_F1_YN}}/{{planning.medical_F1_TF}}),안경({{progress.inmedical_F2_YN}}/{{planning.medical_F2_TF}}), 몸펴기({{progress.inmedical_F3_YN}}/{{planning.medical_F3_TF}})</td>
                         <td class="col-5" colspan="2">{{ progress.med_f_cost }}&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-2">의료상담</td>
                         <td class="col-3">{{ progress.med_g }}회&nbsp;/&nbsp;0회</td>
-                        <td class="col-4" style="text-align:left;"></td>
+                        <td class="col-4" style="text-align:left;">대면({{progress.inmedical_G1_YN}}), 전화({{progress.inmedical_G2_YN}}), SNS({{progress.inmedical_G3_YN}})</td>
                         <td class="col-5" colspan="2">{{ progress.med_g_cost }}&nbsp;</td>
                     </tr>
 
