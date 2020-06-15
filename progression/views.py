@@ -124,7 +124,12 @@ class ProgressListDetail(FormMixin, DetailView):
         case_b_cost=Sum('incase_B_cost'),
         case_c_cost=Sum('incase_C_cost')
         )
-        # ctrs = CTRS.objects.filter(CT_id=self.kwargs.get('pk')).aggregate(total=Sum('total'))
+        ctrs1 = CTRS.objects.filter(CT_id=self.kwargs.get('pk')).filter(danger_label='1차').aggregate(label_1=Sum('total'))
+        ctrs2 = CTRS.objects.filter(CT_id=self.kwargs.get('pk')).filter(danger_label='2차').aggregate(label_2=Sum('total'))
+        ctrs3 = CTRS.objects.filter(CT_id=self.kwargs.get('pk')).filter(danger_label='3차').aggregate(label_3=Sum('total'))
+        date1 = CTRS.objects.filter(CT_id=self.kwargs.get('pk')).filter(danger_label='1차').last()
+        date2 = CTRS.objects.filter(CT_id=self.kwargs.get('pk')).filter(danger_label='2차').last()
+        date3 = CTRS.objects.filter(CT_id=self.kwargs.get('pk')).filter(danger_label='3차').last()
 
         context = super(ProgressListDetail, self).get_context_data(**kwargs)
         context['form'] = ProgressForm(initial={'post': self.object})
@@ -135,7 +140,12 @@ class ProgressListDetail(FormMixin, DetailView):
         # context['planning'] = Planning.objects.get(setplan_name=self.kwargs.get('Name'))
         context['planning'] = Planning.objects.get(CT_id=self.kwargs.get('pk'))
         # 위기분류 DB loading
-        # context['ctrs'] = ctrs
+        context['ctrs1'] = ctrs1
+        context['ctrs2'] = ctrs2
+        context['ctrs3'] = ctrs3
+        context['date1'] = date1
+        context['date2'] = date2
+        context['date3'] = date3
         # 진행 DB loading
         # columns = Progress.objects.filter(CT_id=self.kwargs.get('pk')).values()
         # context['progress'] = Progress.objects.get(pk=self.kwargs.get('pk'))

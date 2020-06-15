@@ -37,6 +37,8 @@ class Progress(models.Model):
     getplan_name = models.CharField(verbose_name='내담자 이름', max_length=10)
     getplan_date = models.DateField(null=True, verbose_name='진행 날짜')
     last_date = models.DateTimeField('마지막 수정날짜', auto_now=True)
+    counselor = models.ForeignKey('counselor.User', on_delete=models.CASCADE, verbose_name='상담자')
+
 
     # 의료지원
     # 평일진료
@@ -251,6 +253,8 @@ class Progress(models.Model):
     getplan_comment = models.TextField(blank=True, default="", max_length=2000, verbose_name='comment')
     getplan_sentence = models.TextField(blank=True, default="", max_length=2000, verbose_name='sentence')
 
+
+
     inmedical_A_1_sum = models.IntegerField(null=True, blank=True, verbose_name='치과 SUM')
     inmedical_A_2_sum = models.IntegerField(null=True, blank=True, verbose_name='여성의학 SUM')
     inmedical_A_3_sum = models.IntegerField(null=True, blank=True, verbose_name='한방의학 SUM')
@@ -337,19 +341,19 @@ class Progress(models.Model):
 
 class CTRS(models.Model):
     choices = (
-        (0, "9"),
-        (1, "1"),
-        (2, "2"),
-        (3, "3"),
-        (4, "4"),
-        (5, "5"))
-    reverse_choices = (
-        (5, "1"),
-        (4, "2"),
-        (3, "3"),
-        (2, "4"),
-        (1, "5"),
-        (0, "9"))
+        (0, '비해당'),
+        (1, '전혀 그렇지 않다'),
+        (2, '그렇지 않다'),
+        (3, '보통이다'),
+        (4, '그렇다'),
+        (5, '매우 그렇다'))
+    # reverse_choices = (
+    #     (5, 1),
+    #     (4, 2),
+    #     (3, 3),
+    #     (2, 4),
+    #     (1, 5),
+    #     (0, '비해당'))
     label = (
         ('1차','1차'),
         ('2차','2차'),
@@ -361,54 +365,58 @@ class CTRS(models.Model):
     danger_date = models.DateField(null=True, verbose_name='진행 날짜')
     last_date = models.DateTimeField('마지막 수정날짜', auto_now=True)
     danger_label = models.CharField(blank=True, default="",choices=label, max_length=3,verbose_name='차수')
+    counselor = models.ForeignKey('counselor.User', on_delete=models.CASCADE, verbose_name='상담자')
 
-    survey1_1 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='개인1')
-    survey1_2 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='개인2')
-    survey1_3 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='개인3')
-    survey1_4 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='개인4')
-    survey1_5 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='개인5')
-    survey2_1 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='가정1')
-    survey2_2 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='가정2')
-    survey2_3 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='가정3')
-    survey2_4 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='가정4')
-    survey2_5 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='가정5')
 
-    survey3_1 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='또래 및 학교1')
-    survey3_2 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='또래 및 학교2')
-    survey3_3 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='또래 및 학교3')
-    survey3_4 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='또래 및 학교4')
-    survey3_5 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='또래 및 학교5')
-    survey4_1 = models.IntegerField(choices=reverse_choices,null=True, blank=True, verbose_name='지지체계1')
-    survey4_2 = models.IntegerField(choices=reverse_choices,null=True, blank=True, verbose_name='지지체계2')
-    survey4_3 = models.IntegerField(choices=reverse_choices,null=True, blank=True, verbose_name='지지체계3')
-    survey4_4 = models.IntegerField(choices=reverse_choices,null=True, blank=True, verbose_name='지지체계4')
+    survey1_1 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='개인1')
+    survey1_2 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='개인2')
+    survey1_3 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='개인3')
+    survey1_4 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='개인4')
+    survey1_5 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='개인5')
+    survey2_1 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='가정1')
+    survey2_2 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='가정2')
+    survey2_3 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='가정3')
+    survey2_4 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='가정4')
+    survey2_5 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='가정5')
 
-    survey5_1 = models.IntegerField(choices=reverse_choices,null=True, blank=True, verbose_name='성건강_공통1')
-    survey5_2 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='성건강_공통2')
-    survey5_3 = models.IntegerField(choices=reverse_choices,null=True, blank=True, verbose_name='성건강_공통3')
-    survey5_4 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='성건강_공통4')
-    survey5_5 = models.IntegerField(choices=reverse_choices,null=True, blank=True, verbose_name='성건강_공통5')
+    survey3_1 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='또래 및 학교1')
+    survey3_2 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='또래 및 학교2')
+    survey3_3 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='또래 및 학교3')
+    survey3_4 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='또래 및 학교4')
+    survey3_5 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='또래 및 학교5')
+    survey4_1 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='지지체계1')
+    survey4_2 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='지지체계2')
+    survey4_3 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='지지체계3')
+    survey4_4 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='지지체계4')
 
-    survey6_1 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='성건강_성관계1')
-    survey6_2 = models.IntegerField(choices=reverse_choices,null=True, blank=True, verbose_name='성건강_성관계2')
-    survey6_3 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='성건강_성관계3')
-    survey7_1 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='성폭력1')
-    survey7_2 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='성폭력2')
-    survey7_3 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='성폭력3')
-    survey9_1 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='폭력피해1')
-    survey9_2 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='폭력피해2')
-    survey9_3 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='폭력피해3')
+    survey5_1 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='성건강_공통1')
+    survey5_2 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='성건강_공통2')
+    survey5_3 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='성건강_공통3')
+    survey5_4 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='성건강_공통4')
+    survey5_5 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='성건강_공통5')
 
-    survey10_1 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='폭력가해1')
-    survey10_2 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='폭력가해2')
-    survey10_3 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='폭력가해3')
-    survey11_1 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='정신건강1')
-    survey11_2 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='정신건강2')
-    survey11_3 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='정신건강3')
-    survey11_4 = models.IntegerField(choices=choices,null=True, blank=True, verbose_name='정신건강4')
+    survey6_1 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='성건강_성관계1')
+    survey6_2 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='성건강_성관계2')
+    survey6_3 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='성건강_성관계3')
+    survey7_1 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='성폭력1')
+    survey7_2 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='성폭력2')
+    survey7_3 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='성폭력3')
+    survey9_1 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='폭력피해1')
+    survey9_2 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='폭력피해2')
+    survey9_3 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='폭력피해3')
+
+    survey10_1 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='폭력가해1')
+    survey10_2 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='폭력가해2')
+    survey10_3 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='폭력가해3')
+    survey11_1 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='정신건강1')
+    survey11_2 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='정신건강2')
+    survey11_3 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='정신건강3')
+    survey11_4 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='정신건강4')
 
     ctrs_comment = models.TextField(blank=True, default="", max_length=2000, verbose_name='Commnet')
     ctrs_sentence = models.TextField(blank=True, default="", max_length=2000, verbose_name='오늘의 한줄')
+
+
 
     # Sum Code
     sum_1 = models.IntegerField(null=True, blank=True, verbose_name='개인 Sum')
@@ -424,10 +432,8 @@ class CTRS(models.Model):
     total = models.IntegerField(null=True, blank=True, verbose_name='Total')
 
 
-    def save(self, field, *args, **kwargs):
-        if type(self.field) != int:
-            self.field = 0
-        self.sum_1 = self.survey1_1 + self.survey1_2 + self.survey1_3 + self.survey1_4 + self.survey1_5 
+    def save(self, *args, **kwargs):
+        self.sum_1 = self.survey1_1 + self.survey1_2 + self.survey1_3 + self.survey1_4 + self.survey1_5
         self.sum_2 = self.survey2_1 + self.survey2_2 + self.survey2_3 + self.survey2_4 + self.survey2_5
         self.sum_3 = self.survey3_1 + self.survey3_2 + self.survey3_3 + self.survey3_4 + self.survey3_5
         self.sum_4 = self.survey4_1 + self.survey4_2 + self.survey4_3 + self.survey4_4
@@ -440,14 +446,8 @@ class CTRS(models.Model):
         self.total = self.sum_1 + self.sum_2 + self.sum_3 + self.sum_4 + self.sum_5 + self.sum_6 + self.sum_7 + self.sum_9 + self.sum_10 + self.sum_11
         super(CTRS, self).save(*args, **kwargs)
 
-    # def sum_1(self, obj):
-    #     return obj.survey1_1 + obj.survey1_2 + obj.survey1_3 + obj.survey1_4 + obj.survey1_5
-
-    # def _get_full_name(self):
-    #     # return '%s, %s %s' % (self.lastname, self.firstname, self.middlename)
-    #     return self.survey1_1 + self.survey1_2 + self.survey1_3 + self.survey1_4 + self.survey1_5
-    # sum_1 = property(_get_full_name)
-
+    
+        
 
     def __str__(self):
         return self.danger_name

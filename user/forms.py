@@ -94,7 +94,7 @@ class IntakeForm(forms.Form):
     Ssgrade_text = forms.CharField(required=False)
     His = forms.ChoiceField(choices=His_choices, required=False)
     Route = forms.ChoiceField(choices=Rou_choices, required=False)
-    Route_text = forms.CharField(required=False)
+    # Route_text = forms.CharField(required=False)
 
     Eco1 = forms.IntegerField(required=False)
     Eco2 = forms.IntegerField(required=False)
@@ -134,7 +134,7 @@ class IntakeForm(forms.Form):
         Ssgrade_text = cleaned_data.get('Ssgrade_text')
         His = cleaned_data.get('His')
         Route = cleaned_data.get('Route')
-        Route_text = cleaned_data.get('Route_text')
+        # Route_text = cleaned_data.get('Route_text')
         Eco1 = cleaned_data.get('Eco1')
         Eco2 = cleaned_data.get('Eco2')
         Eco3 = cleaned_data.get('Eco3')
@@ -181,7 +181,7 @@ class IntakeForm(forms.Form):
             Ssgrade_text=Ssgrade_text,
             His=His,
             Route=Route,
-            Route_text=Route_text,
+            # Route_text=Route_text,
             Eco1=Eco1,
             Eco2=Eco2,
             Eco3=Eco3,

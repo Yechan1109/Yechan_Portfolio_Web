@@ -217,6 +217,7 @@ textarea {
                 <td>종료일</td> : <td><input type="date" name='medical_end'value='{{planning.medical_end}}'></td>&nbsp;
                 <td><input type='hidden' name='setplan_name' value='{{ user.Name }}'/></td>
                 <td><input type='hidden' name='CT' value='{{ user.id }}'/></td>
+                <td><input type='hidden' name='counselor' value='{{ request.user.id }}'/></td>
                 <td><span style="color:red; font-size:13px;">&nbsp; * 실행할 날짜를 입력하세요(입력날짜가 아닙니다)</span></td>
             </div>
             <div id="main">

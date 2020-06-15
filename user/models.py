@@ -105,6 +105,8 @@ class Intake(models.Model):
     Institute = models.CharField(null=True, blank=True,default="", max_length=200, verbose_name='의뢰기관')
     Incharge_name = models.CharField(null=True, blank=True,default="", max_length=30, verbose_name='의뢰인 이름')
     Incharge_tel = models.CharField(null=True, blank=True, max_length=30, verbose_name='의뢰인 연락처')
+
+
     
     
     def __str__(self):
@@ -169,6 +171,8 @@ class Planning(models.Model):
     setplan_name = models.CharField(verbose_name='내담자 이름', max_length=10, unique=True)
     setplan_date = models.DateTimeField(auto_now_add=True, verbose_name='계획 작성일')
     last_date = models.DateTimeField('마지막 수정날짜', auto_now=True)
+    counselor = models.ForeignKey('counselor.User', on_delete=models.CASCADE, verbose_name='상담자')
+
 
     medical_start = models.DateField(null=True, blank=True, verbose_name='의료지원 시작일')
     medical_end = models.DateField(null=True, blank=True, verbose_name='의료지원 종료일')
@@ -321,6 +325,8 @@ class Planning(models.Model):
 
     setplan_comment = models.TextField(blank=True, default="", max_length=2000, verbose_name='comment')
     setplan_sentence = models.TextField(blank=True, default="", max_length=2000, verbose_name='sentence')
+
+
 
     # sum_medical_A = models.IntegerField(null=True, blank=True, verbose_name='진료 total')
     # sum_medical_B = models.IntegerField(null=True, blank=True, verbose_name='각종검사 total')
@@ -500,6 +506,10 @@ class Program(models.Model):
     perfor_people = models.IntegerField(verbose_name='인원')
     perfor_count = models.IntegerField(verbose_name='건수')
     perfor_program = models.CharField(choices=program_name, max_length=30, verbose_name='프로그램')
+
+    # 기타사업등록에는 왜 안되지??????? 
+    # counselor = models.ForeignKey('counselor.User', on_delete=models.CASCADE, verbose_name='상담자')
+
 
     def __str__(self):
         return self.perfor_program

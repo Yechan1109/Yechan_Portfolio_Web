@@ -2,8 +2,8 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LogoutView
 
-from user.views import *
-from progression.views import *
+from user.views import UserLoginIndexView, main, report, IntakeView, ProgramView, PlanningList, PlanningListDetail
+from progression.views import  ProgressList, ProgressListDetail, CTRSList, CTRSListDetail, UpdateListView, UpdateDetailView, ArticleCreateUpdateView
 from counselor.views import UserRegistrationView, UserLoginView
 
 urlpatterns = [

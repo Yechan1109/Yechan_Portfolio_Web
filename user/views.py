@@ -48,7 +48,8 @@ class PlanningList(LoginRequiredMixin, ListView):
     context_object_name = 'user_list'
 
 
-class PlanningListDetail(FormMixin, DetailView):
+class PlanningListDetail(LoginRequiredMixin, FormMixin, DetailView):
+    login_url = "/login"
     template_name = 're_setplan.html'
     model = Intake
     form_class = PlanningForm
@@ -96,3 +97,6 @@ class ProgramView(LoginRequiredMixin, FormView):
             'programs': program,
         }
         return context
+
+    def get_success_url(self):
+        return reverse('perfor', kwargs={'pk': self.object.id})

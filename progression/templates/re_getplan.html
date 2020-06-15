@@ -476,20 +476,20 @@ input[type=date] {
             <div>
                 <table>
                     <tr>
-                        <td class="space" colspan='8'>위기분류척도</td>
+                        <td class="space" colspan='7'>위기분류척도</td>
                     </tr>
                     <tr>
                         <td class="col-1" rowspan='2'>1차</td>
-                        <td class="col-3">{{ ctrs.danger_date|date:'Y-m-d' }}2020.01.01</td>
+                        <td class="col-3">{{ date1.danger_date|date:'Y-m-d' }}</td>
                         <td class="col-1" rowspan='2'>2차</td>
-                        <td class="col-4_1">{{ ctrs.danger_date|date:'Y-m-d' }}</td>
+                        <td class="col-4_1">{{ date2.danger_date|date:'Y-m-d' }}</td>
                         <td class="col-1" rowspan='2'>3차</td>
-                        <td class="col-5" style="text-align:center;">{{ ctrs.danger_date|date:'Y-m-d' }}1</td>
+                        <td class="col-5" style="text-align:center;">{{ date3.danger_date|date:'Y-m-d' }}</td>
                     </tr>
                     <tr>
-                        <td class="col-3">{{ ctrs.total }}점</td>
-                        <td class="col-4_1">점</td>
-                        <td class="col-5" style="text-align:center;">점</td>
+                        <td class="col-3">{{ ctrs1.label_1 }}점</td>
+                        <td class="col-4_1">{{ ctrs2.label_2 }}점</td>
+                        <td class="col-5" style="text-align:center;">{{ ctrs3.label_3 }}점</td>
                     </tr>
 
                     <tr>
@@ -504,7 +504,7 @@ input[type=date] {
                         <td class="col-1" rowspan='10'>의료지원</td>
                         <td class="col-2">치과</td>
                         <td class="col-3">{{ progress.a1 }}회&nbsp;/&nbsp;{{ planning.medical_A1_TF }}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='4'>
+                        <td class="col-4" style="text-align:left;" colspan='3'>
                         {% for text in progress_text %}
                         {% if text.inmedical_A1_Text_1 %}
                         <{{text.getplan_date}} | 평일>{{ text.inmedical_A1_Text_1}}<br>
@@ -657,7 +657,7 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">의료상담</td>
-                        <td class="col-3">{{ progress.med_f }}회&nbsp;/&nbsp;{{ planning.F_sum }}회</td>
+                        <td class="col-3">{{ progress.med_g }}회&nbsp;/&nbsp;0회</td>
                         <td class="col-4" style="text-align:left;" colspan='3'>
                         {% for text in progress_text %}
                             {% if text.inmedical_G1_Text %}
@@ -812,6 +812,7 @@ input[type=date] {
             <td><input type='hidden' name='getplan_name' value='{{ user.Name }}'/></td>
             <td><input type='hidden' name='CT' value='{{ user.id }}'/></td>
             <td><input type='hidden' name='inmedical_B_sum' value='{{ progress.B_total }}'/></td>
+                <td><input type='hidden' name='counselor' value='{{ request.user.id }}'/></td>
             <td>&nbsp;<span style="color:#237bc2; font-weight:bold;">날 짜</span></td> : <td><input type="date" name='getplan_date'value='{{progress.getplan_date}}' required/></td>
             <td><span style="color:red; font-size:13px;">&nbsp; * 실행한 날짜를 입력하세요(입력날짜가 아닙니다)</span></td>
         </div>
