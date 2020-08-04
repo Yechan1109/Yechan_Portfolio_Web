@@ -1,5 +1,7 @@
 {% extends 're_base.html' %}
+{% block content %}
 
+<head>
 {% block title %}
 {% if prog %}
 <title>게시글 수정 - {{ prog.pk }}. {{ prog.getplan_name }}</title>
@@ -8,11 +10,242 @@
 {% endif %}
 {% endblock title %}
 
-{% block css %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-{% endblock css %}
+<style>
+	* {margin: 0;}
+	body {text-align: center; background-color: #e2eef4;}
+	.wrap { 
+		max-width: 100%;
+		margin: auto; 
+		text-align: center;
+	
+	}
+	#right {
+	background: #f4f7f8;
+		border: 0 none;
+		border-radius: 3px;
+		box-shadow: 0 0 15px 1px rgba(입력0, 0, 0.4);
+		padding: auto;
+		box-sizing: border-box;
+		width: 70%;
+		margin-right: 15%;
+		margin-top: 1%;
+		float: right;
+	}
 
-{% block content %}
+	.tab-container{ margin: 0;}
+	.tab-btn-pannel{ background-color: whitesmoke;  ; display: block; width: 100%; padding-bottom: 35px; } 
+	.tab-btn{
+		float: left;
+		height: 35px; 
+		padding:auto; 
+		width:33.33%;
+		border:none;
+		display:block;
+		outline:0; 
+		white-space:normal;
+		background-color:#d1e8ee;
+		color:#9fb5c1;
+		font-size:20px;
+		font-weight:bold;
+	}
+	.tab2-container{ margin: 0;}
+	.tab2-btn-pannel{ background-color: whitesmoke;  ; display: block; width: 100%; padding-bottom: 35px; } 
+	.tab2-btn{
+		float: left;
+		height: 35px; 
+		padding:auto; 
+		width:33.33%;
+		border:none;
+		display:block;
+		outline:0; 
+		white-space:normal;
+		background-color:#d1e8ee;
+		color:#9fb5c1;
+		font-size:20px;
+		font-weight:bold;
+	}
+	.tab2-btn{
+		float: left;
+		height: 35px; 
+		padding:auto; 
+		width:50%;
+		border:none;
+		display:block;
+		outline:0; 
+		white-space:normal;
+		background-color:#d1e8ee;
+		color:#9fb5c1;
+		font-size:20px;
+		font-weight:bold;
+	}
+	.tab2-content{ background-color: #fff; color: #226ca8; padding: 0px 0px;}
+	.tab2-Active{background-color: #b3ecff; color:#5283ac;}
+
+	.tab-content{ background-color: #fff; color: #226ca8; padding: 0px 0px;}
+	.tab-Active{background-color: #b3ecff; color:#5283ac;}
+
+
+	#right .col-1 {
+		width:25%;
+		text-align: center;
+		background-color:#d1e8ee;
+	} 
+
+	#right .col-1_1 {
+		width: 13%;
+		text-align: center;
+		background-color:#d1e8ee;
+		color:#226ca8;
+		font-weight:bold;
+	}
+	#right .col-1_2 {
+		width: 12%;
+		text-align: left;
+		background-color:#f2f7fa;
+		color:#226ca8;
+		font-size:14px;
+		font-weight:bold;
+
+	}
+	#right .col-2 {
+		width: 15%;
+		color: black;
+		text-align: left;
+		background-color:#f2f7fa;
+	} 
+	#right .col-3 {
+		width: 10%;
+		color: black;
+		background-color:#f2f7fa;
+		text-align:center;
+	}
+
+	#right .col-4 {
+		width: 55%;
+		color: black;
+		background-color:#f2f7fa;
+		text-align:center;
+	}
+
+	input[type=submit] {
+	width: 100%;
+	height: 35px;
+	border: none;
+	border-radius: 4px;
+	margin: 5px -5px 0;
+	padding: 7px 5px 3px;
+	color: #7daac1;
+	background-color:#b2ebfe;
+	text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+	overflow: hidden;
+	outline: none;
+	font-size:20px;
+	}
+
+	textarea {
+		display: inline-block;
+		position: relative;
+		width: 100%;
+		height: 80px;
+		line-height: 27px;
+		margin: 5px -5px 0;
+		padding: 7px 5px 3px;
+		border: none;
+		outline: none;
+		background-color: #fff;
+		color: #237bc2;
+		font-family: 'Helvetica Neue', Arial, sans-serif;
+		font-weight: bold;
+		font-size: 14px;
+		opacity: .6;
+	}
+
+
+	h2 {
+		text-align: center;
+		background: #5385ad;
+		color: ivory;
+		font-size:19px;
+		height:27px;
+	}
+
+	#right .text1 {
+		display: inline-block;
+		position: relative;
+		width: 100%;
+		height: 21px;
+		line-height: 20px;
+		text-align:right;
+		border: none;
+		outline: none;
+		background-color:#f2f7fa;
+		color: #505659;
+		font-family: 'Helvetica Neue', Arial, sans-serif;
+		font-weight: bold;
+		font-size: 14px;
+		opacity: .6;
+		transition: all linear .3s;
+	}
+	#right .text2 {
+		display: inline-block;
+		position: relative;
+		width: 100%;
+		height: 21px;
+		line-height: 20px;
+		text-align:center;
+		padding: 0px;
+		border: none;
+		outline: none;
+		background-color:#f2f7fa;
+		color: #505659;
+		font-family: 'Helvetica Neue', Arial, sans-serif;
+		font-weight: bold;
+		font-size: 14px;
+		opacity: .6;
+		transition: all linear .3s;
+	}
+	#right .text3 {
+		display: inline-block;
+		position: relative;
+		width: 100%;
+		height: 21px;
+		line-height: 20px;
+		text-align:left;
+		border: none;
+		outline: none;
+		background-color:#f2f7fa;
+		color: #505659;
+		font-family: 'Helvetica Neue', Arial, sans-serif;
+		font-weight: bold;
+		font-size: 14px;
+		opacity: .6;
+		transition: all linear .3s;
+	}
+
+	input[type=date] {
+		display: inline-block;
+		position: relative;
+		width: 200px;
+		height: 30px;
+		line-height: 30px;
+		margin: 5px -5px 0;
+		padding: 3px 5px 3px;
+		border: none;
+		outline: none;
+		background-color: #f2f7fa;
+		color: #237bc2;
+		font-family: 'Helvetica Neue', Arial, sans-serif;
+		font-weight: bold;
+		font-size: 15px;
+		text-align:center;
+		opacity: .6;
+		transition: all linear .3s;
+	}
+</style>
+
+</head>
+
+
 
 {% if messages %}
 {% for message in messages %}
@@ -21,35 +254,475 @@
 </div>
 {% endfor %}
 {% endif %}
+<body>
 
-<form action="." method="post" class="form-horizontal">
-{% csrf_token %}
-<input type="hidden" name="action" value="{% if prog %}update{% else %}create{% endif %}">
-<table class="table table-striped table-bordered">
-	<tr>
-		<th>번호</th>
-		<td>{{ prog.pk }}</td>
-	</tr>
-	<tr>
-		<th>제목</th>
-		<td><input type="text" class="form-control" name="title" value="{{ prog.getplan_sentence }}"></td>
-	</tr>
-	<tr>
-		<th>내용</th>
-		<td><textarea rows="10" class="form-control" name="content">{{ prog.getplan_comment }}</textarea></td>
-	</tr>
-  <!--<tr>-->
-		<!--<th>작성자</th>-->
-		<!--<td><input type="text" class="form-control" name="author" value="{{ article.author }}"></td>-->
-	<!--</tr>-->
-    <tr>
-		<th>작성일</th>
-		<td>{{ prog.getplan_date | date:"Y-m-d" }}</td>
-	</tr>
-</table>
 
-<button class="btn btn-primary" type="submit">게시글 저장</button>
+<form id="right" method="POST" action=".">
+    {% csrf_token %}
+	<input type="hidden" name="action" value="{% if prog %}update{% else %}create{% endif %}">
+    <div class="tab-container wrap">
+        <h2>지원현황</h2>
+        <div class="tab-btn-pannel">
+            <p class="tab-btn tab-Active" onclick="opentab(event,'Tab1')">의료지원</p>
+            <p class="tab-btn" onclick="opentab(event,'Tab2')">심리지원</p>
+            <p class="tab-btn" onclick="opentab(event,'Tab3')">사례관리</p>
+        </div>
+        <div style='text-align:center;'>
+            <td><input type='hidden' name='getplan_name' value='{{ user.Name }}'/></td>
+            <td><input type='hidden' name='CT' value='{{ user.id }}'/></td>
+            <td><input type='hidden' name='inmedical_B_sum' value='{{ progress.B_total }}'/></td>
+                <td><input type='hidden' name='counselor' value='{{ request.user.id }}'/></td>
+            <td>&nbsp;<span style="color:#237bc2; font-weight:bold;">날 짜</span></td> : <td><input type="date" name='getplan_date' checked value="{{ prog.getplan_date | date:"Y-m-d" }}" required/></td>
+            <td><span style="color:red; font-size:13px;">&nbsp; * 실행한 날짜를 입력하세요(입력날짜가 아닙니다)</span></td>
+        </div>
+        <div id="Tab1" class="tab-content tab">
+            
+            <div>
+                
+                <table>
+                    <tr>
+                        <td class="col-1" style="background-color:#E8EEEE;" colspan="2">분류</td>
+                        <td class="col-2" style="background-color:#E8EEEE;">구분</td>
+                        <td class="col-3" style="background-color:#E8EEEE;">비용</td>
+                        <td class="col-4" style="background-color:#E8EEEE;">내용</td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_1" rowspan='8'>진료</td>
+                        <td class="col-1_2" rowspan='2'>치과</td>
+                        <td class="col-2"><label><input type="checkbox" name='inmedical_A1_YN_1' {% if prog.inmedical_A1_YN_1 %}checked{% endif %} style="width:14px; height:14px;"><span style="font-size:14px;">&nbsp;평일</span></label>
+                        <select name='inmedical_A1_select_1' style="width:100px;font-size:12px;">
+                            <option name='inmedical_A1_select_1' value="">선택</option>
+                            <option name='inmedical_A1_select_1' value='스케일링' {% if prog.inmedical_A1_select_1 == '스케일링' %}selected{% endif %}>스케일링</option>
+                            <option name='inmedical_A1_select_1' value='보철' {% if prog.inmedical_A1_select_1 == '보철' %}selected{% endif %}>보철</option>
+                            <option name='inmedical_A1_select_1' value='충치' {% if prog.inmedical_A1_select_1 == '충치' %}selected{% endif %}>충치</option>
+                            <option name='inmedical_A1_select_1' value='기타' {% if prog.inmedical_A1_select_1 == '기타' %}selected{% endif %}>기타</option>
+                        </select></td>
+
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_A1_C_1 }}" name="inmedical_A1_C_1"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_A1_Text_1">{{ prog.inmedical_A1_Text_1 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2"><label><input type="checkbox" name='inmedical_A1_YN_2'{% if prog.inmedical_A1_YN_2 %}checked{% endif %} style="width:15px; height:15px;"><span style="font-size:14px;">&nbsp;야간</span></label>
+                        <select name='inmedical_A1_select_2' style="width:100px;font-size:12px;">
+                            <option name='inmedical_A1_select_2' value="">선택</option>
+                            <option name='inmedical_A1_select_2' value='스케일링' {% if prog.inmedical_A1_select_2 == '스케일링' %}selected{% endif %}>스케일링</option>
+                            <option name='inmedical_A1_select_2' value='보철' {% if prog.inmedical_A1_select_2 == '보철' %}selected{% endif %}>보철</option>
+                            <option name='inmedical_A1_select_2' value='충치' {% if prog.inmedical_A1_select_2 == '충치' %}selected{% endif %}>충치</option>
+                            <option name='inmedical_A1_select_2' value='기타' {% if prog.inmedical_A1_select_2 == '기타' %}selected{% endif %}>기타</option>
+                        </select></td>
+                        
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_A1_C_2 }}" name="inmedical_A1_C_2"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_A1_Text_2">{{ prog.inmedical_A1_Text_2 }}</textarea></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-1_2" rowspan='2'>여성의학과</td>
+                        <td class="col-2"><label><input type="checkbox" name='inmedical_A2_YN_1'{% if prog.inmedical_A2_YN_1 %}checked{% endif %} style="width:14px; height:14px;"><span style="font-size:14px;">&nbsp;평일</span></label>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_A2_C_1 }}" name="inmedical_A2_C_1"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_A2_Text_1">{{ prog.inmedical_A2_Text_1 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2"><label><input type="checkbox" name='inmedical_A2_YN_2'{% if prog.inmedical_A2_YN_2 %}checked{% endif %} style="width:15px; height:15px;"><span style="font-size:14px;">&nbsp;야간</span></label></td>
+
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_A2_C_2 }}" name="inmedical_A2_C_2"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_A2_Text_2">{{ prog.inmedical_A2_Text_2 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2" rowspan='2'>한방의학과</td>
+                        <td class="col-2"><label><input type="checkbox" name='inmedical_A3_YN_1'{% if prog.inmedical_A3_YN_1 %}checked{% endif %} style="width:14px; height:14px;"><span style="font-size:14px;">&nbsp;평일</span></label>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_A3_C_1 }}" name="inmedical_A3_C_1"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_A3_Text_1">{{ prog.inmedical_A3_Text_1 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2"><label><input type="checkbox" name='inmedical_A3_YN_2'{% if prog.inmedical_A3_YN_2 %}checked{% endif %} style="width:15px; height:15px;"><span style="font-size:14px;">&nbsp;야간</span></label></td>
+
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_A3_C_2 }}" name="inmedical_A3_C_2"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_A3_Text_2">{{ prog.inmedical_A3_Text_2 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2" rowspan='2'>가정의학과</td>
+                        <td class="col-2"><label><input type="checkbox" name='inmedical_A4_YN_1'{% if prog.inmedical_A4_YN_1 %}checked{% endif %} style="width:14px; height:14px;"><span style="font-size:14px;">&nbsp;평일</span></label>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_A4_C_1 }}" name="inmedical_A4_C_1"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_A4_Text_1">{{ prog.inmedical_A4_Text_1 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-2"><label><input type="checkbox" name='inmedical_A4_YN_2'{% if prog.inmedical_A4_YN_2 %}checked{% endif %} style="width:15px; height:15px;"><span style="font-size:14px;">&nbsp;야간</span></label></td>
+
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_A4_C_2 }}" name="inmedical_A4_C_2"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_A4_Text_2">{{ prog.inmedical_A4_Text_2 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_1" rowspan='4'>각종검사</td>
+                        <td class="col-1_2">여성의학과<br>검사</td>
+                        <td class="col-2"><label><input type="checkbox" name='inmedical_B1_YN' {% if prog.inmedical_B1_YN %}checked{% endif %} style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value={{ prog.inmedical_B1_C }} name="inmedical_B1_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_B1_Text">{{ prog.inmedical_B1_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">기초검사</td>
+                        <td class="col-2"><label><input type="checkbox" name='inmedical_B2_YN' {% if prog.inmedical_B2_YN %}checked{% endif %} style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value={{ prog.inmedical_B2_C }} name="inmedical_B2_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_B2_Text">{{ prog.inmedical_B2_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">항체검사</td>
+                        <td class="col-2"><label><input type="checkbox" name='inmedical_B3_YN' {% if prog.inmedical_B3_YN %}checked{% endif %} style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value={{ prog.inmedical_B3_C }} name="inmedical_B3_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_B3_Text">{{ prog.inmedical_B3_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2"><input type='text' class="text3" placeholder="기타 입력" value="{{ prog.inmedical_B4_Name}}" name="inmedical_B4_Name"></td>
+                        <td class="col-2"><label><input type="checkbox" name='inmedical_B4_YN' {% if prog.inmedical_B4_YN %}checked{% endif %} style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value={{ prog.inmedical_B4_C }} name="inmedical_B4_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_B4_Text">{{ prog.inmedical_B4_Text }}</textarea></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-1_1" rowspan='5'>약지급</td>
+                        <td class="col-1_2">치료제</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_C1_YN %}checked{% endif %} name='inmedical_C1_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_C1_C }}" name="inmedical_C1_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_C1_Text">{{ prog.inmedical_C1_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">영양제</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_C2_YN %}checked{% endif %} name='inmedical_C2_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_C2_C }}" name="inmedical_C2_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_C2_Text">{{ prog.inmedical_C2_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">임신테스트기</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_C3_YN %}checked{% endif %} name='inmedical_C3_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label>
+                        &nbsp;&nbsp;<input type="text" placeholder="수량" name="inmedical_C3_F" {% if prog.inmedical_C3_F %}value="{{ prog.inmedical_C3_F }}"{% endif %} style="width:40px;" />&nbsp;개
+                        </td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_C3_C }}" name="inmedical_C3_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_C3_Text">{{ prog.inmedical_C3_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2"><input type='text' class="text3" placeholder="기타 입력" value="{{ prog.inmedical_C4_Name}}" name="inmedical_C4_Name"></td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_C4_YN %}checked{% endif %} name='inmedical_C4_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_C4_C }}" name="inmedical_C4_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_C4_Text">{{ prog.inmedical_C4_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2"><input type='text' class="text3" placeholder="기타 입력" value="{{ prog.inmedical_C5_Name}}" name="inmedical_C5_Name"></td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_C5_YN %}checked{% endif %} name='inmedical_C5_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_C5_C }}" name="inmedical_C5_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_C5_Text">{{ prog.inmedical_C5_Text }}</textarea></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-1_1" rowspan='6'>예방접종</td>
+                        <td class="col-1_2">간염</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_D1_YN %}checked{% endif %} name='inmedical_D1_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label>
+                        &nbsp;
+                        <select name="inmedical_D1_Num" style="width:60px;">
+                            <option name="inmedical_D1_Num" value="">-선택-</option>
+                            <option name="inmedical_D1_Num" value="1차"{% if prog.inmedical_D1_Num == '1차' %}selected{% endif %}>1차</option>
+                            <option name="inmedical_D1_Num" value="2차"{% if prog.inmedical_D1_Num == '2차' %}selected{% endif %}>2차</option>
+                            <option name="inmedical_D1_Num" value="3차"{% if prog.inmedical_D1_Num == '3차' %}selected{% endif %}>3차</option>
+                        </select>
+                        </td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_D1_C }}" name="inmedical_D1_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_D1_Text">{{ prog.inmedical_D1_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">자궁경부암</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_D2_YN %}checked{% endif %} name='inmedical_D2_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label>
+                        &nbsp;
+                        <select name="inmedical_D2_Num" style="width:60px;">
+                            <option name="inmedical_D2_Num" value="">-선택-</option>
+                            <option name="inmedical_D2_Num" value="1차"{% if prog.inmedical_D2_Num == '1차' %}selected{% endif %}>1차</option>
+                            <option name="inmedical_D2_Num" value="2차"{% if prog.inmedical_D2_Num == '2차' %}selected{% endif %}>2차</option>
+                            <option name="inmedical_D2_Num" value="3차"{% if prog.inmedical_D2_Num == '3차' %}selected{% endif %}>3차</option>
+                        </select>
+                        </td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_D2_C }}" name="inmedical_D2_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_D2_Text">{{ prog.inmedical_D2_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">독감</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_D3_YN %}checked{% endif %} name='inmedical_D3_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_D3_C }}" name="inmedical_D3_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_D3_Text">{{ prog.inmedical_D3_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2"><input type='text' class="text3" placeholder="기타 입력" value="{{ prog.inmedical_D4_Name}}" name="inmedical_D4_Name"></td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_D4_YN %}checked{% endif %} name='inmedical_D4_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_D4_C }}" name="inmedical_D4_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_D4_Text">{{ prog.inmedical_D4_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2"><input type='text' class="text3" placeholder="기타 입력" value="{{ prog.inmedical_D5_Name}}" name="inmedical_D5_Name"></td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_D5_YN %}checked{% endif %} name='inmedical_D5_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_D5_C }}" name="inmedical_D5_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_D5_Text">{{ prog.inmedical_D5_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2"><input type='text' class="text3" placeholder="기타 입력" value="{{ prog.inmedical_D6_Name}}" name="inmedical_D6_Name"></td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_D6_YN %}checked{% endif %} name='inmedical_D6_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_D6_C }}" name="inmedical_D6_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_D6_Text">{{ prog.inmedical_D6_Text }}</textarea></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-1_1" rowspan='3'>외부병원</td>
+                        <td class="col-1_2">치과</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_E1_YN %}checked{% endif %} name='inmedical_E1_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_E1_C }}" name="inmedical_E1_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_E1_Text">{{ prog.inmedical_E1_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">여성의학과</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_E2_YN %}checked{% endif %} name='inmedical_E2_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_E2_C }}" name="inmedical_E2_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_E2_Text">{{ prog.inmedical_E2_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2"><input type='text' class="text3" placeholder="기타 입력" value="{{ prog.inmedical_E3_Name}}" name="inmedical_E3_Name"></td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_E3_YN %}checked{% endif %} name='inmedical_E3_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_E3_C }}" name="inmedical_E3_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_E3_Text">{{ prog.inmedical_E3_Text }}</textarea></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-1_1" rowspan='4'>예방의학</td>
+                        <td class="col-1_2">잇솔질교육</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_F1_YN %}checked{% endif %} name='inmedical_F1_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_F1_C }}" name="inmedical_F1_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_F1_Text">{{ prog.inmedical_F1_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">안경지원</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_F2_YN %}checked{% endif %} name='inmedical_F2_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_F2_C }}" name="inmedical_F2_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_F2_Text">{{ prog.inmedical_F2_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">몸펴기운동</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_F3_YN %}checked{% endif %} name='inmedical_F3_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_F3_C }}" name="inmedical_F3_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_F3_Text">{{ prog.inmedical_F3_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2"><input type='text' class="text3" placeholder="기타 입력" value="{{ prog.inmedical_F4_Name}}" name="inmedical_F4_Name"></td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_F4_YN %}checked{% endif %} name='inmedical_F4_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_F4_C }}" name="inmedical_F4_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_F4_Text">{{ prog.inmedical_F4_Text }}</textarea></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-1_1" rowspan='3'>의료상담</td>
+                        <td class="col-1_2">대면</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_G1_YN %}checked{% endif %} name='inmedical_G1_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_G1_C }}" name="inmedical_G1_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_G1_Text">{{ prog.inmedical_G1_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">전화</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_G2_YN %}checked{% endif %} name='inmedical_G2_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_G2_C }}" name="inmedical_G2_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_G2_Text">{{ prog.inmedical_G2_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">SNS</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmedical_G3_YN %}checked{% endif %} name='inmedical_G3_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmedical_G3_C }}" name="inmedical_G3_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmedical_G3_Text">{{ prog.inmedical_G3_Text }}</textarea></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div id="Tab2" class="tab-content tab" style="display:none">
+            <div>
+                
+                <table>
+                    <tr>
+                        <td class="col-1" style="background-color:#E8EEEE;" colspan="2">분류</td>
+                        <td class="col-2" style="background-color:#E8EEEE;">구분</td>
+                        <td class="col-3" style="background-color:#E8EEEE;">비용</td>
+                        <td class="col-4" style="background-color:#E8EEEE;">내용</td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_1" rowspan='2'>정신보건상담</td>
+                        <td class="col-1_2">대면</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmental_A1_YN %}checked{% endif %} name='inmental_A1_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmental_A1_C }}" name="inmental_A1_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmental_A1_Text">{{ prog.inmental_A1_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">전화</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmental_A2_YN %}checked{% endif %} name='inmental_A2_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmental_A2_C }}" name="inmental_A2_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmental_A2_Text">{{ prog.inmental_A2_Text }}</textarea></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-1_1" rowspan='2'>심리검사</td>
+                        <td class="col-1_2">종합심리검사</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmental_B1_YN %}checked{% endif %} name='inmental_B1_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmental_B1_C }}" name="inmental_B1_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmental_B1_Text">{{ prog.inmental_B1_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2"><input type='text' class="text3" placeholder="기타 입력" value="{{ prog.inmental_B2_Name }}" name="inmental_B2_Name"></td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmental_B2_YN %}checked{% endif %} name='inmental_B2_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmental_B2_C }}" name="inmental_B2_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmental_B2_Text">{{ prog.inmental_B2_Text }}</textarea></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-1_1" rowspan='3'>심리정서지원<br>프로그램</td>
+                        <td class="col-1_2">원예치료</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmental_C1_YN %}checked{% endif %} name='inmental_C1_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmental_C1_C }}" name="inmental_C1_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmental_C1_Text">{{ prog.inmental_C1_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">몸치유</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmental_C2_YN %}checked{% endif %} name='inmental_C2_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmental_C2_C }}" name="inmental_C2_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmental_C2_Text">{{ prog.inmental_C2_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2"><input type='text' class="text3" placeholder="기타 입력" value="{{ prog.inmental_C3_name }}"name="inmental_C3_name"></td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.inmental_C3_YN %}checked{% endif %} name='inmental_C3_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.inmental_C3_C }}" name="inmental_C3_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="inmental_C3_Text">{{ prog.inmental_C3_Text }}</textarea></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div id="Tab3" class="tab-content tab" style="display:none">
+            <div>
+                <table>
+                    <tr>
+                        <td class="col-1" style="background-color:#E8EEEE;" colspan="2">분류</td>
+                        <td class="col-2" style="background-color:#E8EEEE;">구분</td>
+                        <td class="col-3" style="background-color:#E8EEEE;">비용</td>
+                        <td class="col-4" style="background-color:#E8EEEE;">내용</td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_1" rowspan='4'>상담</td>
+                        <td class="col-1_2" rowspan='1'>대면</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.incase_A1_YN_1 %}checked{% endif %} name='incase_A1_YN_1' style="width:15px; height:15px;"><span style="font-size:15px;">&nbsp;상담</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.incase_A1_C_1 }}" name="incase_A1_C_1"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="incase_A1_Text_1">{{ prog.incase_A1_Text_1 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2" rowspan='1'>심층</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.incase_A2_YN_1 %}checked{% endif %} name='incase_A2_YN_1' style="width:15px; height:15px;"><span style="font-size:15px;">&nbsp;상담</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.incase_A2_C_1 }}" name="incase_A2_C_1"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="incase_A2_Text_1">{{ prog.incase_A2_Text_1 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2" rowspan='1'>전화</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.incase_A3_YN_1 %}checked{% endif %} name='incase_A3_YN_1' style="width:15px; height:15px;"><span style="font-size:15px;">&nbsp;상담</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.incase_A3_C_1 }}" name="incase_A3_C_1"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="incase_A3_Text_1">{{ prog.incase_A3_Text_1 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2" rowspan='1'>SNS</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.incase_A4_YN_1 %}checked{% endif %} name='incase_A4_YN_1' style="width:15px; height:15px;"><span style="font-size:15px;">&nbsp;상담</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.incase_A4_C_1 }}" name="incase_A4_C_1"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="incase_A4_Text_1">{{ prog.incase_A4_Text_1 }}</textarea></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-1_1" rowspan='3'>1:1 교육</td>
+                        <td class="col-1_2">성건강</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.incase_B1_YN %}checked{% endif %} name='incase_B1_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.incase_B1_C }}" name="incase_B1_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="incase_B1_Text">{{ prog.incase_B1_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">관계</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.incase_B2_YN %}checked{% endif %} name='incase_B2_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.incase_B2_C }}" name="incase_B2_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="incase_B2_Text">{{ prog.incase_B2_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2"><input type='text' class="text3" placeholder="기타 입력" value="{{ prog.incase_B3_Name }}" name="incase_B3_Name"></td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.incase_B3_YN %}checked{% endif %} name='incase_B3_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.incase_B3_C }}" name="incase_B3_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="incase_B3_Text">{{ prog.incase_B3_Text }}</textarea></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-1_1" rowspan='5'>기초생활지원</td>
+                        <td class="col-1_2">먹거리</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.incase_C1_YN %}checked{% endif %} name='incase_C1_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.incase_C1_C }}" name="incase_C1_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="incase_C1_Text">{{ prog.incase_C1_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">물품</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.incase_C2_YN %}checked{% endif %} name='incase_C2_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.incase_C2_C }}" name="incase_C2_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="incase_C2_Text">{{ prog.incase_C2_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">교통비</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.incase_C3_YN %}checked{% endif %} name='incase_C3_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.incase_C3_C }}" name="incase_C3_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="incase_C3_Text">{{ prog.incase_C3_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">자원연계</td>
+                        <td class="col-2"><label><input type="checkbox" {% if prog.incase_C4_YN %}checked{% endif %} name='incase_C4_YN' style="width:15px; height:15px;"><span style="font-size:16px;">&nbsp;Y</span></label></td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.incase_C4_C }}" name="incase_C4_C"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="incase_C4_Text">{{ prog.incase_C4_Text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="col-1_2">총비용</td>
+                        <td class="col-2" style="text-align:center;">-</td>
+                        <td class="col-3"><input type='text' class="text1" value="{{ prog.incase_C5_TC }}" name="incase_C5_TC"></td>
+                        <td class="col-4"><textarea class="text2" placeholder="내용입력" name="incase_C5_Text">{{ prog.incase_C5_Text }}</textarea></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    
+    <div>
+        <table>
+             <tr>
+        <td style='width:15%; font-weight:bold; color:#5283ac; text-align:center;'>Comment</td>
+        <td><textarea cols='200' rows='10' name='getplan_comment'>{{ prog.getplan_comment }}</textarea></td>
+        </tr>
+        <tr>
+        <td style='font-weight:bold; color:#5283ac; text-align:center;'>오늘의 한줄</td>
+        <td><textarea cols='200' rows='5' name='getplan_sentence'>{{ prog.getplan_sentence }}</textarea></td>
+        </tr>
+        <tr>
+            <td style='font-weight:bold; color:#5283ac'></td>
+            <td><input type='submit' value='Submit'></td>
+        </tr>
+        </table>
+    </div>
+
 </form>
+
+
+<!-- 탭 기능 -->
+<script>
+  function opentab(evt, tabName) {
+    var i, x, tabBtns;
+    x = document.getElementsByClassName("tab");
+    for (i = 0; i < x.length; i++) {x[i].style.display = "none";}
+    tabBtns = document.getElementsByClassName("tab-btn");
+    for (i = 0; i < x.length; i++) {tabBtns[i].className = tabBtns[i].className.replace(" tab-Active", "");}
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " tab-Active";
+  }
+</script>
+
+
+
+</body>
 {% endblock content %}
 
 

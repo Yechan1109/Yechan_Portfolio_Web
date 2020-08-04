@@ -55,7 +55,7 @@ div.dataTables_wrapper {
             {% for user in update_list %}
             <tr>
                 <td>{{user.id}}</td>
-                <td><a href="/update/{{ user.id }}">{{user.getplan_name}}</td>
+                <td><a href="/update/{{ user.id }}/update">{{user.getplan_name}}</td>
                 <td>{{user.getplan_date}}</td>
                 <td>{{user.inmedical_A1_YN_1}}</td>
                 <td>{{user.inmedical_A2_YN_1}}</td>

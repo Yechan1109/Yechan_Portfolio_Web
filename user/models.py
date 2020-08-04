@@ -10,8 +10,9 @@ class CustomBooleanField(models.BooleanField):
     
     def from_db_value(self, value, expression, connection, context):
         if value is None:
-            return value
-        return int(value)
+            return False
+        elif value:
+            return int(value)
 
 
 class Intake(models.Model):
@@ -360,6 +361,14 @@ class Planning(models.Model):
         return self.medical_A1_TF + self.medical_A2_TF + self.medical_A3_TF + self.medical_A4_TF
 
     def B_sum(self):
+        if type(self.medical_B1_YN) != int:
+            self.medical_B1_YN = 0
+        if type(self.medical_B2_YN) != int:
+            self.medical_B2_YN = 0
+        if type(self.medical_B3_YN) != int:
+            self.medical_B3_YN = 0
+        if type(self.medical_B4_YN) != int:
+            self.medical_B4_YN = 0
         return self.medical_B1_YN + self.medical_B2_YN + self.medical_B3_YN + self.medical_B4_YN
     
     def C_sum(self):
@@ -518,3 +527,16 @@ class Program(models.Model):
         db_table = 'program'
         verbose_name = '실적등록'
         verbose_name_plural = '실적등록'
+
+
+class UploadFileModel(models.Model):
+    Upload_file_1 = models.FileField(null=True, verbose_name='첨부파일 1')
+    Upload_file_2 = models.FileField(null=True, verbose_name='첨부파일 2')
+    Upload_file_3 = models.FileField(null=True, verbose_name='첨부파일 3')
+    Upload_file_4 = models.FileField(null=True, verbose_name='첨부파일 4')
+    Upload_file_5 = models.FileField(null=True, verbose_name='첨부파일 5')
+
+    class Meta:
+        db_table = 'upload'
+        verbose_name = '업로드'
+        verbose_name_plural = '업로드'

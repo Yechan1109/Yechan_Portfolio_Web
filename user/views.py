@@ -10,9 +10,9 @@ from django.contrib import messages
 from django.contrib.auth.views import LoginView
 
 from .models import Intake, Program, Planning
-from user.forms import IntakeForm, PlanningForm, ProgramForm
+from user.forms import IntakeForm, PlanningForm, ProgramForm, UploadFileForm
 
-
+from django.http import HttpResponseRedirect
 
 class UserLoginIndexView(LoginView):
     authentication_form = LoginForm
@@ -82,8 +82,9 @@ class PlanningListDetail(LoginRequiredMixin, FormMixin, DetailView):
 #     template_name = 're_setplan.html'
 #     form_class = PlanningForm
 #     success_url = '/main/'
-
-
+# if action == 'create':
+#                 prog = Progress.objects.create(**post_data)
+#                 messages.success(self.request, '입력 내용이 저장되었습니다.')
 
 class ProgramView(LoginRequiredMixin, FormView):
     login_url = "/login"
@@ -100,3 +101,15 @@ class ProgramView(LoginRequiredMixin, FormView):
 
     def get_success_url(self):
         return reverse('perfor', kwargs={'pk': self.object.id})
+
+def upload_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        messages.success(request, '입력 내용이 저장되었습니다.')
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/upload')
+    else:
+        form = UploadFileForm()
+    return render(request, 'upload.html', {'form': form})

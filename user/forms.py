@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Intake, Planning, Program
+from .models import Intake, Planning, Program, UploadFileModel
 from info.models import Client
 
 
@@ -867,3 +867,17 @@ class ProgramForm(forms.Form):
         )
 
         program.save()
+
+
+class UploadFileForm(forms.ModelForm):
+    class Meta:
+        model = UploadFileModel
+        fields = ('Upload_file_1','Upload_file_2','Upload_file_3','Upload_file_4','Upload_file_5')
+
+    def __init__(self, *args, **kwargs):
+        super(UploadFileForm, self).__init__(*args, **kwargs)
+        self.fields['Upload_file_1'].required = False
+        self.fields['Upload_file_2'].required = False
+        self.fields['Upload_file_3'].required = False
+        self.fields['Upload_file_4'].required = False
+        self.fields['Upload_file_5'].required = False

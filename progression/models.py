@@ -26,8 +26,9 @@ class CustomBooleanField(models.BooleanField):
     
     def from_db_value(self, value, expression, connection, context):
         if value is None:
-            return value
-        return int(value)
+            return False
+        elif value:
+            return int(value)
 
 
 class Progress(models.Model):
@@ -211,18 +212,18 @@ class Progress(models.Model):
     incase_A4_C_1 = models.IntegerField(null=True, blank=True, default=0, verbose_name='비용')
     incase_A4_Text_1 = models.CharField(blank=True, default='', max_length=200, verbose_name='내용')
     # 수강명령
-    incase_A1_YN_2 = CustomBooleanField(default=False, verbose_name='대면(수강명령) 여부')
-    incase_A1_C_2 = models.IntegerField(null=True, blank=True, default=0, verbose_name='비용')
-    incase_A1_Text_2 = models.CharField(blank=True, default='', max_length=200, verbose_name='내용')
-    incase_A2_YN_2 = CustomBooleanField(default=False, verbose_name='심층(수강명령) 여부')
-    incase_A2_C_2 = models.IntegerField(null=True, blank=True, default=0, verbose_name='비용')
-    incase_A2_Text_2 = models.CharField(blank=True, default='', max_length=200, verbose_name='내용')
-    incase_A3_YN_2 = CustomBooleanField(default=False, verbose_name='전화(수강명령) 여부')
-    incase_A3_C_2 = models.IntegerField(null=True, blank=True, default=0, verbose_name='비용')
-    incase_A3_Text_2 = models.CharField(blank=True, default='', max_length=200, verbose_name='내용')
-    incase_A4_YN_2 = CustomBooleanField(default=False, verbose_name='SNS(수강명령) 여부')
-    incase_A4_C_2 = models.IntegerField(null=True, blank=True, default=0, verbose_name='비용')
-    incase_A4_Text_2 = models.CharField(blank=True, default='', max_length=200, verbose_name='내용')
+    # incase_A1_YN_2 = CustomBooleanField(default=False, verbose_name='대면(수강명령) 여부')
+    # incase_A1_C_2 = models.IntegerField(null=True, blank=True, default=0, verbose_name='비용')
+    # incase_A1_Text_2 = models.CharField(blank=True, default='', max_length=200, verbose_name='내용')
+    # incase_A2_YN_2 = CustomBooleanField(default=False, verbose_name='심층(수강명령) 여부')
+    # incase_A2_C_2 = models.IntegerField(null=True, blank=True, default=0, verbose_name='비용')
+    # incase_A2_Text_2 = models.CharField(blank=True, default='', max_length=200, verbose_name='내용')
+    # incase_A3_YN_2 = CustomBooleanField(default=False, verbose_name='전화(수강명령) 여부')
+    # incase_A3_C_2 = models.IntegerField(null=True, blank=True, default=0, verbose_name='비용')
+    # incase_A3_Text_2 = models.CharField(blank=True, default='', max_length=200, verbose_name='내용')
+    # incase_A4_YN_2 = CustomBooleanField(default=False, verbose_name='SNS(수강명령) 여부')
+    # incase_A4_C_2 = models.IntegerField(null=True, blank=True, default=0, verbose_name='비용')
+    # incase_A4_Text_2 = models.CharField(blank=True, default='', max_length=200, verbose_name='내용')
     #
     incase_B1_YN = CustomBooleanField(default=False, verbose_name='성건강 여부')
     incase_B1_C = models.IntegerField(null=True, blank=True, default=0, verbose_name='비용')
@@ -291,12 +292,141 @@ class Progress(models.Model):
     incase_B_cost = models.IntegerField(null=True, blank=True, verbose_name='1:1교육 cost')
     incase_C_cost = models.IntegerField(null=True, blank=True, verbose_name='기초생활지원 cost')
 
+    
+
     def save(self, *args, **kwargs):
+        # if type(self.inmedical_A1_YN_1) is None:inmedical_A1_YN_1 = 0
+        # if type(self.inmedical_A1_YN_2) is None:inmedical_A1_YN_2 = 0
+        # if type(self.inmedical_A2_YN_1) is None:inmedical_A2_YN_1 = 0
+        # if type(self.inmedical_A2_YN_2) is None:inmedical_A2_YN_2 = 0
+        # if type(self.inmedical_A3_YN_1) is None:inmedical_A3_YN_1 = 0
+        # if type(self.inmedical_A3_YN_2) is None:inmedical_A3_YN_2 = 0
+        # if type(self.inmedical_A4_YN_1) is None:inmedical_A4_YN_1 = 0
+        # if type(self.inmedical_A4_YN_2) is None:inmedical_A4_YN_2 = 0
+        # if type(self.inmedical_B1_YN) is None:inmedical_B1_YN = 0
+        # if type(self.inmedical_B2_YN) is None:inmedical_B2_YN = 0
+        # if type(self.inmedical_B3_YN) is None:inmedical_B3_YN = 0
+        # if type(self.inmedical_B4_YN) is None:inmedical_B4_YN = 0
+        # if type(self.inmedical_C1_YN) is None:inmedical_C1_YN = 0
+        # if type(self.inmedical_C2_YN) is None:inmedical_C2_YN = 0
+        # if type(self.inmedical_C3_YN) is None:inmedical_C3_YN = 0
+        # if type(self.inmedical_C4_YN) is None:inmedical_C4_YN = 0
+        # if type(self.inmedical_C5_YN) is None:inmedical_C5_YN = 0
+        # if type(self.inmedical_D1_YN) is None:inmedical_D1_YN = 0
+        # if type(self.inmedical_D2_YN) is None:inmedical_D2_YN = 0
+        # if type(self.inmedical_D3_YN) is None:inmedical_D3_YN = 0
+        # if type(self.inmedical_D4_YN) is None:inmedical_D4_YN = 0
+        # if type(self.inmedical_D5_YN) is None:inmedical_D5_YN = 0
+        # if type(self.inmedical_D6_YN) is None:inmedical_D6_YN = 0
+        # if type(self.inmedical_E1_YN) is None:inmedical_E1_YN = 0
+        # if type(self.inmedical_E2_YN) is None:inmedical_E2_YN = 0
+        # if type(self.inmedical_E3_YN) is None:inmedical_E3_YN = 0
+        # if type(self.inmedical_F1_YN) is None:inmedical_F1_YN = 0
+        # if type(self.inmedical_F2_YN) is None:inmedical_F2_YN = 0
+        # if type(self.inmedical_F3_YN) is None:inmedical_F3_YN = 0
+        # if type(self.inmedical_F4_YN) is None:inmedical_F4_YN = 0
+        # if type(self.inmedical_G1_YN) is None:inmedical_G1_YN = 0
+        # if type(self.inmedical_G2_YN) is None:inmedical_G2_YN = 0
+        # if type(self.inmedical_G3_YN) is None:inmedical_G3_YN = 0
+        # if type(self.inmental_A1_YN) is None:inmental_A1_YN = 0
+        # if type(self.inmental_A2_YN) is None:inmental_A2_YN = 0
+        # if type(self.inmental_B1_YN) is None:inmental_B1_YN = 0
+        # if type(self.inmental_B2_YN) is None:inmental_B2_YN = 0
+        # if type(self.inmental_C1_YN) is None:inmental_C1_YN = 0
+        # if type(self.inmental_C2_YN) is None:inmental_C2_YN = 0
+        # if type(self.inmental_C3_YN) is None:inmental_C3_YN = 0
+        # if type(self.incase_A1_YN_1) is None:incase_A1_YN_1 = 0
+        # if type(self.incase_A2_YN_1) is None:incase_A2_YN_1 = 0
+        # if type(self.incase_A3_YN_1) is None:incase_A3_YN_1 = 0
+        # if type(self.incase_A4_YN_1) is None:incase_A4_YN_1 = 0
+        # if type(self.incase_B1_YN) is None:incase_B1_YN = 0
+        # if type(self.incase_B2_YN) is None:incase_B2_YN = 0
+        # if type(self.incase_B3_YN) is None:incase_B3_YN = 0
+        # if type(self.incase_C1_YN) is None:incase_C1_YN = 0
+        # if type(self.incase_C2_YN) is None:incase_C2_YN = 0
+        # if type(self.incase_C3_YN) is None:incase_C3_YN = 0
+        # if type(self.incase_C4_YN) is None:incase_C4_YN = 0
+        
+        # if type(self.test) is None:
+        #     self.test = 0
+        # if type(self.test) is None:
+        #     self.test = 0
+        # if type(self.test) is None:
+        #     self.test = 0
+        # if type(self.test) is None:
+        #     self.test = 0
+        # if type(self.test) is None:
+        #     self.test = 0
+        # if type(self.test) is None:
+        #     self.test = 0
+        # if type(self.test) is None:
+        #     self.test = 0
+        # if type(self.test) is None:
+        #     self.test = 0
+        # if type(self.test) is None:
+        #     self.test = 0
+        # if type(self.test) is None:
+        #     self.test = 0
+        # if type(self.test) is None:
+        #     self.test = 0
+        if type(self.inmedical_A1_YN_1) is None:self.inmedical_A1_YN_1 = 0
+        if type(self.inmedical_A1_YN_2) is None:self.inmedical_A1_YN_2 = 0
+        if type(self.inmedical_A2_YN_1) is None:self.inmedical_A2_YN_1 = 0
+        if type(self.inmedical_A2_YN_2) is None:self.inmedical_A2_YN_2 = 0
+        if type(self.inmedical_A3_YN_1) is None:self.inmedical_A3_YN_1 = 0
+        if type(self.inmedical_A3_YN_2) is None:self.inmedical_A3_YN_2 = 0
+        if type(self.inmedical_A4_YN_1) is None:self.inmedical_A4_YN_1 = 0
+        if type(self.inmedical_A4_YN_2) is None:self.inmedical_A4_YN_2 = 0
+        if type(self.inmedical_B1_YN) is None:self.inmedical_B1_YN = 0
+        if type(self.inmedical_B2_YN) is None:self.inmedical_B2_YN = 0
+        if type(self.inmedical_B3_YN) is None:self.inmedical_B3_YN = 0
+        if type(self.inmedical_B4_YN) is None:self.inmedical_B4_YN = 0
+        if type(self.inmedical_C1_YN) is None:self.inmedical_C1_YN = 0
+        if type(self.inmedical_C2_YN) is None:self.inmedical_C2_YN = 0
+        if type(self.inmedical_C3_YN) is None:self.inmedical_C3_YN = 0
+        if type(self.inmedical_C4_YN) is None:self.inmedical_C4_YN = 0
+        if type(self.inmedical_C5_YN) is None:self.inmedical_C5_YN = 0
+        if type(self.inmedical_D1_YN) is None:self.inmedical_D1_YN = 0
+        if type(self.inmedical_D2_YN) is None:self.inmedical_D2_YN = 0
+        if type(self.inmedical_D3_YN) is None:self.inmedical_D3_YN = 0
+        if type(self.inmedical_D4_YN) is None:self.inmedical_D4_YN = 0
+        if type(self.inmedical_D5_YN) is None:self.inmedical_D5_YN = 0
+        if type(self.inmedical_D6_YN) is None:self.inmedical_D6_YN = 0
+        if type(self.inmedical_E1_YN) is None:self.inmedical_E1_YN = 0
+        if type(self.inmedical_E2_YN) is None:self.inmedical_E2_YN = 0
+        if type(self.inmedical_E3_YN) is None:self.inmedical_E3_YN = 0
+        if type(self.inmedical_F1_YN) is None:self.inmedical_F1_YN = 0
+        if type(self.inmedical_F2_YN) is None:self.inmedical_F2_YN = 0
+        if type(self.inmedical_F3_YN) is None:self.inmedical_F3_YN = 0
+        if type(self.inmedical_F4_YN) is None:self.inmedical_F4_YN = 0
+        if type(self.inmedical_G1_YN) is None:self.inmedical_G1_YN = 0
+        if type(self.inmedical_G2_YN) is None:self.inmedical_G2_YN = 0
+        if type(self.inmedical_G3_YN) is None:self.inmedical_G3_YN = 0
+        if type(self.inmental_A1_YN) is None:self.inmental_A1_YN = 0
+        if type(self.inmental_A2_YN) is None:self.inmental_A2_YN = 0
+        if type(self.inmental_B1_YN) is None:self.inmental_B1_YN = 0
+        if type(self.inmental_B2_YN) is None:self.inmental_B2_YN = 0
+        if type(self.inmental_C1_YN) is None:self.inmental_C1_YN = 0
+        if type(self.inmental_C2_YN) is None:self.inmental_C2_YN = 0
+        if type(self.inmental_C3_YN) is None:self.inmental_C3_YN = 0
+        if type(self.incase_A1_YN_1) is None:self.incase_A1_YN_1 = 0
+        if type(self.incase_A2_YN_1) is None:self.incase_A2_YN_1 = 0
+        if type(self.incase_A3_YN_1) is None:self.incase_A3_YN_1 = 0
+        if type(self.incase_A4_YN_1) is None:self.incase_A4_YN_1 = 0
+        if type(self.incase_B1_YN) is None:self.incase_B1_YN = 0
+        if type(self.incase_B2_YN) is None:self.incase_B2_YN = 0
+        if type(self.incase_B3_YN) is None:self.incase_B3_YN = 0
+        if type(self.incase_C1_YN) is None:self.incase_C1_YN = 0
+        if type(self.incase_C2_YN) is None:self.incase_C2_YN = 0
+        if type(self.incase_C3_YN) is None:self.incase_C3_YN = 0
+        if type(self.incase_C4_YN) is None:self.incase_C4_YN = 0
+        
+
         self.inmedical_A_1_sum = self.inmedical_A1_YN_1 + self.inmedical_A1_YN_2
         self.inmedical_A_2_sum = self.inmedical_A2_YN_1 + self.inmedical_A2_YN_2
         self.inmedical_A_3_sum = self.inmedical_A3_YN_1 + self.inmedical_A3_YN_2
         self.inmedical_A_4_sum = self.inmedical_A4_YN_1 + self.inmedical_A4_YN_2
-        self.inmedical_A_sum = self.inmedical_A1_YN_1 + self.inmedical_A2_YN_1 + self.inmedical_A3_YN_1 + self.inmedical_A4_YN_1
+        self.inmedical_A_sum = self.inmedical_A_1_sum + self.inmedical_A_2_sum + self.inmedical_A_3_sum + self.inmedical_A_4_sum
         self.inmedical_B_sum = self.inmedical_B1_YN + self.inmedical_B2_YN + self.inmedical_B3_YN + self.inmedical_B4_YN
         self.inmedical_C_sum = self.inmedical_C1_YN + self.inmedical_C2_YN + self.inmedical_C3_YN + self.inmedical_C4_YN + self.inmedical_C5_YN
         self.inmedical_D_sum = self.inmedical_D1_YN + self.inmedical_D2_YN + self.inmedical_D3_YN + self.inmedical_D4_YN + self.inmedical_D5_YN + self.inmedical_D6_YN
@@ -347,13 +477,6 @@ class CTRS(models.Model):
         (3, '보통이다'),
         (4, '그렇다'),
         (5, '매우 그렇다'))
-    # reverse_choices = (
-    #     (5, 1),
-    #     (4, 2),
-    #     (3, 3),
-    #     (2, 4),
-    #     (1, 5),
-    #     (0, '비해당'))
     label = (
         ('1차','1차'),
         ('2차','2차'),
@@ -367,68 +490,35 @@ class CTRS(models.Model):
     danger_label = models.CharField(blank=True, default="",choices=label, max_length=3,verbose_name='차수')
     counselor = models.ForeignKey('counselor.User', on_delete=models.CASCADE, verbose_name='상담자')
 
-
     survey1_1 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='개인1')
     survey1_2 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='개인2')
     survey1_3 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='개인3')
     survey1_4 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='개인4')
     survey1_5 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='개인5')
-    survey2_1 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='가정1')
-    survey2_2 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='가정2')
-    survey2_3 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='가정3')
-    survey2_4 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='가정4')
-    survey2_5 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='가정5')
+    survey2_1 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='가정&지지체계1')
+    survey2_2 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='가정&지지체계2')
+    survey2_3 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='가정&지지체계3')
+    survey2_4 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='가정&지지체계4')
+    survey2_5 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='가정&지지체계5')
 
-    survey3_1 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='또래 및 학교1')
-    survey3_2 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='또래 및 학교2')
-    survey3_3 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='또래 및 학교3')
-    survey3_4 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='또래 및 학교4')
-    survey3_5 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='또래 및 학교5')
-    survey4_1 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='지지체계1')
-    survey4_2 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='지지체계2')
-    survey4_3 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='지지체계3')
-    survey4_4 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='지지체계4')
-
-    survey5_1 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='성건강_공통1')
-    survey5_2 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='성건강_공통2')
-    survey5_3 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='성건강_공통3')
-    survey5_4 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='성건강_공통4')
-    survey5_5 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='성건강_공통5')
-
-    survey6_1 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='성건강_성관계1')
-    survey6_2 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='성건강_성관계2')
-    survey6_3 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='성건강_성관계3')
-    survey7_1 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='성폭력1')
-    survey7_2 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='성폭력2')
-    survey7_3 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='성폭력3')
-    survey9_1 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='폭력피해1')
-    survey9_2 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='폭력피해2')
-    survey9_3 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='폭력피해3')
-
-    survey10_1 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='폭력가해1')
-    survey10_2 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='폭력가해2')
-    survey10_3 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='폭력가해3')
-    survey11_1 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='정신건강1')
-    survey11_2 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='정신건강2')
-    survey11_3 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='정신건강3')
-    survey11_4 = models.IntegerField(choices=choices,null=True, blank=True, default=0, verbose_name='정신건강4')
+    survey3_1 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='성건강1')
+    survey3_2 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='성건강2')
+    survey3_3 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='성건강3')
+    survey3_4 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='성건강4')
+    survey3_5 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='성건강5')
+    survey4_1 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='정신건강1')
+    survey4_2 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='정신건강2')
+    survey4_3 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='정신건강3')
+    survey4_4 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='정신건강4')
 
     ctrs_comment = models.TextField(blank=True, default="", max_length=2000, verbose_name='Commnet')
     ctrs_sentence = models.TextField(blank=True, default="", max_length=2000, verbose_name='오늘의 한줄')
-
-
 
     # Sum Code
     sum_1 = models.IntegerField(null=True, blank=True, verbose_name='개인 Sum')
     sum_2 = models.IntegerField(null=True, blank=True, verbose_name='가정 Sum')
     sum_3 = models.IntegerField(null=True, blank=True, verbose_name='또래 및 학교 Sum')
     sum_4 = models.IntegerField(null=True, blank=True, verbose_name='지지체계 Sum')
-    sum_5 = models.IntegerField(null=True, blank=True, verbose_name='성건강_공통 Sum')
-    sum_6 = models.IntegerField(null=True, blank=True, verbose_name='성건강_성관계 Sum')
-    sum_7 = models.IntegerField(null=True, blank=True, verbose_name='성폭력 Sum')
-    sum_9 = models.IntegerField(null=True, blank=True, verbose_name='폭력피해 Sum')
-    sum_10 = models.IntegerField(null=True, blank=True, verbose_name='폭력가해 Sum')
-    sum_11 = models.IntegerField(null=True, blank=True, verbose_name='정신건강 Sum')
     total = models.IntegerField(null=True, blank=True, verbose_name='Total')
 
 
@@ -437,20 +527,13 @@ class CTRS(models.Model):
         self.sum_2 = self.survey2_1 + self.survey2_2 + self.survey2_3 + self.survey2_4 + self.survey2_5
         self.sum_3 = self.survey3_1 + self.survey3_2 + self.survey3_3 + self.survey3_4 + self.survey3_5
         self.sum_4 = self.survey4_1 + self.survey4_2 + self.survey4_3 + self.survey4_4
-        self.sum_5 = self.survey5_1 + self.survey5_2 + self.survey5_3 + self.survey5_4 + self.survey5_5
-        self.sum_6 = self.survey6_1 + self.survey6_2 + self.survey6_3
-        self.sum_7 = self.survey7_1 + self.survey7_2 + self.survey7_3
-        self.sum_9 = self.survey9_1 + self.survey9_2 + self.survey9_3
-        self.sum_10 = self.survey10_1 + self.survey10_2 + self.survey10_3
-        self.sum_11 = self.survey11_1 + self.survey11_2 + self.survey11_3 + self.survey11_4
-        self.total = self.sum_1 + self.sum_2 + self.sum_3 + self.sum_4 + self.sum_5 + self.sum_6 + self.sum_7 + self.sum_9 + self.sum_10 + self.sum_11
+        self.total = self.sum_1 + self.sum_2 + self.sum_3 + self.sum_4
         super(CTRS, self).save(*args, **kwargs)
 
-    
-        
 
     def __str__(self):
         return self.danger_name
+
 
     class Meta:
         db_table = 'ctrs'

@@ -1,0 +1,136 @@
+{% extends 're_base.html' %}
+{% block content %}
+
+<script src='https://code.jquery.com/jquery-3.3.1.js'></script>
+<script src='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'></script>
+
+<link rel='stylesheet' href='https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css'>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        "scrollX": true
+    } );
+} );
+</script>
+
+<style>
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #E3EEF4;
+}
+
+.wrapper {
+  margin: auto;
+  max-width: 640px;
+  padding-top: 60px;
+  text-align: center;
+}
+
+.container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  /*border: 0.5px solid rgba(130, 130, 130, 0.25);*/
+  /*box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 
+              0 0 0 1px rgba(0, 0, 0, 0.1);*/
+}
+
+h1 {
+  color: #130f40;
+  font-family: 'Varela Round', sans-serif;
+  letter-spacing: -.5px;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+
+.upload-container {
+  background-color: rgb(239, 239, 239);
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.border-container {
+  border: 5px dashed rgba(198, 198, 198, 0.65);
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.border-container p {
+  color: #130f40;
+  font-weight: 600;
+  font-size: 1.1em;
+  letter-spacing: -1px;
+  margin-top: 30px;
+  margin-bottom: 0;
+  opacity: 0.65;
+}
+
+#file-browser {
+  text-decoration: none;
+  color: rgb(22,42,255);
+  border-bottom: 3px dotted rgba(22, 22, 255, 0.85);
+}
+
+#file-browser:hover {
+  color: rgb(0, 0, 255);
+  border-bottom: 3px dotted rgba(0, 0, 255, 0.85);
+}
+
+.icons {
+  color: #95afc0;
+  opacity: 0.55;
+}
+</style>
+</head>
+
+
+
+
+
+<body>
+
+
+<form method="post" enctype="multipart/form-data" novalidate>
+
+    {% csrf_token %}
+    {% if messages %}
+  {{ message }}
+</div>
+{% endif %}
+    <div class="wrapper">
+        <div class="container">
+            <h1>'나는봄' 파일 업로드</h1>
+            <div class="upload-container">
+            <div class="border-container">
+                <div class="icons fa-4x">
+                <i class="fas fa-file-image" data-fa-transform="shrink-3 down-2 left-6 rotate--45"></i>
+                <i class="fas fa-file-alt" data-fa-transform="shrink-2 up-4"></i>
+                <i class="fas fa-file-pdf" data-fa-transform="shrink-3 down-2 right-6 rotate-45"></i>
+                </div>
+                <!--<input type="file" id="file-upload">-->
+                    {{ form.as_p }}
+                    <br>
+                      <button type="submit">Submit</button>
+                    <br>
+
+                
+            </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% comment %} <a id="id_uploaded_file" href="{ uploadFileModel.file.url }" download>{ UploadFileModel.file.name }</a> {% endcomment %}
+
+
+</body>
+
+{% endblock %}

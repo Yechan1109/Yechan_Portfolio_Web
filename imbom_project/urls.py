@@ -2,9 +2,14 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LogoutView
 
-from user.views import UserLoginIndexView, main, report, IntakeView, ProgramView, PlanningList, PlanningListDetail
-from progression.views import  ProgressList, ProgressListDetail, CTRSList, CTRSListDetail, UpdateListView, UpdateDetailView, ArticleCreateUpdateView
+from user.views import UserLoginIndexView, main, report, IntakeView, ProgramView, PlanningList, PlanningListDetail, upload_file
+from progression.views import  ProgressList, ProgressListDetail, CTRSList, CTRSListDetail, UpdateListView, UpdateView
+from progression.views import ProgressUpdate, ProgressUpdateView
 from counselor.views import UserRegistrationView, UserLoginView
+
+# Media file improt
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,13 +34,15 @@ urlpatterns = [
     path('logout/', LogoutView.as_view()),
     # update
     path('update/', UpdateListView.as_view(), name='update_list'),
-    path('update/<progress_id>/', UpdateDetailView.as_view()),
-    path('update/<progress_id>/update/', ArticleCreateUpdateView.as_view()),
+    # path('update/<progress_id>/', UpdateDetailView.as_view()),
+    path('update/<int:pk>/update/', ProgressUpdate.as_view(), name='update'),
+    # upload
+    path('upload/', upload_file, name='upload')
+
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 
-
-]
 # Custom View Site link from admin Page 
 admin.site.site_url = "/main" 
 # admin.site.index_template = 're_main.html'

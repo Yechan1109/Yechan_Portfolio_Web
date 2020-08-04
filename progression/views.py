@@ -7,10 +7,12 @@ from django.db.models import Avg, Sum, Max, Count
 from django.http import Http404, HttpResponseRedirect
 from django.contrib import messages
 
+from django.views.generic.edit import UpdateView
+
 from user.models import Intake, Planning
 from progression.models import Progress, CTRS
 from .forms import ProgressForm, CTRSForm
-
+from .forms import UpdateForm
 
 class CTRSList(LoginRequiredMixin, ListView):
     login_url = '/login'
@@ -78,8 +80,7 @@ class ProgressListDetail(FormMixin, DetailView):
     # 데이터 로딩
     def get_context_data(self, **kwargs):
         prog = Progress.objects.filter(CT_id=self.kwargs.get('pk')).aggregate(a1_c=Sum('inmedical_A1_C_1'),a2_c=Sum('inmedical_A2_C_1'),
-        a3_c=Sum('inmedical_A3_C_1'),a4_c=Sum('inmedical_A4_C_1'), a1=Sum('inmedical_A1_YN_1'),a2=Sum('inmedical_A2_YN_1'), 
-        a3=Sum('inmedical_A3_YN_1'), a4=Sum('inmedical_A4_YN_1'),
+        a3_c=Sum('inmedical_A3_C_1'),a4_c=Sum('inmedical_A4_C_1'),
         # sum 임시방편임
         med_a_1=Sum('inmedical_A_1_sum'),
         med_a_2=Sum('inmedical_A_2_sum'),
@@ -175,46 +176,28 @@ class ProgressListDetail(FormMixin, DetailView):
 
 
 
-class UpdateListView(TemplateView):
+class UpdateListView(LoginRequiredMixin, ListView):
+    login_url = '/login'
+    model = Progress
     template_name = 'update_list.html'
+    context_object_name = 'update_list'
 
-    def get(self, request, *args, **kwargs):
-        print(request.GET)
-        queryset = Progress.objects.all()
-        ctx = {
-            'update_list': queryset
-        }
-        return self.render_to_response(ctx)
+    # template_name = 'update_list.html'
 
-
-class UpdateDetailView(TemplateView):
-    template_name = 'update_detail.html'
-    queryset = Progress.objects.all()
-    pk_url_kwargs = 'progress_id'
-
-    def get_object(self, queryset=None):
-        queryset = queryset or self.queryset
-        pk = self.kwargs.get(self.pk_url_kwargs)
-        article = queryset.filter(pk=pk).first()
-
-        if not article:
-            raise Http404('invalid pk')
-        return article
-
-    def get(self, request, *args, **kwargs):
-        prog = self.get_object()
-
-        ctx = {
-            'getplan': prog
-        }
-        return self.render_to_response(ctx)
+    # def get(self, request, *args, **kwargs):
+    #     print(request.GET)
+    #     queryset = Progress.objects.all()
+    #     ctx = {
+    #         'update_list': queryset
+    #     }
+    #     return self.render_to_response(ctx)
 
 
-class ArticleCreateUpdateView(LoginRequiredMixin, TemplateView):
+class UpdateView(LoginRequiredMixin, TemplateView):
     # login_url = settings.LOGIN_URL
     template_name = 'progress_update.html'
     queryset = Progress.objects.all()
-    pk_url_kwargs = 'progress_id'
+    pk_url_kwargs = 'pk'
 
     def get_object(self, queryset=None):
         queryset = queryset or self.queryset
@@ -264,3 +247,113 @@ class ArticleCreateUpdateView(LoginRequiredMixin, TemplateView):
             'prog': self.get_object() if action == 'update' else None
         }
         return self.render_to_response(ctx)
+
+
+class ProgressUpdate(FormMixin, DetailView,TemplateView):
+
+    template_name = 'progress_update.html'
+    model = Progress
+    form_class = UpdateForm
+
+    queryset = Progress.objects.all()
+    pk_url_kwargs = 'pk'
+
+    # context_object_name = 'user'
+    # queryset = Intake.objects.all()
+
+    # DetailView와 FormView를 동시에 사용하기 위한 코드 추가
+    def get_success_url(self):
+        return reverse('update', kwargs={'pk': self.object.id})
+
+    def get_object(self, queryset=None):
+        queryset = queryset or self.queryset
+        pk = self.kwargs.get(self.pk_url_kwargs)
+        prog = queryset.filter(pk=pk).first()
+
+        if pk:
+          if not prog:
+            raise Http404('invalid pk')
+        #   elif prog.author != self.request.user:                             # 작성자가 수정하려는 사용자와 다른 경우
+        #     raise Http404('invalid user')
+        return prog
+
+    def get(self, request, *args, **kwargs):
+        prog = self.get_object()
+
+        ctx = {
+            'prog': prog,
+        }
+        return self.render_to_response(ctx)
+
+    def post(self, request, *args, **kwargs):
+        action = request.POST.get('action')
+        post_data = {key: request.POST.get(key) for key in ()} # 작성자를 입력받지 않도록 수정
+
+        # self.object = self.get_object()
+        # form = self.get_form()
+        # if form.is_valid():
+        #     return self.form_valid(form)
+        # else:
+        #     return self.form_invalid(form)
+
+        for key in post_data:
+            if not post_data[key]:
+                messages.error(self.request, '{} 값이 존재하지 않습니다.'.format(key), extra_tags='danger')
+
+        # post_data['author'] = self.request.user                                  # 작성자를 현재 사용자로 설정
+
+        if len(messages.get_messages(request)) == 0:
+            if action == 'create':
+                prog = Progress.objects.create(**post_data)
+                messages.success(self.request, '입력 내용이 저장되었습니다.')
+            elif action == 'update':
+                prog = self.get_object()
+                for key, value in post_data.items():
+                    setattr(prog, key, value)
+                prog.save()
+                messages.success(self.request, '입력 내용이 변경되었습니다.')
+            else:
+                messages.error(self.request, '알 수 없는 요청입니다.', extra_tags='danger')
+
+            return HttpResponseRedirect('/update/')
+
+        ctx = {
+            'prog': self.get_object() if action == 'update' else None
+        }
+        return self.render_to_response(ctx)
+
+
+    def form_valid(self, form):
+        form.save()
+        return super(ProgressUpdate, self).form_valid(form)
+
+
+# class UpdateDetailView(TemplateView):
+#     template_name = 'update_detail.html'
+#     queryset = Progress.objects.all()
+#     pk_url_kwargs = 'progress_id'
+
+#     def get_object(self, queryset=None):
+#         queryset = queryset or self.queryset
+#         pk = self.kwargs.get(self.pk_url_kwargs)
+#         article = queryset.filter(pk=pk).first()
+
+#         if not article:
+#             raise Http404('invalid pk')
+#         return article
+
+#     def get(self, request, *args, **kwargs):
+#         prog = self.get_object()
+
+#         ctx = {
+#             'getplan': prog
+#         }
+#         return self.render_to_response(ctx)
+
+
+class ProgressUpdateView(UpdateView):
+    model = Progress
+    fields = '__all__'
+    form_class = ProgressForm
+    template_name = 'progress_update.html'
+    # template_name_suffix = '_update_form'

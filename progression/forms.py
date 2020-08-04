@@ -16,7 +16,10 @@ class ProgressForm(forms.ModelForm):
         # fields = ['getplan_name', 'getplan_date','inmedical_A1_C','inmedical_A1_select','inmedical_A1_select2','inmedical_A1_Text']
 
 
-
+class UpdateForm(forms.ModelForm):
+    class Meta:
+        model = Progress
+        fields = '__all__'
 
 
 

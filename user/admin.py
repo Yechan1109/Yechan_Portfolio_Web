@@ -31,4 +31,3 @@ class ProgramAdmin(admin.ModelAdmin):
     list_display_links = ('perfor_program',)
     search_fields = ('setplan_name',)
     list_per_page = 30
-

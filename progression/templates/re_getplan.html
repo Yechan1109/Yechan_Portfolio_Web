@@ -503,7 +503,7 @@ input[type=date] {
                     <tr>
                         <td class="col-1" rowspan='10'>의료지원</td>
                         <td class="col-2">치과</td>
-                        <td class="col-3">{{ progress.a1 }}회&nbsp;/&nbsp;{{ planning.medical_A1_TF }}회</td>
+                        <td class="col-3">{{ progress.med_a_1 }}회&nbsp;/&nbsp;{{ planning.medical_A1_TF }}회</td>
                         <td class="col-4" style="text-align:left;" colspan='3'>
                         {% for text in progress_text %}
                         {% if text.inmedical_A1_Text_1 %}
@@ -517,7 +517,7 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">여성의학과</td>
-                        <td class="col-3">{{ progress.a2 }}회&nbsp;/&nbsp;{{ planning.medical_A2_TF }}회</td>
+                        <td class="col-3">{{ progress.med_a_2 }}회&nbsp;/&nbsp;{{ planning.medical_A2_TF }}회</td>
                         <td class="col-4" style="text-align:left;" colspan='3'>
                         {% for text in progress_text %}
                         {% if text.inmedical_A2_Text_1 %}
@@ -530,7 +530,7 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">한방의학과</td>
-                        <td class="col-3">{{ progress.a3 }}회&nbsp;/&nbsp;{{ planning.medical_A3_TF }}회</td>
+                        <td class="col-3">{{ progress.med_a_3 }}회&nbsp;/&nbsp;{{ planning.medical_A3_TF }}회</td>
                         <td class="col-4" style="text-align:left;" colspan='3'>
                         {% for text in progress_text %}
                         {% if text.inmedical_A3_Text_1 %}
@@ -543,7 +543,7 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">가정의학과</td>
-                        <td class="col-3">{{ progress.a4 }}회&nbsp;/&nbsp;{{ planning.medical_A4_TF }}회</td>
+                        <td class="col-3">{{ progress.med_a_4 }}회&nbsp;/&nbsp;{{ planning.medical_A4_TF }}회</td>
                         <td class="col-4" style="text-align:left;" colspan='3'>
                         {% for text in progress_text %}
                         {% if text.inmedical_A4_Text_1 %}
@@ -779,15 +779,14 @@ input[type=date] {
                     </tr>
                     <tr>
                        <td class="col-2" colspan='6'>
-                       Error 해결중
-                       {% comment %} {% for text in progress_text %}
+                       {% for text in progress_text %}
                             {% if text.getplan_comment %}
-                            <{{text.getplan_date}} | Comment> {{text.getplan_comment}}</td><br>
+                            <{{text.getplan_date}} | Comment> {{text.getplan_comment}}<br>
                             {% endif %}
                             {% if text.getplan_sentence %}
-                            <{{text.getplan_date}} | 오늘의한줄> {{text.getplan_sentence}}</td><br>
+                            <{{text.getplan_date}} | 오늘의한줄> {{text.getplan_sentence}}<br>
                             {% endif %}
-                       {% endfor %} {% endcomment %}
+                       {% endfor %}
                        </td>
                     </tr>
 
