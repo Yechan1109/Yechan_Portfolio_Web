@@ -793,34 +793,27 @@ class PlanningForm(forms.ModelForm):
 
 class ProgramForm(forms.Form):
     program_name = (
-        ('의료지원사업', (
-            ('의료 아웃리치', '의료 아웃리치'),
-            ('소녀돌봄약국지원', '소녀돌봄약국지원')
-        )),
         ('교육지원사업', (
-            ('성교육장이용', '성교육장이용'),
-            ('찾아가는 성매매예방교육연극', '찾아가는 성매매예방교육연극'),
-            ('종사자교육', '종사자교육'),
+            ('성매매예방교육연극(중학교)', 'Q1'),
+            ('기관 실무자교육', 'Q2'),
+            ('성교육장이용','Q3')
         )),
-        ('성건강지원사업', (
-            ('성건강수첩', '성건강수첩'),
-            ('찾아가는 초등성건강교육', '찾아가는 초등성건강교육'),
-            ('소그룹 성건강교육', '소그룹 성건강교육'),
-            ('생리대 배분', '생리대 배분'),
-            ('생리대 후원 확보', '생리대 후원 확보'),
+        ('사춘기클리닉', (
+            ('사람유두종바이러스 예방접종 특화', 'Q4'),
+            ('찾아가는 성건강교육', 'Q5'),
+            ('성건강교육(1:1 / 소그룹)', 'Q6'),
+            ('생리대/기타여성용품/성건강수첩 배분','Q7')
         )),
         ('네트워크', (
-            ('거리, 방문홍보', '온라인 홍보'),
-            ('우편홍보', '우편홍보'),
-            ('내외부 직원교육', '내외부 직원교육'),
-            ('네트워크 및 사업협력','네트워크 및 사업협력'),
-            ('대학생 타기관 교육, 네트워킹','대학생 타기관 교육, 네트워킹'),
-            ('연합사례회의, 지원협력','연합사례회의, 지원협력'),
-            ('후원처 자원발굴, 관리','후원처 자원발굴, 관리'),
-            ('이용자 만족도조사, 질적인터뷰 등','이용자 만족도조사, 질적인터뷰 등'),
-            ('자원봉사활동','자원봉사활동'),
+            ('홍보(전화/문자/홈피/SNS 등)', 'Q8'),
+            ('네트워크 및 사업협력/후원발굴.관리', 'Q9'),
+            ('직원교육/만족도조사/자원봉사 등', 'Q10')
         )),
-    )
+        ('익명상담', (
+            ('임신', 'Q11'),
+            ('성건강', 'Q12'),
+            ('기타', 'Q13')
+        )))
     perfor_program = forms.ChoiceField(
         error_messages={
             'required':'프로그램명을 입력해주세요.'
@@ -831,23 +824,22 @@ class ProgramForm(forms.Form):
             'required':'날짜를 입력해주세요.'
         },
         widget=forms.DateInput(attrs={'type':'date'}), label='진행 날짜', required=True)
-    # perfor_date = forms.DateField(
-    #     error_messages={
-    #         'required':'날짜를 입력해주세요.'
-    #     },
-    #     label='진행 날짜', required=True)
     perfor_people = forms.IntegerField(
         error_messages={
             'required':'인원(건)을 입력해주세요.'
         },
         label='인원(건)',required=True)
-
     perfor_count = forms.IntegerField(
         error_messages={
             'required':'인원(건)을 입력해주세요.'
         },
         label='인원(건)',required=True)
-
+    perfor_keyword = forms.CharField(
+        error_messages={
+            'required':'익명 내용을 입력해주세요.'
+        },
+        label='익명 내용', required=False)
+    
 
     def clean(self):
         cleaned_data = super().clean()
@@ -856,13 +848,15 @@ class ProgramForm(forms.Form):
         perfor_people = cleaned_data.get('perfor_people')
         perfor_program = cleaned_data.get('perfor_program')
         perfor_count = cleaned_data.get('perfor_count')
+        perfor_keyword = cleaned_data.get('perfor_keyword')
 
         program = Program(
 
             perfor_program=perfor_program,
             perfor_date=perfor_date,
             perfor_people=perfor_people,
-            perfor_count=perfor_count
+            perfor_count=perfor_count,
+            perfor_keyword=perfor_keyword
 
         )
 

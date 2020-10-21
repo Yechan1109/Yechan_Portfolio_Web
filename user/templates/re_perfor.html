@@ -5,8 +5,8 @@
 <script src='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'></script>
 
 <link rel='stylesheet' href='https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css'>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> {% endcomment %}
 <script>
 $(document).ready(function() {
     $('#example').DataTable( {
@@ -78,7 +78,7 @@ div.right {
     background-color:#c5dde8;
     height:20px;
 }
-.right input[type=date], .right input[type=number], .right select {
+.right input[type=date], .right input[type=number], input[type=text], .right select {
     display: inline-block;
     position: relative;
     width: 100%;
@@ -130,6 +130,7 @@ input[type=submit] {
                     <th>인원</th>
                     <th>건</th>
                     <th>프로그램</th>
+                    <th>익명 Keyword</th>
                 </tr>
             </thead>
             <tbody>
@@ -138,7 +139,8 @@ input[type=submit] {
                 <td>{{program.perfor_date}}</td>
                 <td>{{program.perfor_people}}</td>
                 <td>{{program.perfor_count}}</td>
-                <td>{{program.perfor_program}}</td>
+                <td style="color:#0099CC; font-weight:bolder;">{{program.perfor_program}}</td>
+                <td>{{program.perfor_keyword}}</td>
             </tr>
             {% endfor %}
                 
@@ -157,32 +159,28 @@ input[type=submit] {
     <tr>
         <td class="col-1" >프로그램명</td>
         <td class="col-2"><select name="perfor_program" id="id_perfor_program">
-    <optgroup label="의료지원사업">
-    <option name='perfor_program' id='perfor_program_1' value="의료 아웃리치">의료 아웃리치</option>
-    <option name='perfor_program' id='perfor_program_2' value="소녀돌봄약국지원">소녀돌봄약국지원</option>
-    </optgroup>
+
+    <option>---------------------------선택안함--------------------------</option>
     <optgroup label="교육지원사업">
+    <option name='perfor_program' id='perfor_program_1' value="성매매예방교육연극(중학교)">성매매예방교육연극(중학교)</option>
+    <option name='perfor_program' id='perfor_program_2' value="기관 실무자교육">기관 실무자교육</option>
     <option name='perfor_program' id='perfor_program_3' value="성교육장이용">성교육장이용</option>
-    <option name='perfor_program' id='perfor_program_4' value="찾아가는 성매매예방교육연극">찾아가는 성매매예방교육연극</option>
-    <option name='perfor_program' id='perfor_program_5' value="종사자교육">종사자교육</option>
     </optgroup>
-    <optgroup label="성건강지원사업">
-    <option name='perfor_program' id='perfor_program_6' value="성건강수첩">성건강수첩</option>
-    <option name='perfor_program' id='perfor_program_7' value="찾아가는 초등성건강교육">찾아가는 초등성건강교육</option>
-    <option name='perfor_program' id='perfor_program_8' value="소그룹 성건강교육">소그룹 성건강교육</option>
-    <option name='perfor_program' id='perfor_program_9' value="생리대 배분">생리대 배분</option>
-    <option name='perfor_program' id='perfor_program_10' value="생리대 후원 확보">생리대 후원 확보</option>
+    <optgroup label="사춘기클리닉">
+    <option name='perfor_program' id='perfor_program_4' value="사람유두종바이러스 예방접종 특화">사람유두종바이러스 예방접종 특화</option>
+    <option name='perfor_program' id='perfor_program_5' value="찾아가는 성건강교육">찾아가는 성건강교육</option>
+    <option name='perfor_program' id='perfor_program_6' value="성건강교육(1:1 / 소그룹)">성건강교육(1:1 / 소그룹)</option>
+    <option name='perfor_program' id='perfor_program_7' value="생리대/기타여성용품/성건강수첩 배분">생리대/기타여성용품/성건강수첩 배분</option>
     </optgroup>
     <optgroup label="네트워크">
-    <option name='perfor_program' id='perfor_program_11' value="거리, 방문홍보">온라인 홍보</option>
-    <option name='perfor_program' id='perfor_program_12' value="우편홍보">우편홍보</option>
-    <option name='perfor_program' id='perfor_program_13' value="내외부 직원교육">내외부 직원교육</option>
-    <option name='perfor_program' id='perfor_program_14' value="네트워크 및 사업협력">네트워크 및 사업협력</option>
-    <option name='perfor_program' id='perfor_program_15' value="대학생 타기관 교육, 네트워킹">대학생 타기관 교육, 네트워킹</option>
-    <option name='perfor_program' id='perfor_program_16' value="연합사례회의, 지원협력">연합사례회의, 지원협력</option>
-    <option name='perfor_program' id='perfor_program_17' value="후원처 자원발굴, 관리">후원처 자원발굴, 관리</option>
-    <option name='perfor_program' id='perfor_program_18' value="이용자 만족도조사, 질적인터뷰 등">이용자 만족도조사, 질적인터뷰 등</option>
-    <option name='perfor_program' id='perfor_program_19' value="자원봉사활동">자원봉사활동</option>
+    <option name='perfor_program' id='perfor_program_8' value="홍보(전화/문자/홈피/SNS 등)">홍보(전화/문자/홈피/SNS 등)</option>
+    <option name='perfor_program' id='perfor_program_9' value="네트워크 및 사업협력/후원발굴.관리">네트워크 및 사업협력/후원발굴.관리</option>
+    <option name='perfor_program' id='perfor_program_10' value="직원교육/만족도조사/자원봉사 등">직원교육/만족도조사/자원봉사 등</option>
+    </optgroup>
+    <optgroup label="익명상담">
+    <option name='perfor_program' id='perfor_program_11' value="임신">임신</option>
+    <option name='perfor_program' id='perfor_program_12' value="성건강">성건강</option>
+    <option name='perfor_program' id='perfor_program_13' value="기타">기타</option>
     </optgroup>
     </select>
     </td>
@@ -198,6 +196,10 @@ input[type=submit] {
     <tr>
         <td class="col-1">건 수</td>
         <td class="col-2"><input name="perfor_count" id="id_perfor_count" required="" type="number"></td>
+    </tr>
+     <tr>
+        <td class="col-1">익명 내용</td>
+        <td class="col-2"><input name="perfor_keyword" id="id_perfor_keyword" type="text"></td>
     </tr>
     </table>
 

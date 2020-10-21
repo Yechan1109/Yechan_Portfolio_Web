@@ -4,22 +4,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <!-- export to png js.code -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.js"></script>
 <style>
 
-body {
-  background-color:#E3EEF4;
+body { background-color: #e2eef4;}
+
+form {
+    background-color: #fff;
+    width:95%;
+    margin-left:30px;
+    margin-top:50px;
+}
+
+td {
+  width:7.5%;
+  height:32px;
+}
+
+button#demo {
+  width: 130px;
+  height: 25px;
+  border: none;
+  border-radius: 1px;
+  margin: 5px 2px 0;
+  padding: 7px 5px 0px;
+  color: #7daac1;
+  background-color:#e9efef;
+  box-shadow: 5px 5px 5px -5px gray;
+  font-weight:bold;
+  font-size:15px;
 }
 
 </style>
 </head>
 <body>
+
+<form>
+
+{% csrf_token %}
 <br>
-<img src="{% static 'img/report.jpg' %}">
-<img src="{% static 'img/report2.jpg' %}">
-<img src="{% static 'img/report3.jpg' %}">
-<img src="{% static 'img/report4.jpg' %}">
+<h2 style='text-align:center;'>실적통계 데이터</h2>
+<br>
+<div style="float:left;">
+  
+<button id="demo" class="downloadtable" onclick="downloadtable()"> Download PNG</button>
+
+</div>
+<div style="float:right;">
+  <td>&nbsp;시작</td> : <td><input type="date" id='fromDate' data-date-format='yyyy-mm-dd' name='from_date'value='{{ from_date }}' required/></td>&nbsp; ~ &nbsp;
+  <td>종료</td> : <td><input type="date" id='fromDate' data-date-format='yyyy-mm-dd' name='to_date'value='{{ to_date }}' required/></td>&nbsp;
+  <button type='submit'>조회</button>
+  {% comment %} &nbsp;&nbsp;<a href="{% url 'pdf' %}" style="color:#343a40;">PDF</a> {% endcomment %}
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+<div id="tablecontainer">
+  <table class="table table-striped table-dark" style="width:100%">
+        <thead>
+            <tr style='color: #92e4f1; background-color:#5385ad;'>
+                <th>사업명</th>
+                <th colspan='1'>구분</th>
+                <th colspan='1'>단위사업명</th>
+                <th colspan='1'>건(회)</th>
+                <th colspan='1'>인원(명)</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='13' style=' background-color:#e9efef;'>의료지원사업</td>
+            <td rowspan='3'>평일진료</td>
+            <td>치과</td>
+            <td>{% if A.A1_1 != None %}{{A.A1_1}} {% else %}0{% endif %}</td>
+            <td>{% if A.A1_1 != None %}{{A.A1_1}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td>여성의학과</td>
+            <td>{% if A.A1_2 != None %}{{A.A1_2}} {% else %}0{% endif %}</td>
+            <td>{% if A.A1_2 != None %}{{A.A1_2}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td>한방의학과</td>
+            <td>{% if A.A1_3 != None %}{{A.A1_3}} {% else %}0{% endif %}</td>
+            <td>{% if A.A1_3 != None %}{{A.A1_3}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='1'>야간진료</td>
+            <td>치과</td>
+            <td>{% if A.A2 != None %}{{A.A2}} {% else %}0{% endif %}</td>
+            <td>{% if A.A2 != None %}{{A.A2}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='1'>협력병원연계</td>
+            <td>외부병원진료</td>
+            <td>{% if A.A3 != None %}{{A.A3}} {% else %}0{% endif %}</td>
+            <td>{% if A.A3 != None %}{{A.A3}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='6'>예방의학</td>
+            <td>예방접종</td>
+            <td>{% if A.A4_1 != None %}{{A.A4_1}} {% else %}0{% endif %}</td>
+            <td>{% if A.A4_1 != None %}{{A.A4_1}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td>약지급</td>
+            <td>{% if A.A4_2 != None %}{{A.A4_2}} {% else %}0{% endif %}</td>
+            <td>{% if A.A4_2 != None %}{{A.A4_2}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td>각종검사</td>
+            <td>{% if A.A4_3 != None %}{{A.A4_3}} {% else %}0{% endif %}</td>
+            <td>{% if A.A4_3 != None %}{{A.A4_3}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td>안경지원</td>
+            <td>{% if A.A4_4 != None %}{{A.A4_4}} {% else %}0{% endif %}</td>
+            <td>{% if A.A4_4 != None %}{{A.A4_4}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td>몸펴기운동</td>
+            <td>{% if A.A4_5 != None %}{{A.A4_5}} {% else %}0{% endif %}</td>
+            <td>{% if A.A4_5 != None %}{{A.A4_5}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td>위생관리(잇솔질/손씻기교육 등)</td>
+            <td>{% if A.A4_6 != None %}{{A.A4_6}} {% else %}0{% endif %}</td>
+            <td>{% if A.A4_6 != None %}{{A.A4_6}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='1'>의료상담</td>
+            <td>의료상담</td>
+            <td>{% if A.A5 != None %}{{A.A5}} {% else %}0{% endif %}</td>
+            <td>{% if A.A5 != None %}{{A.A5}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#e9efef;'>
+            <td colspan='2'>소계</td>
+            <td>{% if A_count != None %}{{A_count}} {% else %}0{% endif %}</td>
+            <td>{% if A_count != None %}{{A_count}} {% else %}0{% endif %}</td>
+          </tr>
+        </tbody>
+
+        <tbody>
+
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='4' style=' background-color:#e9efef;'>심리지원사업</td>
+            <td rowspan='1'>정신보건</td>
+            <td>정신보건상담 및 심리검사</td>
+            <td>{% if B.B_1 != None %}{{B.B_1}} {% else %}0{% endif %}</td>
+            <td>{% if B.B_1 != None %}{{B.B_1}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='1'>상담 및 사례관리</td>
+            <td>상담(대면/온라인/수강명령 등)</td>
+            <td>{% if B.B_2 != None %}{{B.B_2}} {% else %}0{% endif %}</td>
+            <td>{% if B.B_2 != None %}{{B.B_2}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='1'>심리치료</td>
+            <td>원예치료/몸알아채기 등</td>
+            <td>{% if B.B_3 != None %}{{B.B_3}} {% else %}0{% endif %}</td>
+            <td>{% if B.B_3 != None %}{{B.B_3}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#e9efef;'>
+            <td colspan='2'>소계</td>
+            <td>{% if B.total != None %}{{B.total}} {% else %}0{% endif %}</td>
+            <td>{% if B.total != None %}{{B.total}} {% else %}0{% endif %}</td>
+          </tr>
+        </tbody>
+
+        <tbody>
+
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='4' style=' background-color:#e9efef;'>교육지원사업</td>
+            <td rowspan='1'>성매매예방교육</td>
+            <td>성매매예방교육연극(중학교)</td>
+            <td>{% if Q1.count != None %}{{Q1.count}}{% else %}0{% endif %}</td>
+            <td>{% if Q1.people != None %}{{Q1.people}}{% else %}0{% endif %}</td>
+
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='1'>기타교육</td>
+            <td>기관 실무자교육</td>
+            <td>{% if Q2.count != None %}{{Q2.count}}{% else %}0{% endif %}</td>
+            <td>{% if Q2.people != None %}{{Q2.people}}{% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='1'>성교육장이용</td>
+            <td>성교육장이용</td>
+            <td>{% if Q3.count != None %}{{Q3.count}}{% else %}0{% endif %}</td>
+            <td>{% if Q3.people != None %}{{Q3.people}}{% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#e9efef;'>
+            <td colspan='2'>소계</td>
+            <td>{% if C_count != None %}{{C_count}}{% else %}0{% endif %}</td>
+            <td>{% if C_people != None %}{{C_people}}{% else %}0{% endif %}</td>
+          </tr>
+        </tbody>
+
+        <tbody>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='3' style=' background-color:#e9efef;'>기초생활지원사업</td>
+            <td rowspan='2'>기초생활지원</td>
+            <td>기초물품지원</td>
+            <td>{% if D.D_1 != None %}{{D.D_1}} {% else %}0{% endif %}</td>
+            <td>{% if D.D_1 != None %}{{D.D_1}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td>기타(먹거리/교통비/자원연계 등)</td>
+            <td>{% if D.D_2 != None %}{{D.D_2}} {% else %}0{% endif %}</td>
+            <td>{% if D.D_2 != None %}{{D.D_2}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#e9efef;'>
+            <td colspan='2'>소계</td>
+            <td>{% if D.total != None %}{{D.total}} {% else %}0{% endif %}</td>
+            <td>{% if D.total != None %}{{D.total}} {% else %}0{% endif %}</td>
+          </tr>
+        </tbody>
+
+        <tbody>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='5' style=' background-color:#e9efef;'>사춘기클리닉</td>
+            <td rowspan='3'>성건강지원</td>
+            <td>사람유두종바이러스 예방접종 특화</td>
+            <td>{% if Q4.count != None %}{{Q4.count}} {% else %}0{% endif %}</td>
+            <td>{% if Q4.people != None %}{{Q4.people}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td>찾아가는 성건강교육</td>
+            <td>{% if Q5.count != None %}{{Q5.count}} {% else %}0{% endif %}</td>
+            <td>{% if Q5.people != None %}{{Q5.people}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td>성건강교육(1:1 / 소그룹)</td>
+            <td>{% if Q6.count != None %}{{Q6.count}} {% else %}0{% endif %}</td>
+            <td>{% if Q6.people != None %}{{Q6.people}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='1'>여성위생용품 지원</td>
+            <td>생리대/기타여성용품/성건강수첩 배분</td>
+            <td>{% if Q7.count != None %}{{Q7.count}} {% else %}0{% endif %}</td>
+            <td>{% if Q7.people != None %}{{Q7.people}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#e9efef;'>
+            <td colspan='2'>소계</td>
+            <td>{% if E_count != None %}{{E_count}}{% else %}0{% endif %}</td>
+            <td>{% if E_people != None %}{{E_people}}{% else %}0{% endif %}</td>
+          </tr>
+        </tbody>
+
+        <tbody>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='3' style=' background-color:#e9efef;'>네트워크</td>
+            <td rowspan='1'>홍보사업</td>
+            <td>홍보(전화/문자/홈피/SNS 등)</td>
+            <td>{% if Q8.count != None %}{{Q8.count}} {% else %}0{% endif %}</td>
+            <td>{% if Q8.people != None %}{{Q8.people}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='1'>네트워크 및 자원개발</td>
+            <td>네트워크 및 사업협력/후원발굴.관리</td>
+            <td>{% if Q9.count != None %}{{Q9.count}} {% else %}0{% endif %}</td>
+            <td>{% if Q9.people != None %}{{Q9.people}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='1'>운영관리</td>
+            <td>직원교육/만족도조사/자원봉사 등</td>
+            <td>{% if Q10.count != None %}{{Q10.count}} {% else %}0{% endif %}</td>
+            <td>{% if Q10.people != None %}{{Q10.people}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#e9efef;'>
+            <td colspan='3'>소계</td>
+            <td>{% if F_count != None %}{{F_count}}{% else %}0{% endif %}</td>
+            <td>{% if F_people != None %}{{F_people}}{% else %}0{% endif %}</td>
+          </tr>
+        </tbody>
+
+        <tbody>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td rowspan='4' style=' background-color:#e9efef;'>익명</td>
+            <td rowspan='3'>익명상담</td>
+            <td>임신</td>
+            <td>{% if Q11.count != None %}{{Q11.count}} {% else %}0{% endif %}</td>
+            <td>{% if Q11.people != None %}{{Q11.people}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td>성건강</td>
+            <td>{% if Q12.count != None %}{{Q12.count}} {% else %}0{% endif %}</td>
+            <td>{% if Q12.people != None %}{{Q12.people}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#f8faf9;'>
+            <td>기타</td>
+            <td>{% if Q13.count != None %}{{Q13.count}} {% else %}0{% endif %}</td>
+            <td>{% if Q13.people != None %}{{Q13.people}} {% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#e9efef;'>
+            <td colspan='2'>소계</td>
+            <td>{% if G_count != None %}{{G_count}}{% else %}0{% endif %}</td>
+            <td>{% if G_people != None %}{{G_people}}{% else %}0{% endif %}</td>
+          </tr>
+          <tr style='text-align:center; background-color:#e9efef;'>
+            <td colspan='3'>총 계</td>
+            <td>{% if Count != None %}{{Count}}{% else %}0{% endif %}</td>
+            <td>{% if People != None %}{{People}}{% else %}0{% endif %}</td>
+          </tr>
+        </tbody>
+
+  </table>
+</div>
+
+</form>
 
 </body>
+<script>
 
+    function downloadtable() {
+
+        var node = document.getElementById('tablecontainer');
+
+        domtoimage.toPng(node)
+            .then(function (dataUrl) {
+                var img = new Image();
+                img.src = dataUrl;
+                downloadURI(dataUrl, "records.png")
+            })
+            .catch(function (error) {
+                console.error('oops, something went wrong!', error);
+            });
+
+    }
+
+
+
+    function downloadURI(uri, name) {
+        var link = document.createElement("a");
+        link.download = name;
+        link.href = uri;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        delete link;
+    }
+
+
+
+</script>
 {% endblock  %}

@@ -61,20 +61,7 @@ body {text-align: center; background-color: #e2eef4;}
 }
 .tab2-container{ margin: 0;}
 .tab2-btn-pannel{ background-color: whitesmoke;  ; display: block; width: 100%; padding-bottom: 35px; } 
-.tab2-btn{
-    float: left;
-    height: 35px; 
-    padding:auto; 
-    width:33.33%;
-    border:none;
-    display:block;
-    outline:0; 
-    white-space:normal;
-    background-color:#d1e8ee;
-    color:#9fb5c1;
-    font-size:20px;
-    font-weight:bold;
-}
+
 .tab2-btn{
     float: left;
     height: 35px; 
@@ -322,6 +309,9 @@ input[type=date] {
     opacity: .6;
     transition: all linear .3s;
 }
+table {
+    width:100%;
+}
 </style>
     
 </head>
@@ -347,7 +337,7 @@ input[type=date] {
                         <td class="col-1">성별</td>
                         <td class="col-4_1">{{ user.Gender}}</td>
                         <td class="col-1">연령</td>
-                        <td class="col-5" style="text-align:center;">{{ user.Age}}</td>
+                        <td class="col-5" style="text-align:center;">&nbsp;&nbsp;{{ user.Age}}&nbsp;&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-1">등록일</td>
@@ -368,103 +358,108 @@ input[type=date] {
                     <tr>
                         <td class="col-1" rowspan='10'>의료지원</td>
                         <td class="col-2">치과</td>
-                        <td class="col-3">{{ progress.med_a_1 }}회&nbsp;/&nbsp;{{ planning.medical_A1_TF }}회</td>
+                        <td class="col-3">{% if progress.med_a_1 != None %}{{ progress.med_a_1 }}{% else %}0{% endif %}회&nbsp;/&nbsp;{% if planning.medical_A1_TF != None %}{{planning.medical_A1_TF}}{% else %}0{% endif %}회</td>
                         <td class="col-4" style="text-align:left;"></td>
-                        <td class="col-5" colspan="2">{{ progress.med_a_cost_1 }}&nbsp;</td>
+                        <td class="col-5" colspan="2">{% if progress.med_a_cost_1 != None %}{{ progress.med_a_cost_1 }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-2">여성의학과</td>
-                        <td class="col-3">{{ progress.med_a_2 }}회&nbsp;/&nbsp;{{ planning.medical_A2_TF }}회</td>
+                        <td class="col-3">{% if progress.med_a_2 != None %}{{ progress.med_a_2 }}{% else %}0{% endif %}회&nbsp;/&nbsp;{% if planning.medical_A2_TF != None %}{{planning.medical_A2_TF}}{% else %}0{% endif %}회</td>
                         <td class="col-4" style="text-align:left;"></td>
-                        <td class="col-5" colspan="2">{{ progress.med_a_cost_2 }}&nbsp;</td>
+                        <td class="col-5" colspan="2">{% if progress.med_a_cost_2 != None %}{{ progress.med_a_cost_2 }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-2">한방의학과</td>
-                        <td class="col-3">{{ progress.med_a_3 }}회&nbsp;/&nbsp;{{ planning.medical_A3_TF }}회</td>
+                        <td class="col-3">{% if progress.med_a_3 != None %}{{ progress.med_a_3 }}{% else %}0{% endif %}회&nbsp;/&nbsp;{% if planning.medical_A3_TF != None %}{{planning.medical_A3_TF}}{% else %}0{% endif %}회</td>
                         <td class="col-4" style="text-align:left;"></td>
-                        <td class="col-5" colspan="2">{{ progress.med_a_cost_3 }}&nbsp;</td>
+                        <td class="col-5" colspan="2">{% if progress.med_a_cost_3 != None %}{{ progress.med_a_cost_3 }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-2">가정의학과</td>
-                        <td class="col-3">{{ progress.med_a_4 }}회&nbsp;/&nbsp;{{ planning.medical_A4_TF }}회</td>
+                        <td class="col-3">{% if progress.med_a_4 != None %}{{ progress.med_a_4 }}{% else %}0{% endif %}회&nbsp;/&nbsp;{% if planning.medical_A4_TF != None %}{{planning.medical_A4_TF}}{% else %}0{% endif %}회</td>
                         <td class="col-4" style="text-align:left;"></td>
-                        <td class="col-5" colspan="2">{{ progress.med_a_cost_4 }}&nbsp;</td>
+                        <td class="col-5" colspan="2">{% if progress.med_a_cost_4 != None %}{{ progress.med_a_cost_4 }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-2">각종검사</td>
-                        <td class="col-3">{{ progress.med_b }}회&nbsp;/&nbsp;{{ planning.B_sum }}회</td>
-                        <td class="col-4" style="text-align:left;">여성의학({{progress.inmedical_B1_YN}}/{{planning.medical_B1_YN}}) | 기초({{progress.inmedical_B2_YN}}/{{planning.medical_B2_YN}}) | 항체({{progress.inmedical_B3_YN}}/{{planning.medical_B3_YN}})|기타()</td>
-                        <td class="col-5" colspan="2">{{ progress.med_b_cost }}&nbsp;</td>
+                        <td class="col-3">{% if progress.med_b != None %}{{ progress.med_b }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.B_sum }}회</td>
+                        <td class="col-4" style="text-align:left;">여성의학({% if progress.inmedical_B1_YN == False or progress.inmedical_B1_YN == None %}0{% else %}{{progress.inmedical_B1_YN}}{% endif %}/{{planning.medical_B1_YN}}), 기초({% if progress.inmedical_B2_YN == False or progress.inmedical_B2_YN == None %}0{% else %}{{progress.inmedical_B2_YN}}{% endif %}/{{planning.medical_B2_YN}}), 항체({% if progress.inmedical_B3_YN == False or progress.inmedical_B3_YN == None %}0{% else %}{{progress.inmedical_B3_YN}}{% endif %}/{{planning.medical_B3_YN}})</td>
+                        <td class="col-5" colspan="2">{% if progress.med_b_cost != None %}{{ progress.med_b_cost }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-2">약지급</td>
-                        <td class="col-3">{{ progress.med_c }}회&nbsp;/&nbsp;{{ planning.C_sum }}회</td>
-                        <td class="col-4" style="text-align:left;">치료제({{progress.inmedical_C1_YN}}/{{planning.medical_C1_TF}}),영양제({{progress.inmedical_C2_YN}}/{{planning.medical_C2_TF}}),임신({{progress.inmedical_C3_YN}}/{{planning.medical_C3_TF}})</td>
-                        <td class="col-5" colspan="2">{{ progress.med_c_cost }}&nbsp;</td>
+                        <td class="col-3">{% if progress.med_c != None %}{{ progress.med_c }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.C_sum }}회</td>
+                        <td class="col-4" style="text-align:left;">치료제({% if progress.inmedical_C1_YN == False or progress.inmedical_C1_YN == None %}0{% else %}{{progress.inmedical_C1_YN}}{% endif %}/{{planning.medical_C1_TF}}), 영양제({% if progress.inmedical_C2_YN == False or progress.inmedical_C2_YN == None %}0{% else %}{{progress.inmedical_C2_YN}}{% endif %}/{{planning.medical_C2_TF}}), 임신({% if progress.inmedical_C3_YN == False or progress.inmedical_C3_YN == None %}0{% else %}{{progress.inmedical_C3_YN}}{% endif %}/{{planning.medical_C3_TF}})</td>
+                        <td class="col-5" colspan="2">{% if progress.med_c_cost != None %}{{ progress.med_c_cost }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-2">예방접종</td>
-                        <td class="col-3">{{ progress.med_d }}회&nbsp;/&nbsp;{{ planning.D_sum }}회</td>
-                        <td class="col-4" style="text-align:left;">간염({{progress.inmedical_D1_YN}}/{{planning.medical_D1_Num}}), HPV({{progress.inmedical_D2_YN}}/{{planning.medical_D2_Num}}), 독감({{progress.inmedical_D3_YN}}/{{planning.medical_D3_YN}})</td>
-                        <td class="col-5" colspan="2">{{ progress.med_d_cost }}&nbsp;</td>
+                        <td class="col-3">{% if progress.med_d != None %}{{ progress.med_d }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.D_sum }}회</td>
+                        <td class="col-4" style="text-align:left;">간염({% if progress.inmedical_D1_YN == False or progress.inmedical_D1_YN == None %}0{% else %}{{progress.inmedical_D1_YN}}{% endif %}/{{planning.medical_D1_Num}}), HPV({% if progress.inmedical_D2_YN == False or progress.inmedical_D2_YN == None %}0{% else %}{{progress.inmedical_D2_YN}}{% endif %}/{{planning.medical_D2_Num}}), 독감({% if progress.inmedical_D3_YN == False or progress.inmedical_D3_YN == None %}0{% else %}{{progress.inmedical_D3_YN}}{% endif %}/{{planning.medical_D3_YN}})</td>
+                        <td class="col-5" colspan="2">{% if progress.med_d_cost != None %}{{ progress.med_d_cost }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-2">외부병원</td>
-                        <td class="col-3">{{ progress.med_e }}회&nbsp;/&nbsp;{{ planning.E_sum }}회</td>
-                        <td class="col-4" style="text-align:left;">치과({{progress.inmedical_E1_YN}}/{{planning.medical_E1_TF}}), 여성의학과({{progress.inmedical_E2_YN}}/{{planning.medical_E2_TF}})</td>
-                        <td class="col-5" colspan="2">{{ progress.med_e_cost }}&nbsp;</td>
+                        <td class="col-3">{% if progress.med_e != None %}{{ progress.med_e }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.E_sum }}회</td>
+                        <td class="col-4" style="text-align:left;">치과({% if progress.inmedical_E1_YN == False or progress.inmedical_E1_YN == None %}0{% else %}{{progress.inmedical_E1_YN}}{% endif %}/{{planning.medical_E1_TF}}), 여성의학과({% if progress.inmedical_E2_YN == False or progress.inmedical_E2_YN == None %}0{% else %}{{progress.inmedical_E2_YN}}{% endif %}/{{planning.medical_E2_TF}})</td>
+                        <td class="col-5" colspan="2">{% if progress.med_e_cost != None %}{{ progress.med_e_cost }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-2">예방의학</td>
-                        <td class="col-3">{{ progress.med_f }}회&nbsp;/&nbsp;{{ planning.F_sum }}회</td>
-                        <td class="col-4" style="text-align:left;">잇솔질({{progress.inmedical_F1_YN}}/{{planning.medical_F1_TF}}),안경({{progress.inmedical_F2_YN}}/{{planning.medical_F2_TF}}), 몸펴기({{progress.inmedical_F3_YN}}/{{planning.medical_F3_TF}})</td>
-                        <td class="col-5" colspan="2">{{ progress.med_f_cost }}&nbsp;</td>
+                        <td class="col-3">{% if progress.med_f != None %}{{ progress.med_f }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.F_sum }}회</td>
+                        <td class="col-4" style="text-align:left;">잇솔질({% if progress.inmedical_F1_YN == False or progress.inmedical_F1_YN == None %}0{% else %}{{progress.inmedical_F1_YN}}{% endif %}/{{planning.medical_F1_TF}}),안경({% if progress.inmedical_F2_YN == False or progress.inmedical_F2_YN == None %}0{% else %}{{progress.inmedical_F2_YN}}{% endif %}/{{planning.medical_F2_TF}}), 몸펴기({% if progress.inmedical_F3_YN == False or progress.inmedical_F3_YN == None %}0{% else %}{{progress.inmedical_F3_YN}}{% endif %}/{{planning.medical_F3_TF}})</td>
+                        <td class="col-5" colspan="2">{% if progress.med_f_cost != None %}{{ progress.med_f_cost }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-2">의료상담</td>
-                        <td class="col-3">{{ progress.med_g }}회&nbsp;/&nbsp;0회</td>
-                        <td class="col-4" style="text-align:left;">대면({{progress.inmedical_G1_YN}}), 전화({{progress.inmedical_G2_YN}}), SNS({{progress.inmedical_G3_YN}})</td>
-                        <td class="col-5" colspan="2">{{ progress.med_g_cost }}&nbsp;</td>
+                        <td class="col-3">{% if progress.med_g != None %}{{ progress.med_g }}{% else %}0{% endif %}회&nbsp;/&nbsp;0회</td>
+                        <td class="col-4" style="text-align:left;">대면({% if progress.inmedical_G1_YN == False or progress.inmedical_G1_YN == None %}0{% else %}{{progress.inmedical_G1_YN}}{% endif %}), 전화({% if progress.inmedical_G2_YN == False or progress.inmedical_G2_YN == None %}0{% else %}{{progress.inmedical_G2_YN}}{% endif %}), SNS({% if progress.inmedical_G3_YN == False or progress.inmedical_G3_YN == None %}0{% else %}{{progress.inmedical_G3_YN}}{% endif %})</td>
+                        <td class="col-5" colspan="2">{% if progress.med_g_cost != None %}{{ progress.med_g_cost }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
 
                     <tr>
                         <td class="col-1" rowspan='3'>심리지원</td>
                         <td class="col-2">정신보건상담</td>
-                        <td class="col-3">{{ progress.men_a }}회&nbsp;/&nbsp;{{ planning.mental_A_sum}}회</td>
+                        <td class="col-3">{% if progress.men_a != None %}{{ progress.men_a }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.mental_A_sum}}회</td>
                         <td class="col-4" style="text-align:left;"></td>
-                        <td class="col-5" colspan="2">{{ progress.men_a_cost }}&nbsp;</td>
+                        <td class="col-5" colspan="2">{% if progress.men_a_cost != None %}{{ progress.men_a_cost }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-2">심리검사</td>
-                        <td class="col-3">{{ progress.men_b }}회&nbsp;/&nbsp;{{ planning.mental_B_sum}}회</td>
+                        <td class="col-3">{% if progress.men_b != None %}{{ progress.men_b }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.mental_B_sum}}회</td>
                         <td class="col-4" style="text-align:left;"></td>
-                        <td class="col-5" colspan="2">{{ progress.men_b_cost }}&nbsp;</td>
+                        <td class="col-5" colspan="2">{% if progress.men_b_cost != None %}{{ progress.men_b_cost }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-2">심리정서지원<br>프로그램</td>
-                        <td class="col-3">{{ progress.men_c }}회&nbsp;/&nbsp;{{ planning.mental_C_sum}}회</td>
+                        <td class="col-3">{% if progress.men_c != None %}{{ progress.men_c }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.mental_C_sum}}회</td>
                         <td class="col-4" style="text-align:left;"></td>
-                        <td class="col-5" colspan="2">{{ progress.men_c_cost }}&nbsp;</td>
+                        <td class="col-5" colspan="2">{% if progress.men_c_cost != None %}{{ progress.men_c_cost }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
 
                     <tr>
                         <td class="col-1" rowspan='3'>사례관리</td>
                         <td class="col-2">상담</td>
-                        <td class="col-3">{{ progress.case_a }}회&nbsp;/&nbsp;{{ planning.case_A_sum}}회</td>
+                        <td class="col-3">{% if progress.case_a != None %}{{ progress.case_a }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.case_A_sum}}회</td>
                         <td class="col-4" style="text-align:left;"></td>
-                        <td class="col-5" colspan="2">{{ progress.case_a_cost }}&nbsp;</td>
+                        <td class="col-5" colspan="2">{% if progress.case_a_cost != None %}{{ progress.case_a_cost }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-2">1:1 교육</td>
-                        <td class="col-3">{{ progress.case_b }}회&nbsp;/&nbsp;{{ planning.case_B_sum}}회</td>
+                        <td class="col-3">{% if progress.case_b != None %}{{ progress.case_b }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.case_B_sum}}회</td>
                         <td class="col-4" style="text-align:left;"></td>
-                        <td class="col-5" colspan="2">{{ progress.case_b_cost }}&nbsp;</td>
+                        <td class="col-5" colspan="2">{% if progress.case_b_cost != None %}{{ progress.case_b_cost }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="col-2">기초생활지원</td>
-                        <td class="col-3">{{ progress.case_c }}회&nbsp;/&nbsp;{{ planning.case_C_sum}}회</td>
+                        <td class="col-3">{% if progress.case_c != None %}{{ progress.case_c }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.case_C_sum}}회</td>
                         <td class="col-4" style="text-align:left;"></td>
-                        <td class="col-5" colspan="2">{{ progress.case_c_cost }}&nbsp;</td>
+                        <td class="col-5" colspan="2">{% if progress.case_c_cost != None %}{{ progress.case_c_cost }}{% else %}0{% endif %}&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="col-1" colspan='4'>총비용</td>
+                        
+                        <td class="col-5" colspan="2">{% if total_cost != None %}{{ total_cost }}{% else %}0{% endif %}&nbsp;</td>
                     </tr>
 
                 </table>
@@ -476,35 +471,58 @@ input[type=date] {
             <div>
                 <table>
                     <tr>
-                        <td class="space" colspan='7'>위기분류척도</td>
+                        <td class="space" colspan='8'>위기분류척도</td>
                     </tr>
                     <tr>
-                        <td class="col-1" rowspan='2'>1차</td>
-                        <td class="col-3">{{ date1.danger_date|date:'Y-m-d' }}</td>
-                        <td class="col-1" rowspan='2'>2차</td>
-                        <td class="col-4_1">{{ date2.danger_date|date:'Y-m-d' }}</td>
-                        <td class="col-1" rowspan='2'>3차</td>
-                        <td class="col-5" style="text-align:center;">{{ date3.danger_date|date:'Y-m-d' }}</td>
+                        <td class="col-1">차수</td>
+                        <td class="col-1">날짜</td>
+                        <td class="col-1">개인</td>
+                        <td class="col-1">가정 및<br> 지지체계</td>
+                        <td class="col-1">성건강</td>
+                        <td class="col-1">정신건강</td>
+                        <td class="col-1">총계</td>
                     </tr>
                     <tr>
-                        <td class="col-3">{{ ctrs1.label_1 }}점</td>
-                        <td class="col-4_1">{{ ctrs2.label_2 }}점</td>
-                        <td class="col-5" style="text-align:center;">{{ ctrs3.label_3 }}점</td>
+                        <td class="col-3">1차</td>
+                        <td class="col-3">{% if date1.danger_date|date:'Y-m-d' != None %}{{ date1.danger_date|date:'Y-m-d' }}{% else %}-{% endif %}</td>
+                        <td class="col-3">{% if ctrs1.L1 != None %}{{ ctrs1.L1 }}{% else %}-{% endif %}</td>
+                        <td class="col-3">{% if ctrs1.L2 != None %}{{ ctrs1.L2 }}{% else %}-{% endif %}</td>
+                        <td class="col-3">{% if ctrs1.L3 != None %}{{ ctrs1.L3 }}{% else %}-{% endif %}</td>
+                        <td class="col-3">{% if ctrs1.L4 != None %}{{ ctrs1.L4 }}{% else %}-{% endif %}</td>
+                        <td class="col-3">{% if ctrs1.L5 != None %}{{ ctrs1.L5 }}{% else %}-{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-3">2차</td>
+                        <td class="col-3">{% if date2.danger_date|date:'Y-m-d' != None %}{{ date2.danger_date|date:'Y-m-d' }}{% else %}-{% endif %}</td>
+                        <td class="col-3">{% if ctrs2.L1 != None %}{{ ctrs2.L1 }}{% else %}-{% endif %}</td>
+                        <td class="col-3">{% if ctrs2.L2 != None %}{{ ctrs2.L2 }}{% else %}-{% endif %}</td>
+                        <td class="col-3">{% if ctrs2.L3 != None %}{{ ctrs2.L3 }}{% else %}-{% endif %}</td>
+                        <td class="col-3">{% if ctrs2.L4 != None %}{{ ctrs2.L4 }}{% else %}-{% endif %}</td>
+                        <td class="col-3">{% if ctrs2.L5 != None %}{{ ctrs2.L5 }}{% else %}-{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-3">3차</td>
+                        <td class="col-3">{% if date3.danger_date|date:'Y-m-d' != None %}{{ date3.danger_date|date:'Y-m-d' }}{% else %}-{% endif %}</td>
+                        <td class="col-3">{% if ctrs3.L1 != None %}{{ ctrs3.L1 }}{% else %}-{% endif %}</td>
+                        <td class="col-3">{% if ctrs3.L2 != None %}{{ ctrs3.L2 }}{% else %}-{% endif %}</td>
+                        <td class="col-3">{% if ctrs3.L3 != None %}{{ ctrs3.L3 }}{% else %}-{% endif %}</td>
+                        <td class="col-3">{% if ctrs3.L4 != None %}{{ ctrs3.L4 }}{% else %}-{% endif %}</td>
+                        <td class="col-3">{% if ctrs3.L5 != None %}{{ ctrs3.L5 }}{% else %}-{% endif %}</td>
                     </tr>
 
                     <tr>
-                        <td class="space" colspan='6' style="background-color:#5384AD;">지원사항</td>
+                        <td class="space" colspan='8' style="background-color:#5384AD;">지원사항</td>
                     </tr>
                     <tr>
                         <td style="background-color:#E8EEEE; text-align:center;" colspan="2">분류</td>
                         <td style="background-color:#E8EEEE; text-align:center;">빈도(누적/총)</td>
-                        <td style="background-color:#E8EEEE; text-align:center;" colspan="4">내용</td>
+                        <td style="background-color:#E8EEEE; text-align:center;" colspan="5">내용</td>
                     </tr>
                     <tr>
                         <td class="col-1" rowspan='10'>의료지원</td>
                         <td class="col-2">치과</td>
-                        <td class="col-3">{{ progress.med_a_1 }}회&nbsp;/&nbsp;{{ planning.medical_A1_TF }}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.med_a_1 != None %}{{ progress.med_a_1 }}{% else %}0{% endif %}회&nbsp;/&nbsp;{% if planning.medical_A1_TF != None %}{{planning.medical_A1_TF}}{% else %}0{% endif %}회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                         {% if text.inmedical_A1_Text_1 %}
                         <{{text.getplan_date}} | 평일>{{ text.inmedical_A1_Text_1}}<br>
@@ -517,8 +535,8 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">여성의학과</td>
-                        <td class="col-3">{{ progress.med_a_2 }}회&nbsp;/&nbsp;{{ planning.medical_A2_TF }}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.med_a_2 != None %}{{ progress.med_a_2 }}{% else %}0{% endif %}회&nbsp;/&nbsp;{% if planning.medical_A2_TF != None %}{{planning.medical_A2_TF}}{% else %}0{% endif %}회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                         {% if text.inmedical_A2_Text_1 %}
                         <{{text.getplan_date}} | 평일>{{ text.inmedical_A2_Text_1}}<br>
@@ -530,8 +548,8 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">한방의학과</td>
-                        <td class="col-3">{{ progress.med_a_3 }}회&nbsp;/&nbsp;{{ planning.medical_A3_TF }}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.med_a_3 != None %}{{ progress.med_a_3 }}{% else %}0{% endif %}회&nbsp;/&nbsp;{% if planning.medical_A3_TF != None %}{{planning.medical_A3_TF}}{% else %}0{% endif %}회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                         {% if text.inmedical_A3_Text_1 %}
                         <{{text.getplan_date}} | 평일>{{ text.inmedical_A3_Text_1}}<br>
@@ -543,8 +561,8 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">가정의학과</td>
-                        <td class="col-3">{{ progress.med_a_4 }}회&nbsp;/&nbsp;{{ planning.medical_A4_TF }}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.med_a_4 != None %}{{ progress.med_a_4 }}{% else %}0{% endif %}회&nbsp;/&nbsp;{% if planning.medical_A4_TF != None %}{{planning.medical_A4_TF}}{% else %}0{% endif %}회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                         {% if text.inmedical_A4_Text_1 %}
                         <{{text.getplan_date}} | 평일>{{ text.inmedical_A4_Text_1}}<br>
@@ -556,8 +574,8 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">각종검사</td>
-                        <td class="col-3">{{ progress.med_b }}회&nbsp;/&nbsp;{{ planning.B_sum }}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.med_b != None %}{{ progress.med_b }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.B_sum }}회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                             {% if text.inmedical_B1_Text %}
                             <{{text.getplan_date}} | 여성의학검사>{{ text.inmedical_B1_Text}}<br>
@@ -575,8 +593,8 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">약지급</td>
-                        <td class="col-3">{{ progress.med_c }}회&nbsp;/&nbsp;{{ planning.C_sum }}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.med_c != None %}{{ progress.med_c }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.C_sum }}회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                             {% if text.inmedical_C1_Text %}
                             <{{text.getplan_date}} | 치료제>{{ text.inmedical_C1_Text}}<br>
@@ -597,8 +615,8 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">예방접종</td>
-                        <td class="col-3">{{ progress.med_d }}회&nbsp;/&nbsp;{{ planning.D_sum }}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.med_d != None %}{{ progress.med_d }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.D_sum }}회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                             {% if text.inmedical_D1_Text %}
                             <{{text.getplan_date}} | 간염>{{ text.inmedical_D1_Text}}<br>
@@ -622,8 +640,8 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">외부병원</td>
-                        <td class="col-3">{{ progress.med_e }}회&nbsp;/&nbsp;{{ planning.E_sum }}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.med_e != None %}{{ progress.med_e }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.E_sum }}회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                             {% if text.inmedical_E1_Text %}
                             <{{text.getplan_date}} | 치과>{{ text.inmedical_E1_Text}}<br>
@@ -638,8 +656,8 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">예방의학</td>
-                        <td class="col-3">{{ progress.med_f }}회&nbsp;/&nbsp;{{ planning.F_sum }}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.med_f != None %}{{ progress.med_f }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.F_sum }}회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                             {% if text.inmedical_F1_Text %}
                             <{{text.getplan_date}} | 잇솔질교육>{{ text.inmedical_F1_Text}}<br>
@@ -657,8 +675,8 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">의료상담</td>
-                        <td class="col-3">{{ progress.med_g }}회&nbsp;/&nbsp;0회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.med_g != None %}{{ progress.med_g }}{% else %}0{% endif %}회&nbsp;/&nbsp;0회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                             {% if text.inmedical_G1_Text %}
                             <{{text.getplan_date}} | 대면>{{ text.inmedical_G1_Text}}<br>
@@ -675,8 +693,8 @@ input[type=date] {
                     <tr>
                         <td class="col-1" rowspan='3'>심리지원</td>
                         <td class="col-2">정신보건상담</td>
-                        <td class="col-3">{{ progress.men_a }}회&nbsp;/&nbsp;{{ planning.mental_A_sum}}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.men_a != None %}{{ progress.men_a }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.mental_A_sum}}회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                             {% if text.inmental_A1_Text %}
                             <{{text.getplan_date}} | 대면>{{ text.inmental_A1_Text}}<br>
@@ -688,8 +706,8 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">심리검사</td>
-                        <td class="col-3">{{ progress.men_b }}회&nbsp;/&nbsp;{{ planning.mental_B_sum}}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.men_b != None %}{{ progress.men_b }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.mental_B_sum}}회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                             {% if text.inmental_B1_Text %}
                             <{{text.getplan_date}} | 종합심리검사>{{ text.inmental_B1_Text}}<br>
@@ -701,8 +719,8 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">심리정서지원<br>프로그램</td>
-                        <td class="col-3">{{ progress.men_c }}회&nbsp;/&nbsp;{{ planning.mental_C_sum}}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.men_c != None %}{{ progress.men_c }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.mental_C_sum}}회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                             {% if text.inmental_C1_Text %}
                             <{{text.getplan_date}} | 원예치료>{{ text.inmental_C1_Text}}<br>
@@ -719,8 +737,8 @@ input[type=date] {
                     <tr>
                         <td class="col-1" rowspan='3'>사례관리</td>
                         <td class="col-2">상담</td>
-                        <td class="col-3">{{ progress.case_a }}회&nbsp;/&nbsp;{{ planning.case_A_sum}}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.case_a != None %}{{ progress.case_a }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.case_A_sum}}회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                             {% if text.incase_A1_Text_1 %}
                             <{{text.getplan_date}} | 대면>{{ text.incase_A1_Text_1}}<br>
@@ -738,8 +756,8 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">1:1 교육</td>
-                        <td class="col-3">{{ progress.case_b }}회&nbsp;/&nbsp;{{ planning.case_B_sum}}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.case_b != None %}{{ progress.case_b }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.case_B_sum}}회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                             {% if text.incase_B1_Text %}
                             <{{text.getplan_date}} | 성건강>{{ text.incase_B1_Text}}<br>
@@ -754,8 +772,8 @@ input[type=date] {
                     </tr>
                     <tr>
                         <td class="col-2">기초생활지원</td>
-                        <td class="col-3">{{ progress.case_c }}회&nbsp;/&nbsp;{{ planning.case_C_sum}}회</td>
-                        <td class="col-4" style="text-align:left;" colspan='3'>
+                        <td class="col-3">{% if progress.case_c != None %}{{ progress.case_c }}{% else %}0{% endif %}회&nbsp;/&nbsp;{{ planning.case_C_sum}}회</td>
+                        <td class="col-4" style="text-align:left;" colspan='4'>
                         {% for text in progress_text %}
                             {% if text.incase_C1_Text %}
                             <{{text.getplan_date}} | 먹거리>{{ text.incase_C1_Text}}<br>
@@ -775,10 +793,10 @@ input[type=date] {
                     
 
                     <tr>
-                        <td class="space" style='background-color:#c5dde8;' colspan='6'>Comment</td>
+                        <td class="space" style='background-color:#c5dde8;' colspan='8'>Comment</td>
                     </tr>
                     <tr>
-                       <td class="col-2" colspan='6'>
+                       <td class="col-2" colspan='8'>
                        {% for text in progress_text %}
                             {% if text.getplan_comment %}
                             <{{text.getplan_date}} | Comment> {{text.getplan_comment}}<br>

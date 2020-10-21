@@ -5,8 +5,8 @@
 <script src='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'></script>
 
 <link rel='stylesheet' href='https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css'>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> {% endcomment %}
 <script>
 $(document).ready(function() {
     $('#example').DataTable( {
@@ -47,18 +47,22 @@ div.dataTables_wrapper {
                     <th>User ID</th>
                     <th>이름</th>
                     <th>등록날짜</th>
-                    <th>항목명1</th>
-                    <th>항목명2</th>
+                    <th>나이</th>
+                    <th>성별</th>
+                    <th>최초상담자</th>
+                    <th>의뢰기관</th>
                 </tr>
             </thead>
             <tbody>
             {% for user in user_list %}
             <tr>
                 <td>{{user.id}}</td>
-                <td><a href="/getplan_list/{{ user.id }}">{{user.Name}}</td>
+                <td><a style="color:#0099CC; font-weight:bolder;" href="/getplan_list/{{ user.id }}">{{user.Name}}</td>
                 <td>{{user.Reg}}</td>
-                <td>{{user.}}</td>
-                <td>{{user.}}</td>
+                <td>{{user.Age}}</td>
+                <td>{{user.Gender}}</td>
+                <td>{{user.Coun}}</td>
+                <td>{{user.Institute}}</td>
             </tr>
             {% endfor %}
                 

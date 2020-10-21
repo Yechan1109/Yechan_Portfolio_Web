@@ -22,9 +22,6 @@ class UserLoginIndexView(LoginView):
         messages.error(self.request, '로그인에 실패하였습니다.', extra_tags='danger')
         return super().form_invalid(form)
 
-def report(request):
-    return render(request, 'report.html')
-
 
 def main(request):
     return render(request, 're_main.html')
@@ -92,6 +89,9 @@ class ProgramView(LoginRequiredMixin, FormView):
     form_class = ProgramForm
     success_url = '/perfor'
 
+    # def get_success_url(self):
+    #     return reverse('perfor', kwargs={'pk': self.object.id})
+
     def get_context_data(self):
         program = Program.objects.all()
         context = {
@@ -99,8 +99,6 @@ class ProgramView(LoginRequiredMixin, FormView):
         }
         return context
 
-    def get_success_url(self):
-        return reverse('perfor', kwargs={'pk': self.object.id})
 
 def upload_file(request):
     if request.method == 'POST':

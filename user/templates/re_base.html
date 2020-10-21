@@ -59,11 +59,13 @@ body {
 #container > nav > ul > .dropdown:hover > .dd
 {
   display:block;
+  z-index: 2;
 }
 
 a {
   text-decoration:none;
   color:#b3ecff;
+  
 }
 
 #container > nav > ul > li > div {
@@ -78,6 +80,7 @@ a {
   margin:0px 0 4px 0;
   padding:0;
   list-style:none;
+  
 }
 
 #container > nav > ul > li > div > ul > li {
@@ -147,23 +150,25 @@ a {
             </div>
             </li>
 
-            <li class="dropdown"><a href="#">&nbsp;&nbsp;현황 및 통계&nbsp;&nbsp;</i> </a>
-           <div class="dd" style="width:110px;">
-             <div id="up_arrow"></div>
-            <ul>
-              <li><a href="#" style="color:#343a40;">종합</a></li>
-              <li><a href="#" style="color:#343a40;">년도별</a></li>
-              <li><a href="#" style="color:#343a40;">월별</a></li>
-              <li><a href="{% url 'report'%}" style="color:#343a40;">실적통계</a></li>
-            </ul>
-            </div>
+            {% if request.user.is_authenticated %}
+            <li class="dropdown"><a href="#">&nbsp;&nbsp;현황 및 통계&nbsp;&nbsp;</i></a>
+              <div class="dd" style="width:110px;">
+                <div id="up_arrow"></div>
+                <ul>
+                  <li><a href="{% url 'pivot' %}" style="color:#343a40;">종합통계</a></li>
+                  <li><a href="{% url 'report'%}" style="color:#343a40;">실적통계</a></li>
+                </ul>
+              </div>
             </li>
+            {% else %}            
+            {% endif %}
+            
 
             <li class="dropdown"><a href="#">&nbsp;&nbsp;수정 및 업로드&nbsp;&nbsp;</i> </a>
            <div class="dd" style="width:140px;">
              <div id="up_arrow"></div>
             <ul>
-              <li><a href="{% url 'update_list' %}" style="color:#343a40;">Update</a></li>
+              <li><a style="color:#343a40;" disabled="disabled">Update</a></li>
               <li><a href="{% url 'upload' %}" style="color:#343a40;">Upload</a></li>
             </ul>
             </div>

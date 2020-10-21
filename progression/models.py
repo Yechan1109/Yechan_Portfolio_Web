@@ -295,80 +295,6 @@ class Progress(models.Model):
     
 
     def save(self, *args, **kwargs):
-        # if type(self.inmedical_A1_YN_1) is None:inmedical_A1_YN_1 = 0
-        # if type(self.inmedical_A1_YN_2) is None:inmedical_A1_YN_2 = 0
-        # if type(self.inmedical_A2_YN_1) is None:inmedical_A2_YN_1 = 0
-        # if type(self.inmedical_A2_YN_2) is None:inmedical_A2_YN_2 = 0
-        # if type(self.inmedical_A3_YN_1) is None:inmedical_A3_YN_1 = 0
-        # if type(self.inmedical_A3_YN_2) is None:inmedical_A3_YN_2 = 0
-        # if type(self.inmedical_A4_YN_1) is None:inmedical_A4_YN_1 = 0
-        # if type(self.inmedical_A4_YN_2) is None:inmedical_A4_YN_2 = 0
-        # if type(self.inmedical_B1_YN) is None:inmedical_B1_YN = 0
-        # if type(self.inmedical_B2_YN) is None:inmedical_B2_YN = 0
-        # if type(self.inmedical_B3_YN) is None:inmedical_B3_YN = 0
-        # if type(self.inmedical_B4_YN) is None:inmedical_B4_YN = 0
-        # if type(self.inmedical_C1_YN) is None:inmedical_C1_YN = 0
-        # if type(self.inmedical_C2_YN) is None:inmedical_C2_YN = 0
-        # if type(self.inmedical_C3_YN) is None:inmedical_C3_YN = 0
-        # if type(self.inmedical_C4_YN) is None:inmedical_C4_YN = 0
-        # if type(self.inmedical_C5_YN) is None:inmedical_C5_YN = 0
-        # if type(self.inmedical_D1_YN) is None:inmedical_D1_YN = 0
-        # if type(self.inmedical_D2_YN) is None:inmedical_D2_YN = 0
-        # if type(self.inmedical_D3_YN) is None:inmedical_D3_YN = 0
-        # if type(self.inmedical_D4_YN) is None:inmedical_D4_YN = 0
-        # if type(self.inmedical_D5_YN) is None:inmedical_D5_YN = 0
-        # if type(self.inmedical_D6_YN) is None:inmedical_D6_YN = 0
-        # if type(self.inmedical_E1_YN) is None:inmedical_E1_YN = 0
-        # if type(self.inmedical_E2_YN) is None:inmedical_E2_YN = 0
-        # if type(self.inmedical_E3_YN) is None:inmedical_E3_YN = 0
-        # if type(self.inmedical_F1_YN) is None:inmedical_F1_YN = 0
-        # if type(self.inmedical_F2_YN) is None:inmedical_F2_YN = 0
-        # if type(self.inmedical_F3_YN) is None:inmedical_F3_YN = 0
-        # if type(self.inmedical_F4_YN) is None:inmedical_F4_YN = 0
-        # if type(self.inmedical_G1_YN) is None:inmedical_G1_YN = 0
-        # if type(self.inmedical_G2_YN) is None:inmedical_G2_YN = 0
-        # if type(self.inmedical_G3_YN) is None:inmedical_G3_YN = 0
-        # if type(self.inmental_A1_YN) is None:inmental_A1_YN = 0
-        # if type(self.inmental_A2_YN) is None:inmental_A2_YN = 0
-        # if type(self.inmental_B1_YN) is None:inmental_B1_YN = 0
-        # if type(self.inmental_B2_YN) is None:inmental_B2_YN = 0
-        # if type(self.inmental_C1_YN) is None:inmental_C1_YN = 0
-        # if type(self.inmental_C2_YN) is None:inmental_C2_YN = 0
-        # if type(self.inmental_C3_YN) is None:inmental_C3_YN = 0
-        # if type(self.incase_A1_YN_1) is None:incase_A1_YN_1 = 0
-        # if type(self.incase_A2_YN_1) is None:incase_A2_YN_1 = 0
-        # if type(self.incase_A3_YN_1) is None:incase_A3_YN_1 = 0
-        # if type(self.incase_A4_YN_1) is None:incase_A4_YN_1 = 0
-        # if type(self.incase_B1_YN) is None:incase_B1_YN = 0
-        # if type(self.incase_B2_YN) is None:incase_B2_YN = 0
-        # if type(self.incase_B3_YN) is None:incase_B3_YN = 0
-        # if type(self.incase_C1_YN) is None:incase_C1_YN = 0
-        # if type(self.incase_C2_YN) is None:incase_C2_YN = 0
-        # if type(self.incase_C3_YN) is None:incase_C3_YN = 0
-        # if type(self.incase_C4_YN) is None:incase_C4_YN = 0
-        
-        # if type(self.test) is None:
-        #     self.test = 0
-        # if type(self.test) is None:
-        #     self.test = 0
-        # if type(self.test) is None:
-        #     self.test = 0
-        # if type(self.test) is None:
-        #     self.test = 0
-        # if type(self.test) is None:
-        #     self.test = 0
-        # if type(self.test) is None:
-        #     self.test = 0
-        # if type(self.test) is None:
-        #     self.test = 0
-        # if type(self.test) is None:
-        #     self.test = 0
-        # if type(self.test) is None:
-        #     self.test = 0
-        # if type(self.test) is None:
-        #     self.test = 0
-        # if type(self.test) is None:
-        #     self.test = 0
         if type(self.inmedical_A1_YN_1) is None:self.inmedical_A1_YN_1 = 0
         if type(self.inmedical_A1_YN_2) is None:self.inmedical_A1_YN_2 = 0
         if type(self.inmedical_A2_YN_1) is None:self.inmedical_A2_YN_1 = 0
@@ -510,6 +436,8 @@ class CTRS(models.Model):
     survey4_2 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='정신건강2')
     survey4_3 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='정신건강3')
     survey4_4 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='정신건강4')
+    survey4_5 = models.IntegerField(choices=choices,null=True, default=0, blank=True, verbose_name='정신건강5')
+
 
     ctrs_comment = models.TextField(blank=True, default="", max_length=2000, verbose_name='Commnet')
     ctrs_sentence = models.TextField(blank=True, default="", max_length=2000, verbose_name='오늘의 한줄')
@@ -526,7 +454,7 @@ class CTRS(models.Model):
         self.sum_1 = self.survey1_1 + self.survey1_2 + self.survey1_3 + self.survey1_4 + self.survey1_5
         self.sum_2 = self.survey2_1 + self.survey2_2 + self.survey2_3 + self.survey2_4 + self.survey2_5
         self.sum_3 = self.survey3_1 + self.survey3_2 + self.survey3_3 + self.survey3_4 + self.survey3_5
-        self.sum_4 = self.survey4_1 + self.survey4_2 + self.survey4_3 + self.survey4_4
+        self.sum_4 = self.survey4_1 + self.survey4_2 + self.survey4_3 + self.survey4_4 + self.survey4_5
         self.total = self.sum_1 + self.sum_2 + self.sum_3 + self.sum_4
         super(CTRS, self).save(*args, **kwargs)
 
