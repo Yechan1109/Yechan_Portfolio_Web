@@ -85,24 +85,24 @@ button#demo {
             <td rowspan='13' style=' background-color:#e9efef;'>의료지원사업</td>
             <td rowspan='3'>평일진료</td>
             <td>치과</td>
-            <td>{% if A.A1_1 != None %}{{A.A1_1}} {% else %}0{% endif %}</td>
-            <td>{% if A.A1_1 != None %}{{A.A1_1}} {% else %}0{% endif %}</td>
+            <td>{% if A.A1_1 == False %}0{% else %}{% if A.A1_1 != None %}{{A.A1_1}} {% else %}0{% endif %}{% endif %}</td>
+            <td>{% if A.A1_1 == False %}0{% else %}{% if A.A1_1 != None %}{{A.A1_1}} {% else %}0{% endif %}{% endif %}</td>
           </tr>
           <tr style='text-align:center; background-color:#f8faf9;'>
             <td>여성의학과</td>
-            <td>{% if A.A1_2 != None %}{{A.A1_2}} {% else %}0{% endif %}</td>
-            <td>{% if A.A1_2 != None %}{{A.A1_2}} {% else %}0{% endif %}</td>
+            <td>{% if A.A1_2 == False %}0{% else %}{% if A.A1_2 != None %}{{A.A1_2}} {% else %}0{% endif %}{% endif %}</td>
+            <td>{% if A.A1_2 == False %}0{% else %}{% if A.A1_2 != None %}{{A.A1_2}} {% else %}0{% endif %}{% endif %}</td>
           </tr>
           <tr style='text-align:center; background-color:#f8faf9;'>
             <td>한방의학과</td>
-            <td>{% if A.A1_3 != None %}{{A.A1_3}} {% else %}0{% endif %}</td>
-            <td>{% if A.A1_3 != None %}{{A.A1_3}} {% else %}0{% endif %}</td>
+            <td>{% if A.A1_3 == False %}0{% else %}{% if A.A1_3 != None %}{{A.A1_3}} {% else %}0{% endif %}{% endif %}</td>
+            <td>{% if A.A1_3 == False %}0{% else %}{% if A.A1_3 != None %}{{A.A1_3}} {% else %}0{% endif %}{% endif %}</td>
           </tr>
           <tr style='text-align:center; background-color:#f8faf9;'>
             <td rowspan='1'>야간진료</td>
             <td>치과</td>
-            <td>{% if A.A2 != None %}{{A.A2}} {% else %}0{% endif %}</td>
-            <td>{% if A.A2 != None %}{{A.A2}} {% else %}0{% endif %}</td>
+            <td>{% if A.A2 == False %}0{% else %}{% if A.A2 != None %}{{A.A2}} {% else %}0{% endif %}{% endif %}</td>
+            <td>{% if A.A2 == False %}0{% else %}{% if A.A2 != None %}{{A.A2}} {% else %}0{% endif %}{% endif %}</td>
           </tr>
           <tr style='text-align:center; background-color:#f8faf9;'>
             <td rowspan='1'>협력병원연계</td>
@@ -128,18 +128,18 @@ button#demo {
           </tr>
           <tr style='text-align:center; background-color:#f8faf9;'>
             <td>안경지원</td>
-            <td>{% if A.A4_4 != None %}{{A.A4_4}} {% else %}0{% endif %}</td>
-            <td>{% if A.A4_4 != None %}{{A.A4_4}} {% else %}0{% endif %}</td>
+            <td>{% if A.A4_4 == False %}0{% else %}{% if A.A4_4 != None %}{{A.A4_4}} {% else %}0{% endif %}{% endif %}</td>
+            <td>{% if A.A4_4 == False %}0{% else %}{% if A.A4_4 != None %}{{A.A4_4}} {% else %}0{% endif %}{% endif %}</td>
           </tr>
           <tr style='text-align:center; background-color:#f8faf9;'>
             <td>몸펴기운동</td>
-            <td>{% if A.A4_5 != None %}{{A.A4_5}} {% else %}0{% endif %}</td>
-            <td>{% if A.A4_5 != None %}{{A.A4_5}} {% else %}0{% endif %}</td>
+            <td>{% if A.A4_5 == False %}0{% else %}{% if A.A4_5 != None %}{{A.A4_5}} {% else %}0{% endif %}{% endif %}</td>
+            <td>{% if A.A4_5 == False %}0{% else %}{% if A.A4_5 != None %}{{A.A4_5}} {% else %}0{% endif %}{% endif %}</td>
           </tr>
           <tr style='text-align:center; background-color:#f8faf9;'>
             <td>위생관리(잇솔질/손씻기교육 등)</td>
-            <td>{% if A.A4_6 != None %}{{A.A4_6}} {% else %}0{% endif %}</td>
-            <td>{% if A.A4_6 != None %}{{A.A4_6}} {% else %}0{% endif %}</td>
+            <td>{% if A.A4_6 == False %}0{% else %}{% if A.A4_6 != None %}{{A.A4_6}} {% else %}0{% endif %}{% endif %}</td>
+            <td>{% if A.A4_6 == False %}0{% else %}{% if A.A4_6 != None %}{{A.A4_6}} {% else %}0{% endif %}{% endif %}</td>
           </tr>
           <tr style='text-align:center; background-color:#f8faf9;'>
             <td rowspan='1'>의료상담</td>
@@ -216,18 +216,18 @@ button#demo {
             <td rowspan='3' style=' background-color:#e9efef;'>기초생활지원사업</td>
             <td rowspan='2'>기초생활지원</td>
             <td>기초물품지원</td>
-            <td>{% if D.D_1 != None %}{{D.D_1}} {% else %}0{% endif %}</td>
-            <td>{% if D.D_1 != None %}{{D.D_1}} {% else %}0{% endif %}</td>
+            <td>{% if D.D_1 == False %}0{% else %}{% if D.D_1 != None %}{{D.D_1}} {% else %}0{% endif %}{% endif %}</td>
+            <td>{% if D.D_1 == False %}0{% else %}{% if D.D_1 != None %}{{D.D_1}} {% else %}0{% endif %}{% endif %}</td>
           </tr>
           <tr style='text-align:center; background-color:#f8faf9;'>
             <td>기타(먹거리/교통비/자원연계 등)</td>
-            <td>{% if D.D_2 != None %}{{D.D_2}} {% else %}0{% endif %}</td>
-            <td>{% if D.D_2 != None %}{{D.D_2}} {% else %}0{% endif %}</td>
+            <td>{% if D.D_2 == False %}0{% else %}{% if D.D_2 != None %}{{D.D_2}} {% else %}0{% endif %}{% endif %}</td>
+            <td>{% if D.D_2 == False %}0{% else %}{% if D.D_2 != None %}{{D.D_2}} {% else %}0{% endif %}{% endif %}</td>
           </tr>
           <tr style='text-align:center; background-color:#e9efef;'>
             <td colspan='2'>소계</td>
-            <td>{% if D.total != None %}{{D.total}} {% else %}0{% endif %}</td>
-            <td>{% if D.total != None %}{{D.total}} {% else %}0{% endif %}</td>
+            <td>{% if D.total == False %}0{% else %}{% if D.total != None %}{{D.total}} {% else %}0{% endif %}{% endif %}</td>
+            <td>{% if D.total == False %}0{% else %}{% if D.total != None %}{{D.total}} {% else %}0{% endif %}{% endif %}</td>
           </tr>
         </tbody>
 
