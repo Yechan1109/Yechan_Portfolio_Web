@@ -1,0 +1,176 @@
+{% extends 're_base.html' %}
+{% block content %}
+
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.0.0/ui-bootstrap-tpls.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-utils/0.1.1/angular-ui-utils.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js'></script>
+<script src='https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js'></script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="use-credentials"></script>
+
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css'>
+
+
+<style>
+body { background-color: #e2eef4;}
+
+form {
+    background-color: #fff;
+    width:96%;
+    height:2000px;
+    margin-left:30px;
+    margin-top:71px;
+}
+
+div.dataTables_wrapper {
+        width: 90%;
+        float: left;
+        margin: 30px 90px;
+    }
+button {
+  width: 120px;
+  height: 30px;
+  border: none;
+  border-radius: 1px;
+  cursor:pointer;
+  color: #7daac9;
+  background-color:#e9efef;
+  box-shadow: 5px 5px 5px -5px gray;
+  font-weight:bold;
+  font-size:16px;
+}
+table tr th{
+  background:#337ab7;
+  color:white;
+  text-align:left;
+  vertical-align:center;
+}
+
+</style>
+<body>
+<form>
+<div class="container" style="width:99%; padding:0;" ng-app="formvalid">
+  <div class="panel" style="width:100%; margin:0px; padding:0;" data-ng-controller="validationCtrl">
+  <div class="panel-heading border">    
+    <h2 style="font-weight:bold;">이용자 현황
+    </h2>
+    <button id="demo" type="button" onclick="fnExcelReport('example','title');">Download</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='{% url 'userlistprogress' %}'">서비스 현황</button>
+  </div>
+  <div id="tablecontainer" class="panel-body">
+      <table id="example" class="table table-bordered bordered table-striped table-condensed datatable" ui-jq="dataTable" ui-options="dataTableOpt">
+      <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>이용자</th>
+                    <th>등록일자</th>
+                    <th>나이</th>
+                    <th>성별</th>
+                    <th>최초상담자</th>
+                    <th>의뢰기관</th>
+                    <th>주거형태</th>
+                    <th>가족형태</th>
+                    <th>보호구분</th>
+                    <th>현주거지</th>
+                    
+
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in user_list %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td><a style="color:black; font-weight:bolder;">{{user.Name}}</td>
+                <td>{% if user.Reg == ''%}내용없음{% else %}{{user.Reg}}{% endif %}</td>
+                <td>{% if user.Age == ''%}내용없음{% else %}{{user.Age}}{% endif %}</td>
+                <td>{% if user.Gender == ''%}내용없음{% else %}{{user.Gender}}{% endif %}</td>
+                <td>{% if user.Coun == ''%}내용없음{% else %}{{user.Coun}}{% endif %}</td>
+                <td>{% if user.Institute == ''%}내용없음{% else %}{{user.Institute}}{% endif %}</td>
+                <td>{% if user.Res == ''%}내용없음{% else %}{{user.Res}}{% endif %}</td>
+                <td>{% if user.Fam == ''%}내용없음{% else %}{{user.Fam}}{% endif %}</td>
+                <td>{% if user.Ssgrade == ''%}내용없음{% else %}{{user.Ssgrade}}{% endif %}</td>
+                <td>{% if user.Address2 == ''%}내용없음{% else %}{{user.Address2}}{% endif %}</td>
+            </tr>
+            {% endfor %}
+                
+            </tbody>
+    </table>
+  </div>
+</div>
+</div>
+</form>
+</body>
+
+<script>
+//Angularjs and jquery.datatable with ui.bootstrap and ui.utils
+
+var app=angular.module('formvalid', ['ui.bootstrap','ui.utils']);
+app.controller('validationCtrl',function($scope){
+  
+
+
+$scope.dataTableOpt = {
+   //custom datatable options 
+  // or load data through ajax call also
+  "aLengthMenu": [[10, 50, 100,-1], [10, 50, 100,'All']],
+  };
+});
+
+</script>
+<script>
+
+    function downloadURI(uri, name) {
+        var link = document.createElement("a");
+        link.download = name;
+        link.href = uri;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        delete link;
+    }
+
+    function fnExcelReport(id, title) {
+      var tab_text = '<html xmlns:x="urn:schemas-microsoft-com:office:excel">';
+      tab_text = tab_text + '<head><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
+      tab_text = tab_text + '<xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'
+      tab_text = tab_text + '<x:Name>Test Sheet</x:Name>';
+      tab_text = tab_text + '<x:WorksheetOptions><x:Panes></x:Panes></x:WorksheetOptions></x:ExcelWorksheet>';
+      tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
+      tab_text = tab_text + "<table border='1px'>";
+      var exportTable = $('#' + id).clone();
+      exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
+      tab_text = tab_text + exportTable.html();
+      tab_text = tab_text + '</table></body></html>';
+      var data_type = 'data:application/vnd.ms-excel';
+      var ua = window.navigator.userAgent;
+      var msie = ua.indexOf("MSIE ");
+      var fileName = title + '.xls';
+      //Explorer 환경에서 다운로드
+      if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+      if (window.navigator.msSaveBlob) {
+      var blob = new Blob([tab_text], {
+      type: "application/csv;charset=utf-8;"
+      });
+      navigator.msSaveBlob(blob, fileName);
+      }
+      } else {
+      var blob2 = new Blob([tab_text], {
+      type: "application/csv;charset=utf-8;"
+      });
+      var filename = fileName;
+      var elem = window.document.createElement('a');
+      elem.href = window.URL.createObjectURL(blob2);
+      elem.download = filename;
+      document.body.appendChild(elem);
+      elem.click();
+      document.body.removeChild(elem);
+      }
+      }
+
+</script>
+{% endblock %}

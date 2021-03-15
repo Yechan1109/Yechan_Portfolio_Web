@@ -47,7 +47,7 @@ btn-primary.focus,.btn-primary:focus{color:#fff;background-color:#0069d9;border-
 
 {% csrf_token %}
 <br>
-<h2 style='text-align:center;'>월별 통계 데이터(전체)</h2>
+<h2 style='text-align:center;'>월별 통계 데이터(2021)</h2>
 <br>
 <div style="float:right;">
 <button type="button" class="btn btn-primary" onclick="location.href='{% url 'pivot_2019' %}'">2019</button>
@@ -435,7 +435,6 @@ btn-primary.focus,.btn-primary:focus{color:#fff;background-color:#0069d9;border-
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
 
-    
     
     function downloadtable() {
 

@@ -21,7 +21,7 @@ body { background-color: #e2eef4;}
 form {
     background-color: #fff;
     width:1650px;
-    height:650px;
+    height:2000px;
     margin-left:30px;
     margin-top:71px;
 }
@@ -30,7 +30,7 @@ div.dataTables_wrapper {
         width: 90%;
         float: left;
         margin: 30px 50px;
-    }
+}
 
 </style>
 </head>
@@ -44,7 +44,7 @@ div.dataTables_wrapper {
     <table id="example" class="display nowrap" style="width:100%">
             <thead>
                 <tr>
-                    <th>User ID</th>
+                    <th>No.</th>
                     <th>이름</th>
                     <th>등록날짜</th>
                     <th>나이</th>
@@ -56,13 +56,13 @@ div.dataTables_wrapper {
             <tbody>
             {% for user in user_list %}
             <tr>
-                <td>{{user.id}}</td>
-                <td><a style="color:#0099CC; font-weight:bolder;" href="/setplan_list/{{ user.id }}">{{user.Name}}</td>
-                <td>{{user.Reg}}</td>
-                <td>{{user.Age}}</td>
-                <td>{{user.Gender}}</td>
-                <td>{{user.Coun}}</td>
-                <td>{{user.Institute}}</td>
+                <td>{{forloop.counter}}</td>
+                <td style="text-align:center;"><a style="color:#0099CC; font-weight:bolder;" href="/setplan_list/{{ user.id }}">{{user.Name}}</td>
+                <td style="text-align:center;">{{user.Reg}}</td>
+                <td style="text-align:center;">{{user.Age}}</td>
+                <td style="text-align:center;">{{user.Gender}}</td>
+                <td style="text-align:center;">{{user.Coun}}</td>
+                <td style="text-align:center;">{{user.Institute}}</td>
             </tr>
             {% endfor %}
                 

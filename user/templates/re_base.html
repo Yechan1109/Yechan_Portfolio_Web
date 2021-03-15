@@ -118,7 +118,7 @@ a {
     <div id="container">
       <nav>
         <div id="logo">
-          <img src="{% static 'img/logo.png' %}" style="width:80px; height:50px; text-align:center; float:left;">&nbsp; <span style="text-shadow: 4px 2px 2px darkgray;font-size:20px; font-weight:bold; text-align:center; float:left;margin-left:10px; color:#b3ecff;"><a href="{% url 'index' %}">내방고객상담 및 관리 프로그램</a></span>
+          <img src="{% static 'img/logo.png' %}" style="width:80px; height:50px; text-align:center; float:left;">&nbsp; <span style="text-shadow: 4px 2px 2px darkgray;font-size:20px; font-weight:bold; text-align:center; float:left;margin-left:10px; color:#b3ecff !important;"><a href="{% url 'index' %}">내방고객상담 및 관리 프로그램</a></span>
         </div>
         <ul>
           <li><a href="{% url 'main' %}">Home</a></li>
@@ -157,6 +157,7 @@ a {
                 <ul>
                   <li><a href="{% url 'pivot' %}" style="color:#343a40;">종합통계</a></li>
                   <li><a href="{% url 'report'%}" style="color:#343a40;">실적통계</a></li>
+                  <li><a href="{% url 'userlist' %}" style="color:#343a40;">종합현황</a></li>
                 </ul>
               </div>
             </li>
@@ -164,17 +165,17 @@ a {
             {% endif %}
             
 
-            <li class="dropdown"><a href="#">&nbsp;&nbsp;수정 및 업로드&nbsp;&nbsp;</i> </a>
+            <li class="dropdown"><a href="#">&nbsp;&nbsp;관리 및 업로드&nbsp;&nbsp;</i> </a>
            <div class="dd" style="width:140px;">
              <div id="up_arrow"></div>
             <ul>
-              <li><a style="color:#343a40;" disabled="disabled">Update</a></li>
-              <li><a href="{% url 'upload' %}" style="color:#343a40;">Upload</a></li>
+              <li><a href="{% url 'admin:index' %}" style="color:#343a40;">관리페이지</a></li>
+              <li><a href="{% url 'upload' %}" style="color:#343a40;">업로드</a></li>
+
             </ul>
             </div>
             </li>
 
-            <li><a href="{% url "admin:index" %}">관리자</a></li>
             {% if request.user.is_authenticated %}
                         <li><a href="/logout/">로그아웃</a></li>
                         <li style="color:white;"><span style="color:#5FA8D3;">{{ request.user }}</span>님 로그인 중</li>

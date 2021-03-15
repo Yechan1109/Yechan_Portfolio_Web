@@ -1,0 +1,256 @@
+{% extends 're_base.html' %}
+{% block content %}
+
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.0.0/ui-bootstrap-tpls.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-utils/0.1.1/angular-ui-utils.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js'></script>
+<script src='https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js'></script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="use-credentials"></script>
+
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css'>
+
+
+<style>
+
+body { background-color: #e2eef4;}
+
+form {
+    background-color: #fff;
+    width:96%;
+    height:2000px;
+    margin-left:30px;
+    margin-top:71px;
+}
+
+div.dataTables_wrapper {
+        width: 90%;
+        float: left;
+        margin: 30px 90px;
+    }
+button {
+  width: 120px;
+  height: 30px;
+  border: none;
+  border-radius: 1px;
+  cursor:pointer;
+  color: #7daac9;
+  background-color:#e9efef;
+  box-shadow: 5px 5px 5px -5px gray;
+  font-weight:bold;
+  font-size:16px;
+}
+table tr th{
+  background:#337ab7;
+  color:white;
+  text-align:left;
+  vertical-align:center;
+}
+
+</style>
+<body>
+<form>
+<div class="container" style="width:99%; padding:0;" ng-app="formvalid">
+  <div class="panel" style="width:100%; margin:0px; padding:0;" data-ng-controller="validationCtrl">
+  <div class="panel-heading border">    
+    <h2 style="font-weight:bold;">서비스 현황
+    </h2>
+    <button id="demo" type="button" onclick="fnExcelReport('example','title');">Download</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='{% url 'userlist' %}'">이용자 현황</button>
+  </div>
+  <div id="tablecontainer" class="panel-body">
+      <table id="example" class="table table-bordered bordered table-striped table-condensed datatable" ui-jq="dataTable" ui-options="dataTableOpt">
+      <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>이용자</th>
+                    <th>서비스일자</th>
+                    <th>상담자</th>
+                    <th>프로그램</th>
+                    <th>중분류</th>
+                    <th>대분류</th>
+                    <th>특이사항</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            {% for user in row %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td><a style="color:#0099CC; font-weight:bolder;" href="/admin/progression/progress/{{ user.id }}/change/">{{user.getplan_name}}</td>
+                <td>{{user.getplan_date}}</td>
+                <td>{{user.counselor}}</td>
+                <td>
+                {% if user.inmedical_A1_YN_1 != None %}치과
+                {% elif user.inmedical_A2_YN_1 != None %}여성의학
+                {% elif user.inmedical_A3_YN_1 != None %}한방의학
+                {% elif user.inmedical_A4_YN_1 != None %}가정의학
+                {% elif user.inmedical_A1_YN_2 != None %}치과(야간)
+                {% elif user.inmedical_A2_YN_2 != None %}여성의학(야간)
+                {% elif user.inmedical_A3_YN_2 != None %}한방의학(야간)
+                {% elif user.inmedical_A4_YN_2 != None %}가정의학(야간)
+                {% elif user.inmedical_B1_YN != None %}여성의학과 검사
+                {% elif user.inmedical_B2_YN != None %}기초검사
+                {% elif user.inmedical_B3_YN != None %}항체검사
+                {% elif user.inmedical_B4_YN != None %}기타검사
+                {% elif user.inmedical_C1_YN != None %}치료제
+                {% elif user.inmedical_C2_YN != None %}영양제
+                {% elif user.inmedical_C3_YN != None %}임신테스트
+                {% elif user.inmedical_C4_YN != None or user.inmedical_C5_YN %}기타검사
+                {% elif user.inmedical_D1_YN != None %}간염
+                {% elif user.inmedical_D2_YN != None %}자궁경부암
+                {% elif user.inmedical_D3_YN != None %}독감
+                {% elif user.inmedical_D4_YN != None or user.inmedical_C5_YN or user.inmedical_C6_YN %}기타접종
+                {% elif user.inmedical_E1_YN != None %}치과
+                {% elif user.inmedical_E2_YN != None %}여성의학과
+                {% elif user.inmedical_E3_YN != None %}기타(외부병원)
+                {% elif user.inmedical_F1_YN != None %}잇솔질교육
+                {% elif user.inmedical_F2_YN != None %}안경지원
+                {% elif user.inmedical_F3_YN != None %}몸펴기운동
+                {% elif user.inmedical_F4_YN != None %}기타(예방의학)
+                {% elif user.inmedical_G1_YN != None %}대면(의료상담)
+                {% elif user.inmedical_G2_YN != None %}전화(의료상담)
+                {% elif user.inmedical_G3_YN != None %}SNS(의료상담)
+
+                {% elif user.inmental_A1_YN != None %}대면(정신보건)
+                {% elif user.inmental_A2_YN != None %}전화(정신보건)
+                {% elif user.inmental_B1_YN != None %}종합심리검사
+                {% elif user.inmental_B2_YN != None %}기타(심리검사)
+                {% elif user.inmental_C1_YN != None %}원예치료
+                {% elif user.inmental_C2_YN != None %}몸치유
+                {% elif user.inmental_C3_YN != None %}기타(심리정서지원)
+
+                {% elif user.incase_A1_YN_1 != None %}대면(상담)
+                {% elif user.incase_A2_YN_1 != None %}심층(상담)
+                {% elif user.incase_A3_YN_1 != None %}전화(상담)
+                {% elif user.incase_A4_YN_1 != None %}SNS(상담)
+                {% elif user.incase_B1_YN != None %}성건강
+                {% elif user.incase_B2_YN != None %}관계
+                {% elif user.incase_B3_YN != None %}기타(1:1교육)
+                {% elif user.incase_C1_YN != None %}먹거리
+                {% elif user.incase_C2_YN != None %}물품
+                {% elif user.incase_C3_YN != None %}교통비
+                {% elif user.incase_C4_YN != None %}자원연계
+                {% else %}미지정{% endif %}
+                {% if user.total_sum > 1 %}외 {{ user.total_sum|add:-1 }}개{% else %}{% endif %}
+                </td>
+                <td>
+                {% if user.inmedical_A1_YN_1 or user.inmedical_A2_YN_1 or user.inmedical_A3_YN_1 or user.inmedical_A4_YN_1 or user.inmedical_A1_YN_2 or user.inmedical_A2_YN_2 or user.inmedical_A3_YN_2 or user.inmedical_A4_YN_2 != None %}진료
+                {% elif user.inmedical_B1_YN or user.inmedical_B2_YN or user.inmedical_B3_YN or user.inmedical_B4_YN != None %}각종검사
+                {% elif user.inmedical_C1_YN or user.inmedical_C2_YN or user.inmedical_C3_YN or user.inmedical_C4_YN or user.inmedical_C5_YN != None %}약지급
+                {% elif user.inmedical_D1_YN or user.inmedical_D2_YN or user.inmedical_D3_YN or user.inmedical_D4_YN or user.inmedical_D5_YN or user.inmedical_D6_YN != None %}예방접종
+                {% elif user.inmedical_E1_YN or user.inmedical_E2_YN or user.inmedical_E3_YN != None %}외부병원
+                {% elif user.inmedical_F1_YN or user.inmedical_F2_YN or user.inmedical_F3_YN or user.inmedical_F4_YN != None %}예방의학
+                {% elif user.inmedical_G1_YN or user.inmedical_G2_YN or user.inmedical_G3_YN != None %}의료상담
+
+                {% elif user.inmental_A1_YN or user.inmental_A2_YN != None %}정신보건상담
+                {% elif user.inmental_B1_YN or user.inmental_B2_YN != None %}심리검사
+                {% elif user.inmental_C1_YN or user.inmental_C2_YN or user.inmental_C3_YN != None %}심리정서지원 프로그램
+
+                {% elif user.incase_A1_YN_1 or user.incase_A2_YN_1 or user.incase_A3_YN_1 or user.incase_A4_YN_1 != None %}상담
+                {% elif user.incase_B1_YN or user.incase_B2_YN or user.incase_B3_YN != None %}1:1 교육
+                {% elif user.incase_C1_YN or user.incase_C2_YN or user.incase_C3_YN or user.incase_C4_YN != None %}기초생활지원
+                {% else %}미지정{% endif %}
+                </td>
+                <td>
+                {% if user.inmedical_A1_YN_1 or user.inmedical_A2_YN_1 or user.inmedical_A3_YN_1 or user.inmedical_A4_YN_1 or user.inmedical_A1_YN_2 or user.inmedical_A2_YN_2 or user.inmedical_A3_YN_2 or user.inmedical_A4_YN_2 != None %}의료지원
+                {% elif user.inmedical_B1_YN or user.inmedical_B2_YN or user.inmedical_B3_YN or user.inmedical_B4_YN != None %}의료지원
+                {% elif user.inmedical_C1_YN or user.inmedical_C2_YN or user.inmedical_C3_YN or user.inmedical_C4_YN or user.inmedical_C5_YN != None %}의료지원
+                {% elif user.inmedical_D1_YN or user.inmedical_D2_YN or user.inmedical_D3_YN or user.inmedical_D4_YN or user.inmedical_D5_YN or user.inmedical_D6_YN != None %}의료지원
+                {% elif user.inmedical_E1_YN or user.inmedical_E2_YN or user.inmedical_E3_YN != None %}의료지원
+                {% elif user.inmedical_F1_YN or user.inmedical_F2_YN or user.inmedical_F3_YN or user.inmedical_F4_YN != None %}의료지원
+                {% elif user.inmedical_G1_YN or user.inmedical_G2_YN or user.inmedical_G3_YN != None %}의료지원
+
+                {% elif user.inmental_A1_YN or user.inmental_A2_YN != None %}심리지원
+                {% elif user.inmental_B1_YN or user.inmental_B2_YN != None %}심리지원
+                {% elif user.inmental_C1_YN or user.inmental_C2_YN or user.inmental_C3_YN != None %}심리지원
+
+                {% elif user.incase_A1_YN_1 or user.incase_A2_YN_1 or user.incase_A3_YN_1 or user.incase_A4_YN_1 != None %}사례관리
+                {% elif user.incase_B1_YN or user.incase_B2_YN or user.incase_B3_YN != None %}사례관리
+                {% elif user.incase_C1_YN or user.incase_C2_YN or user.incase_C3_YN or user.incase_C4_YN != None %}사례관리
+                {% else %}미지정{% endif %}
+                </td>
+                <td style="font-size:14px;">{{user.getplan_comment|truncatewords:13}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+  </div>
+</div>
+</div>
+</form>
+</body>
+
+<script>
+//Angularjs and jquery.datatable with ui.bootstrap and ui.utils
+
+var app=angular.module('formvalid', ['ui.bootstrap','ui.utils']);
+app.controller('validationCtrl',function($scope){
+  
+
+
+$scope.dataTableOpt = {
+   //custom datatable options 
+  // or load data through ajax call also
+  "aLengthMenu": [[10, 50, 100,-1], [10, 50, 100,'All']],
+  };
+});
+
+</script>
+<script>
+
+    function downloadURI(uri, name) {
+        var link = document.createElement("a");
+        link.download = name;
+        link.href = uri;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        delete link;
+    }
+
+    function fnExcelReport(id, title) {
+      var tab_text = '<html xmlns:x="urn:schemas-microsoft-com:office:excel">';
+      tab_text = tab_text + '<head><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
+      tab_text = tab_text + '<xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'
+      tab_text = tab_text + '<x:Name>Test Sheet</x:Name>';
+      tab_text = tab_text + '<x:WorksheetOptions><x:Panes></x:Panes></x:WorksheetOptions></x:ExcelWorksheet>';
+      tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
+      tab_text = tab_text + "<table border='1px'>";
+      var exportTable = $('#' + id).clone();
+      exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
+      tab_text = tab_text + exportTable.html();
+      tab_text = tab_text + '</table></body></html>';
+      var data_type = 'data:application/vnd.ms-excel';
+      var ua = window.navigator.userAgent;
+      var msie = ua.indexOf("MSIE ");
+      var fileName = title + '.xls';
+      //Explorer 환경에서 다운로드
+      if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+      if (window.navigator.msSaveBlob) {
+      var blob = new Blob([tab_text], {
+      type: "application/csv;charset=utf-8;"
+      });
+      navigator.msSaveBlob(blob, fileName);
+      }
+      } else {
+      var blob2 = new Blob([tab_text], {
+      type: "application/csv;charset=utf-8;"
+      });
+      var filename = fileName;
+      var elem = window.document.createElement('a');
+      elem.href = window.URL.createObjectURL(blob2);
+      elem.download = filename;
+      document.body.appendChild(elem);
+      elem.click();
+      document.body.removeChild(elem);
+      }
+      }
+
+</script>
+{% endblock %}
